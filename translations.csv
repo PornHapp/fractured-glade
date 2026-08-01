@@ -1,0 +1,269 @@
+keys,ru,en
+menu_start_game,Начать игру,Start Game
+ui_press_any_key,Нажмите любую кнопку,Press Any Key
+menu_settings,Настройки,Settings
+menu_exit,Выход,Exit
+settings_title,НАСТРОЙКИ,SETTINGS
+set_audio_title,ЗВУК,AUDIO
+set_master_volume,Общая громкость,Master Volume
+set_sfx_volume,Эффекты,SFX
+set_display_title,ЭКРАН,DISPLAY
+set_fullscreen,Полноэкранный режим,Fullscreen Mode
+set_ui_scale,Масштаб интерфейса,UI Scale
+set_resolution,Разрешение экрана,Resolution
+set_gameplay_title,ГЕЙМПЛЕЙ,GAMEPLAY
+set_save_exit,Сохранить и выйти,Save and Exit
+multi_title,МУЛЬТИПЛЕЕР,MULTIPLAYER
+multi_nickname,Никнейм,Nickname
+multi_ip,IP-адрес сервера,Server IP
+multi_password,Пароль сервера,Server Password
+multi_pvp,PvP режим,PvP Mode
+multi_connect_title,Коннект,Connection
+multi_create_game,Создать игру,Create Game
+multi_join_game,Подключиться,Join Game
+ctrl_title,УПРАВЛЕНИЕ,CONTROLS
+ctrl_move_left,Движение влево,Move Left
+ctrl_move_right,Движение вправо,Move Right
+ctrl_jump,Прыжок,Jump
+ctrl_attack,Атака,Attack
+ctrl_use,Использовать,Use
+ctrl_interact,Взаимодействие,Interact
+ctrl_skill_1,Навык 1,Skill 1
+ctrl_skill_2,Навык 2,Skill 2
+ctrl_skill_3,Навык 3,Skill 3
+ctrl_walk_slow,Идти медленно,Walk Slowly
+ctrl_inventory,Инвентарь,Inventory
+ctrl_stats,Характеристики,Stats
+ctrl_global_map,Глобальная карта,Global Map
+ctrl_minimap,Мини-карта,Minimap
+ctrl_menu_settings,Меню / Настройки,Menu / Settings
+char_enter_name,Введите имя,Enter Name
+char_positive_traits,Положительные,Good Traits
+char_negative_traits,Отрицательные,Bad Traits
+char_sandbox_mode,Свободный режим,Sandbox Mode
+world_create_title,СОЗДАНИЕ МИРА,WORLD CREATION
+world_name_input,Имя:,Name:
+world_seed_input,Сид:,Seed:
+world_size_title,РАЗМЕР,SIZE
+size_small,Маленький,Small
+size_medium,Средний,Medium
+size_large,Большой,Large
+world_diff_title,СЛОЖНОСТЬ,DIFFICULTY
+diff_normal,Обычный,Normal
+diff_hard,Сложный,Hard
+diff_hardcore,Хард,Hardcore
+btn_cancel,Отмена,Cancel
+btn_next,Далее,Next
+btn_back,Назад,Back
+btn_exit_world,Выйти,Leave
+btn_create,Создать,Create
+ui_character_prefix,Персонаж:,Character:
+ui_good_traits,Хорошие:,Good:
+ui_bad_traits,Плохие:,Bad:
+,,
+load_seed,Генерация сида...,Generating seed...
+load_resources,Собираем ресурсы...,Gathering resources...
+load_dirt,Выкладываем землю...,Laying the ground...
+load_fluids,Разливаем воду и лаву...,Pouring water and lava...
+load_trees,Сажаем деревья...,Planting trees...
+load_light,Настраиваем свет...,Adjusting lighting...
+load_chests,Прячем сундуки с лутом...,Hiding loot chests...
+load_done,Готово!,Done!
+ui_good_traits_hdr,[b]ХОРОШИЕ ЧЕРТЫ:[/b]\n\n,[b]GOOD TRAITS:[/b]\n\n
+ui_bad_traits_hdr,[b]ПЛОХИЕ ЧЕРТЫ:[/b]\n\n,[b]BAD TRAITS:[/b]\n\n
+name_rand_1,Странник,Wanderer
+name_rand_2,Люмин,Lumin
+name_rand_3,Астра,Astra
+name_rand_4,Зефир,Zephyr
+name_rand_5,Орион,Orion
+race_human,Люди (Странники),Humans (Wanderers)
+trait_diplomat,Дипломат,Diplomat
+desc_diplomat,Цены у торговцев ниже на 15%.,Merchant prices are 15% lower.
+trait_endurant,Выносливый,Enduring
+desc_endurant,Шкала выносливости расходуется на 20% медленнее при беге.,Stamina drains 20% slower while sprinting.
+trait_crafter,Ремесленник,Artisan
+desc_crafter,Шанс создать предмет более высокого качества на верстаке.,Chance to craft higher quality items at the workbench.
+trait_sleep,Крепкий сон,Sound Sleeper
+desc_sleep,Отдых у костра полностью восстанавливает здоровье за пару секунд.,Resting at a campfire fully restores health in seconds.
+trait_lucky,Удача,Lucky
+desc_lucky,Шанс найти двойной лут в сундуках увеличен на 10%.,10% increased chance to find double loot in chests.
+trait_metabolism,Быстрый метаболизм,Fast Metabolism
+desc_metabolism,Еда и зелья действуют мгновенно.,Food and potions take effect instantly.
+trait_stride,Широкий шаг,Swift Stride
+desc_stride,Базовая скорость передвижения немного выше.,Base movement speed is slightly higher.
+trait_fragile_magic,Хрупкость магии,Magic Frailty
+desc_fragile_magic,Расход маны на любые заклинания увеличен вдвое.,Mana cost for all spells is doubled.
+trait_coward,Трусливый,Cowardly
+desc_coward,"Персонаж начинает паниковать (теряет точность), если окружен 3+ врагами.",Character panics (loses accuracy) when surrounded by 3+ enemies.
+trait_glutton,Прожорливый,Gluttonous
+desc_glutton,Шкала голода падает в два раза быстрее.,Hunger meter depletes twice as fast.
+trait_slow_heal,Медлительный лекарь,Slow Healer
+desc_slow_heal,Естественная регенерация здоровья полностью отсутствует.,Natural health regeneration is completely absent.
+trait_clumsy,Неуклюжий,Clumsy
+desc_clumsy,При получении урона есть шанс выронить оружие из рук.,Chance to drop your weapon when taking damage.
+trait_noisy,Шумный,Noisy
+desc_noisy,"Радиус, в котором враги слышат ваши шаги, увеличен на 50%.",The radius where enemies can hear your footsteps is increased by 50%.
+trait_heavy_pockets,Тяжелые карманы,Heavy Pockets
+desc_heavy_pockets,Максимальный вес инвентаря снижен на 20%.,Maximum inventory weight is reduced by 20%.
+race_astral,Дети Лебедя (Астральные),Children of Cygnus (Astrals)
+trait_astronav,Астронавигация,Astronavigation
+desc_astronav,"Радиус обзора на миникарте увеличен. Вы всегда знаете, где север.",Minimap reveal radius is increased. You always know where North is.
+trait_cygnus,Созвездие Лебедя,Cygnus Constellation
+desc_cygnus,В ночное время пассивное восстановление здоровья увеличивается.,Passive health regeneration is increased during the night.
+trait_levitation,Левитация,Levitation
+desc_levitation,Падение с любой высоты не наносит урона.,Fall damage is completely negated.
+trait_night_vis,Ночное зрение,Night Vision
+desc_night_vis,В темноте и пещерах экран вокруг персонажа слегка подсвечивается.,The area around the character is slightly illuminated in caves and darkness.
+trait_stardust,Звездная пыль,Stardust
+desc_stardust,Шанс ослепить врага при критическом попадании.,Chance to blind the enemy on a critical hit.
+trait_cosmic_en,Энергия космоса,Cosmic Energy
+desc_cosmic_en,"Мана восстанавливается, пока вы стоите на месте.",Mana regenerates while standing still.
+trait_composure,Хладнокровие,Composure
+desc_composure,Полный иммунитет к эффектам страха и замедления.,Full immunity to fear and slow effects.
+trait_photophobia,Светобоязнь,Photophobia
+desc_photophobia,В яркие солнечные дни максимальное здоровье снижается на 15%.,Maximum health is reduced by 15% on bright sunny days.
+trait_fragile_bone,Хрупкие кости,Fragile Bones
+desc_fragile_bone,Получаемый физический урон увеличен на 25%.,Physical damage taken is increased by 25%.
+trait_outsider,Чужак,Outsider
+desc_outsider,Торговцы отказываются покупать у вас предметы (только продают).,Merchants refuse to buy items from you (they only sell).
+trait_insomnia,Бессонница,Insomnia
+desc_insomnia,Сон не восстанавливает здоровье и ману.,Sleeping does not restore health and mana.
+trait_magic_hunger,Магический голод,Magic Hunger
+desc_magic_hunger,"Если мана падает до нуля, персонаж начинает терять здоровье.","If mana drops to zero, the character starts losing health."
+trait_grav_weak,Гравитационная слабость,Gravitational Weakness
+desc_grav_weak,Отбрасывание от ударов врагов действует в два раза сильнее.,Knockback from enemy attacks is twice as strong.
+trait_loner,Одиночка,Loner
+desc_loner,В мультиплеере лечение от союзников работает только наполовину.,"In multiplayer, healing from allies is only half as effective."
+race_mage,Чародеи (Эфирные),Mages (Ethereals)
+trait_deep_res,Глубокий резервуар,Deep Reservoir
+desc_deep_res,Максимальный запас маны увеличен на 100%.,Maximum mana is increased by 100%.
+trait_alchemist,Алхимик,Alchemist
+desc_alchemist,Зелья восстанавливают больше здоровья и дают более долгие баффы.,Potions restore more health and provide longer buffs.
+trait_rune_read,Чтение рун,Rune Reading
+desc_rune_read,Позволяет читать древние обелиски и открывать секретные двери.,Allows reading ancient obelisks and opening secret doors.
+trait_quick_cast,Быстрый каст,Quick Cast
+desc_quick_cast,Время подготовки мощных заклинаний сокращено.,Cast time for powerful spells is reduced.
+trait_ethereal_vis,Эфирное зрение,Ethereal Vision
+desc_ethereal_vis,Вы видите невидимых врагов и скрытые ловушки.,You can see invisible enemies and hidden traps.
+trait_light_step,Легкий шаг,Light Step
+desc_light_step,"Не оставляете следов, по которым могут идти монстры-ищейки.",You leave no tracks for tracking monsters to follow.
+trait_magic_shield,Магический щит,Magic Shield
+desc_magic_shield,Первый удар в бою полностью поглощается (перезарядка 30 сек).,The first hit in combat is completely absorbed (30 sec cooldown).
+trait_frail_body,Слабое тело,Frail Body
+desc_frail_body,Базовое максимальное здоровье снижено на 30%.,Base maximum health is reduced by 30%.
+trait_heavy_metal,Тяжесть металла,Weight of Metal
+desc_heavy_metal,Ношение тяжелой брони отключает возможность использовать магию.,Wearing heavy armor disables the ability to use magic.
+trait_migraine,Мигрень,Migraine
+desc_migraine,Шанс прерывания заклинания при получении урона.,Chance for spells to be interrupted when taking damage.
+trait_magic_addict,Магическая зависимость,Magic Addiction
+desc_magic_addict,Без использования магии в течение дня характеристики падают.,Stats decrease if magic is not used for a day.
+trait_bad_hearing,Плохой слух,Poor Hearing
+desc_bad_hearing,Звуки шагов врагов за спиной сильно приглушены.,Enemy footsteps behind you are heavily muffled.
+trait_fragile_weap,Хрупкое оружие,Fragile Weapons
+desc_fragile_weap,"Прочность физического оружия (мечи, кирки) тратится быстрее.","Physical weapons (swords, pickaxes) lose durability faster."
+trait_bright_aura,Яркая аура,Bright Aura
+desc_bright_aura,Враги замечают вас издалека в темноте.,Enemies spot you from afar in the dark.
+race_nature,Хранители чащи (Дриады),Grove Keepers (Dryads)
+trait_nature_child,Дитя природы,Child of Nature
+desc_nature_child,Дикие животные и лесные духи не нападают первыми.,Wild animals and forest spirits do not attack first.
+trait_forest_str,Лесной шаг,Forest Stride
+desc_forest_str,Скорость передвижения в лесных и травяных биомах увеличена на 25%.,Movement speed in forest and grass biomes is increased by 25%.
+trait_herbalist,Травник,Herbalist
+desc_herbalist,Сбор любых растений дает в два раза больше ресурсов.,Harvesting plants yields twice as many resources.
+trait_symbiosis,Симбиоз,Symbiosis
+desc_symbiosis,Призывные питомцы имеют больше здоровья и наносят больше урона.,Summoned pets have more health and deal more damage.
+trait_forest_brth,Дыхание леса,Breath of the Forest
+desc_forest_brth,Пассивный иммунитет к ядам и токсичному туману.,Passive immunity to poisons and toxic fog.
+trait_poison_skin,Ядовитая кожа,Poisonous Skin
+desc_poison_skin,"Враги, атакующие вас в ближнем бою, получают эффект отравления.",Enemies attacking you in melee get poisoned.
+trait_leaf_whisper,Шепот листвы,Whisper of Leaves
+desc_leaf_whisper,Вы слышите расположение ближайших скрытых сундуков.,You can hear the location of nearby hidden chests.
+trait_wood_blood,Древесная кровь,Wooden Blood
+desc_wood_blood,Получаемый урон от огня и взрывов увеличен вдвое.,Damage taken from fire and explosions is doubled.
+trait_technophobe,Технофоб,Technophobe
+desc_technophobe,Штраф к урону при использовании огнестрельного оружия и механизмов.,Damage penalty when using firearms and machinery.
+trait_vegan,Веган,Vegan
+desc_vegan,Употребление мяса вызывает отравление вместо лечения.,Eating meat causes poisoning instead of healing.
+trait_dungeon_fear,Боязнь подземелий,Fear of Dungeons
+desc_dungeon_fear,В глубоких шахтах и пещерах урон снижается на 15%.,Damage is reduced by 15% in deep mines and caves.
+trait_soft_tissue,Мягкие ткани,Soft Tissues
+desc_soft_tissue,Оружие врагов имеет повышенный шанс нанести кровотечение.,Enemy weapons have an increased chance to cause bleeding.
+trait_sun_depend,Зависимость от солнца,Sun Dependency
+desc_sun_depend,В затяжной дождь или грозу мана не восстанавливается.,Mana does not regenerate during prolonged rain or thunderstorms.
+trait_pacifist,Пацифист,Pacifist
+desc_pacifist,Вы не можете наносить критические удары.,You cannot deal critical strikes.
+race_mech,Механики (Изобретатели),Mechanics (Inventors)
+trait_scrapper,Сборщик,Scrapper
+desc_scrapper,Шанс 30% получить дополнительные ресурсы при добыче любой руды.,30% chance to get extra resources when mining any ore.
+trait_demolition,Взрывотехник,Demolitionist
+desc_demolition,Радиус и урон от бомб и гранат увеличен на 40%.,Radius and damage of bombs and grenades are increased by 40%.
+trait_engineer,Инженер,Engineer
+desc_engineer,Предметы и оружие ломаются значительно медленнее.,Items and weapons break significantly slower.
+trait_iron_grip,Железная хватка,Iron Grip
+desc_iron_grip,Отдача от любого оружия практически отсутствует.,Weapon recoil is practically nonexistent.
+trait_plating,Броня,Plating
+desc_plating,Начальный показатель защиты всегда выше на 5 единиц.,Starting defense stat is always higher by 5 points.
+trait_steam_dash,Паровой рывок,Steam Dash
+desc_steam_dash,"Ваш рывок (Z) наносит урон врагам, через которых вы проноситесь.",Your dash (Z) damages enemies you pass through.
+trait_mech_eye,Механический глаз,Mechanical Eye
+desc_mech_eye,Вы всегда видите точное количество здоровья у врагов.,You always see the exact health of enemies.
+trait_heavyweight,Тяжесть,Heavyweight
+desc_heavyweight,Скорость плавания и высота прыжка сильно снижены.,Swimming speed and jump height are severely reduced.
+trait_loud_steps,Громкие шаги,Loud Footsteps
+desc_loud_steps,Невозможно подкрасться к врагам незаметно.,Impossible to sneak up on enemies.
+trait_coal_depend,Зависимость от угля,Coal Dependency
+desc_coal_depend,Механизмы (включая рывок) расходуют топливо вместо маны.,Mechanisms (including dash) consume fuel instead of mana.
+trait_clumsiness,Неуклюжесть,Clumsiness
+desc_clumsiness,"Шанс активировать ловушку, даже если вы пытались её обойти.",Chance to trigger a trap even if you tried to avoid it.
+trait_short_circ,Короткое замыкание,Short Circuit
+desc_short_circ,Получаемый урон от электричества и молний увеличен вдвое.,Damage taken from electricity and lightning is doubled.
+trait_poor_vision,Плохое зрение,Poor Vision
+desc_poor_vision,Дальность обзора в ночное время и в тумане сильно урезана.,Vision range at night and in fog is severely reduced.
+trait_bad_compass,Сломанный компас,Broken Compass
+desc_bad_compass,Карта мира открывается более узкой полосой.,The world map reveals in a narrower strip.
+race_spark,Искры (Люмины),Sparks (Lumins)
+trait_lantern,Живой фонарь,Living Lantern
+desc_lantern,"Персонаж излучает яркий, теплый свет, разгоняющий тьму вокруг.","The character emits a bright, warm light that dispels darkness."
+trait_light_speed,Скорость света,Speed of Light
+desc_light_speed,Самая высокая базовая скорость бега в игре.,The highest base movement speed in the game.
+trait_feather,Легкость перышка,Featherweight
+desc_feather,"Способность ходить по тонкому льду и хрупким платформам, не ломая их.",Ability to walk on thin ice and fragile platforms without breaking them.
+trait_elusive,Неуловимость,Elusive
+desc_elusive,Шанс 15% полностью уклониться от любой атаки.,15% chance to completely dodge any attack.
+trait_purify,Очищение,Purification
+desc_purify,Урон по нежити и темным сущностям увеличен на 20%.,Damage against undead and dark entities is increased by 20%.
+trait_ethereal,Эфирность,Etherealness
+desc_ethereal,Персонаж может протискиваться сквозь узкие решетки и щели.,The character can squeeze through narrow grates and gaps.
+trait_warmth,Тепло,Warmth
+desc_warmth,Полный иммунитет к обморожению в снежных биомах.,Complete immunity to frostbite in snow biomes.
+trait_tiny_hp,Крошечное ХП,Tiny HP
+desc_tiny_hp,Максимальное здоровье уменьшено на 40%.,Maximum health is reduced by 40%.
+trait_dark_bait,Приманка для тьмы,Bait for the Dark
+desc_dark_bait,Монстры ночи и тени агрессивно охотятся за вами с большого расстояния.,Night and shadow monsters aggressively hunt you from a large distance.
+trait_wind_vuln,Уязвимость к ветру,Wind Vulnerability
+desc_wind_vuln,Сильный ветер сдувает персонажа и замедляет движение.,Strong winds blow the character away and slow movement.
+trait_hydrophobia,Боязнь воды,Fear of Water
+desc_hydrophobia,Нахождение в воде быстро расходует ману и здоровье.,Staying in water rapidly drains mana and health.
+trait_weak_melee,Слаб в ближнем бою,Weak in Melee
+desc_weak_melee,Физический урон мечами и топорами снижен на 30%.,Physical damage with swords and axes is reduced by 30%.
+trait_en_hunger,Энергетический голод,Energy Hunger
+desc_en_hunger,Лечение требует затрат маны вдобавок к бинтам или зельям.,Healing requires mana in addition to bandages or potions.
+trait_blind_flash,Слепящая вспышка,Blinding Flash
+desc_blind_flash,Смерть персонажа временно ослепляет всех союзников на экране.,The character's death temporarily blinds all allies on screen.
+,,
+set_cam_distance,Дальность камеры,Camera Distance
+set_show_minimap,Показывать мини-карту,Show Minimap
+set_minimap_size,Размер мини-карты,Minimap Size
+set_misc_title,ПРОЧЕЕ,OTHER
+set_language,Язык,Language
+set_show_fps,Показывать FPS,Show FPS
+set_cam_shake,Тряска камеры,Camera Shake
+set_float_damage,Всплывающий урон,Damage Numbers
+set_cursor_fx,Эффекты курсора,Cursor Effects
+load_cancel,Отмена генерации...,Canceling generation...
+desc_diff_normal,[b]Обычный:[/b]\nВраги наносят стандартный урон. Идеально для первого прохождения и спокойного строительства.,[b]Normal:[/b]\nEnemies deal standard damage. Ideal for a first playthrough and peaceful building.
+desc_diff_hard,"[b]Сложный:[/b]\nВраги сильнее и умнее. Больше лута, но выживание станет настоящим испытанием.","[b]Hard:[/b]\nEnemies are stronger and smarter. More loot, but survival will be a true challenge."
+desc_diff_expert,[b]Хард:[/b]\nОдно неверное движение — и вы труп. Боссы имеют новые фазы. Только для ветеранов.,[b]Hardcore:[/b]\nOne wrong move and you're dead. Bosses have new phases. For veterans only.
+key_lmb,ЛКМ,LMB
+key_rmb,ПКМ,RMB
+ui_missing_name,Введите название мира!,Enter world name!

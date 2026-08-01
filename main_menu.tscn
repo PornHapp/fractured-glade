@@ -1,0 +1,307 @@
+[gd_scene format=3 uid="uid://ycdppxwxpyp2"]
+
+[ext_resource type="Texture2D" uid="uid://cwmeva0nlo3pb" path="res://фон/forest_sky.png" id="1_8qtwp"]
+[ext_resource type="Script" uid="uid://nklrm7r8nfwl" path="res://main_menu.gd" id="1_dy7ct"]
+[ext_resource type="Texture2D" uid="uid://dxb38uvk3hynr" path="res://фон/IMG_6159-2.png" id="2_dy7ct"]
+[ext_resource type="Texture2D" uid="uid://iab02h6g0dru" path="res://фон/IMG_6159-1.png" id="3_0o4t1"]
+[ext_resource type="Shader" uid="uid://rji2hv6ga35u" path="res://sun.gdshader" id="3_j5v2v"]
+[ext_resource type="Texture2D" uid="uid://brmcf5i3dokxc" path="res://фон/forest_back.png" id="4_0k4wn"]
+[ext_resource type="Texture2D" uid="uid://cy7tds8qmnutm" path="res://фон/forest_mid.png" id="5_j5v2v"]
+[ext_resource type="Texture2D" uid="uid://b407sh70lne3c" path="res://фон/forest_long.png" id="6_iotk1"]
+[ext_resource type="Texture2D" uid="uid://bx1fe51ovko1l" path="res://фон/forest_short.png" id="7_w44g7"]
+[ext_resource type="Texture2D" uid="uid://c2g6e6nl5d7fd" path="res://фон/IMG_6158.png" id="8_cm266"]
+[ext_resource type="Shader" uid="uid://b2kftrj1frfjg" path="res://main_menu.gdshader" id="9_0o4t1"]
+[ext_resource type="FontFile" uid="uid://boa4mv17gvh6u" path="res://Шрифты/Izax SHA_0.otf" id="11_0k4wn"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_iotk1"]
+shader = ExtResource("3_j5v2v")
+
+[sub_resource type="Shader" id="Shader_0k4wn"]
+code = "shader_type canvas_item;
+render_mode blend_add; // This makes it ‘glow’ against the world
+
+uniform vec4 glow_color : source_color = vec4(1.0, 0.9, 0.5, 1.0);
+uniform float intensity : hint_range(0.0, 5.0) = 1.5;
+uniform float spread : hint_range(0.1, 2.0) = 1.0;
+uniform float pulse_speed : hint_range(0.0, 10.0) = 1.0;
+
+void fragment() {
+  // 1. Get the shape of your sprite
+  float sprite_shape = texture(TEXTURE, UV).a;
+   
+  // 2. Your original circle logic
+  vec2 centered_uv = UV - vec2(0.5);
+  float dist = length(centered_uv) * spread;
+  float alpha = max(0.0, 1.0 - dist);
+   
+  // 3. Your original pulse logic
+  alpha *= (1.0 + 0.2 * sin(TIME * pulse_speed));
+  alpha = clamp(alpha * intensity, 0.0, 1.0);
+   
+  // 4. THE FIX: Multiply by sprite_shape so the glow stays 
+  // within the bounds of the sprite (prevents a giant square box)
+  COLOR = glow_color * alpha * sprite_shape;
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_j5v2v"]
+shader = SubResource("Shader_0k4wn")
+shader_parameter/glow_color = Color(0.9999996, 0.9348116, 0.67070395, 1)
+shader_parameter/intensity = 1.5350000729125
+shader_parameter/spread = 1.66000007559012
+shader_parameter/pulse_speed = 0.3270000155325
+
+[sub_resource type="Gradient" id="Gradient_0o4t1"]
+colors = PackedColorArray(0.8687681, 0.8357968, 0.72095555, 0.5882353, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_dy7ct"]
+gradient = SubResource("Gradient_0o4t1")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.74786323, 0.34188035)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_g8g3n"]
+blend_mode = 3
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0k4wn"]
+shader = ExtResource("9_0o4t1")
+shader_parameter/shine_color = Color(1, 1, 1, 0.43529412)
+shader_parameter/angle = 0.6
+shader_parameter/speed = 1.2
+shader_parameter/wait_time = 3.0
+shader_parameter/stripe1_width = 0.06
+shader_parameter/stripe2_width = 0.02
+shader_parameter/stripe_distance = 0.1
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_0o4t1"]
+
+[sub_resource type="Gradient" id="Gradient_0k4wn"]
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_j5v2v"]
+gradient = SubResource("Gradient_0k4wn")
+fill_from = Vector2(1, 1)
+
+[sub_resource type="Shader" id="Shader_0o4t1"]
+code = "shader_type canvas_item;
+
+uniform vec4 shine_color : source_color = vec4(1.0, 1.0, 1.0, 0.8); 
+uniform float speed = 1.5; // Сделали чуть медленнее и плавнее
+
+void fragment() {
+    vec4 tex_color = texture(TEXTURE, UV);
+    
+    // Сделали волны крупнее
+    float wave1 = sin(UV.x * 5.0 + UV.y * 5.0 - TIME * speed);
+    // Расширили границу блика (было 0.95, стало 0.7) - теперь его отлично видно!
+    float shine1 = smoothstep(0.7, 1.0, wave1);
+    
+    float wave2 = sin(UV.x * 8.0 + UV.y * 8.0 - TIME * (speed * 1.2));
+    float shine2 = smoothstep(0.8, 1.0, wave2) * 0.6; 
+    
+    float total_shine = clamp(shine1 + shine2, 0.0, 1.0);
+    
+    COLOR.rgb = mix(tex_color.rgb, shine_color.rgb * tex_color.rgb, total_shine);
+    COLOR.a = tex_color.a * COLOR.a;
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0o4t1"]
+shader = SubResource("Shader_0o4t1")
+shader_parameter/shine_color = Color(1, 1, 1, 0.8)
+shader_parameter/speed = 2.0
+
+[sub_resource type="Animation" id="Animation_8u0te"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("UI_Layer/Logo:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_0o4t1"]
+resource_name = "day_night"
+length = 20.0
+
+[sub_resource type="Animation" id="Animation_oiatc"]
+resource_name = "pulse"
+length = 2.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("UI_Layer/Logo:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.1, 2.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 1), Vector2(1.3, 1.3)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mg3m2"]
+_data = {
+&"RESET": SubResource("Animation_8u0te"),
+&"day_night": SubResource("Animation_0o4t1"),
+&"pulse": SubResource("Animation_oiatc")
+}
+
+[node name="MainMenu" type="Control" unique_id=538156865]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_dy7ct")
+
+[node name="Parallax2D" type="Parallax2D" parent="." unique_id=1683080441]
+repeat_size = Vector2(1980, 0)
+autoscroll = Vector2(5, 0)
+
+[node name="ForestSky" type="Sprite2D" parent="Parallax2D" unique_id=550449119]
+position = Vector2(990, 480.00003)
+scale = Vector2(1.0428728, 1.0541667)
+texture = ExtResource("1_8qtwp")
+
+[node name="Sun" type="Sprite2D" parent="." unique_id=1719798289]
+material = SubResource("ShaderMaterial_iotk1")
+position = Vector2(991, 132)
+texture = ExtResource("2_dy7ct")
+
+[node name="PointLight2D" type="PointLight2D" parent="Sun" unique_id=632014272]
+material = SubResource("ShaderMaterial_j5v2v")
+position = Vector2(-1.5258789e-05, -1)
+scale = Vector2(5.0156245, 5.0156245)
+texture = SubResource("GradientTexture2D_dy7ct")
+texture_scale = 3.0
+
+[node name="Moon" type="Sprite2D" parent="." unique_id=1412030649]
+position = Vector2(990, 395)
+texture = ExtResource("3_0o4t1")
+
+[node name="PointLight2D" type="PointLight2D" parent="Moon" unique_id=1647677448]
+position = Vector2(-1.5258789e-05, -1)
+scale = Vector2(5.0156245, 5.0156245)
+texture = SubResource("GradientTexture2D_dy7ct")
+texture_scale = 0.5
+
+[node name="Parallax2D2" type="Parallax2D" parent="." unique_id=1762487159]
+repeat_size = Vector2(1980, 0)
+autoscroll = Vector2(10, 0)
+
+[node name="ForestBack" type="Sprite2D" parent="Parallax2D2" unique_id=1813645501]
+position = Vector2(991.99994, 355)
+scale = Vector2(0.5229167, 0.5229167)
+texture = ExtResource("4_0k4wn")
+
+[node name="Parallax2D3" type="Parallax2D" parent="." unique_id=1713791753]
+repeat_size = Vector2(1980, 0)
+autoscroll = Vector2(18, 0)
+
+[node name="ForestMid" type="Sprite2D" parent="Parallax2D3" unique_id=1367334382]
+position = Vector2(990, 420.99997)
+scale = Vector2(0.5216667, 0.52166665)
+texture = ExtResource("5_j5v2v")
+
+[node name="Parallax2D4" type="Parallax2D" parent="." unique_id=952853935]
+repeat_size = Vector2(1980, 0)
+autoscroll = Vector2(25, 0)
+
+[node name="ForestLong" type="Sprite2D" parent="Parallax2D4" unique_id=542746958]
+position = Vector2(990.00006, 597.99994)
+scale = Vector2(0.52166677, 0.52166665)
+texture = ExtResource("6_iotk1")
+
+[node name="Parallax2D5" type="Parallax2D" parent="." unique_id=2081954622]
+repeat_size = Vector2(1980, 0)
+autoscroll = Vector2(35, 0)
+
+[node name="ForestShort" type="Sprite2D" parent="Parallax2D5" unique_id=2010505714]
+position = Vector2(991.99994, 466.50006)
+scale = Vector2(0.5225001, 0.5129167)
+texture = ExtResource("7_w44g7")
+
+[node name="DayNightMask" type="ColorRect" parent="." unique_id=80183154]
+material = SubResource("CanvasItemMaterial_g8g3n")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.09953258, 0.0829011, 0.15627083, 1)
+
+[node name="UI_Layer" type="CanvasLayer" parent="." unique_id=1949627449]
+
+[node name="Logo" type="TextureRect" parent="UI_Layer" unique_id=749385500]
+texture_filter = 2
+material = SubResource("ShaderMaterial_0k4wn")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -470.5
+offset_top = -201.5
+offset_right = 470.5
+offset_bottom = 201.5
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(470, 200)
+texture = ExtResource("8_cm266")
+
+[node name="TextBackground" type="TextureRect" parent="UI_Layer" unique_id=5562405]
+material = SubResource("CanvasItemMaterial_0o4t1")
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -279.0
+offset_top = -79.0
+offset_right = 281.0
+offset_bottom = -39.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = SubResource("GradientTexture2D_j5v2v")
+
+[node name="PressText" type="Label" parent="UI_Layer" unique_id=2028619961]
+material = SubResource("ShaderMaterial_0o4t1")
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -73.0
+offset_right = 20.0
+offset_bottom = -50.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/shadow_outline_size = 2
+theme_override_fonts/font = ExtResource("11_0k4wn")
+theme_override_font_sizes/font_size = 25
+text = "ui_press_any_key"
+
+[node name="FadeRect" type="ColorRect" parent="UI_Layer" unique_id=1439113300]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1523343826]
+libraries/ = SubResource("AnimationLibrary_mg3m2")
+autoplay = &"day_night"

@@ -1,0 +1,147 @@
+[gd_scene format=3 uid="uid://dw2jcqquw3od0"]
+
+[ext_resource type="Script" uid="uid://bpemq82qi0ni8" path="res://loading_screen.gd" id="1_38ncu"]
+[ext_resource type="Texture2D" uid="uid://cwmeva0nlo3pb" path="res://фон/forest_sky.png" id="1_401ed"]
+[ext_resource type="Texture2D" uid="uid://dxb38uvk3hynr" path="res://фон/IMG_6159-2.png" id="2_38ncu"]
+[ext_resource type="Texture2D" uid="uid://iab02h6g0dru" path="res://фон/IMG_6159-1.png" id="3_jrdmd"]
+[ext_resource type="Texture2D" uid="uid://brmcf5i3dokxc" path="res://фон/forest_back.png" id="4_qx0w1"]
+[ext_resource type="Texture2D" uid="uid://cy7tds8qmnutm" path="res://фон/forest_mid.png" id="5_a0ihe"]
+[ext_resource type="Texture2D" uid="uid://b407sh70lne3c" path="res://фон/forest_long.png" id="6_rgwxq"]
+[ext_resource type="Texture2D" uid="uid://bx1fe51ovko1l" path="res://фон/forest_short.png" id="7_he51e"]
+[ext_resource type="Texture2D" uid="uid://bhxov7igsq07u" path="res://меню/Иллюстрация_без_названия-1 (17).png" id="9_a0ihe"]
+[ext_resource type="Texture2D" uid="uid://bym7t72peb4px" path="res://меню/Иллюстрация_без_названия-3 (14).png" id="10_rgwxq"]
+[ext_resource type="Texture2D" uid="uid://1tid6cagaes7" path="res://меню/Иллюстрация_без_названия-2 (17).png" id="11_he51e"]
+[ext_resource type="FontFile" uid="uid://boa4mv17gvh6u" path="res://Шрифты/Izax SHA_0.otf" id="12_rgwxq"]
+
+[sub_resource type="Gradient" id="Gradient_8qtwp"]
+colors = PackedColorArray(0.8687681, 0.8357968, 0.72095555, 0.5882353, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_spc7j"]
+gradient = SubResource("Gradient_8qtwp")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.74786323, 0.34188035)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_wpy5q"]
+blend_mode = 3
+
+[node name="LoadingScreen" type="Control" unique_id=1761019944]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_38ncu")
+
+[node name="Parallax2D" type="Parallax2D" parent="." unique_id=747519281]
+repeat_size = Vector2(1980, 0)
+autoscroll = Vector2(5, 0)
+
+[node name="ForestSky" type="Sprite2D" parent="Parallax2D" unique_id=240344101]
+position = Vector2(990, 480.00003)
+scale = Vector2(1.0428728, 1.0541667)
+texture = ExtResource("1_401ed")
+
+[node name="Sun" type="Sprite2D" parent="." unique_id=1527001721]
+position = Vector2(991, 132)
+texture = ExtResource("2_38ncu")
+
+[node name="PointLight2D" type="PointLight2D" parent="Sun" unique_id=1631371066]
+position = Vector2(-1.5258789e-05, -1)
+scale = Vector2(5.0156245, 5.0156245)
+texture = SubResource("GradientTexture2D_spc7j")
+texture_scale = 3.0
+
+[node name="Moon" type="Sprite2D" parent="." unique_id=1243026406]
+position = Vector2(990, 395)
+texture = ExtResource("3_jrdmd")
+
+[node name="PointLight2D" type="PointLight2D" parent="Moon" unique_id=1834497721]
+position = Vector2(-1.5258789e-05, -1)
+scale = Vector2(5.0156245, 5.0156245)
+texture = SubResource("GradientTexture2D_spc7j")
+texture_scale = 0.5
+
+[node name="Parallax2D2" type="Parallax2D" parent="." unique_id=1941184306]
+repeat_size = Vector2(1980, 0)
+autoscroll = Vector2(10, 0)
+
+[node name="ForestBack" type="Sprite2D" parent="Parallax2D2" unique_id=1769212896]
+position = Vector2(991.99994, 355)
+scale = Vector2(0.5229167, 0.5229167)
+texture = ExtResource("4_qx0w1")
+
+[node name="Parallax2D3" type="Parallax2D" parent="." unique_id=1148177953]
+repeat_size = Vector2(1980, 0)
+autoscroll = Vector2(18, 0)
+
+[node name="ForestMid" type="Sprite2D" parent="Parallax2D3" unique_id=58386616]
+position = Vector2(990, 420.99997)
+scale = Vector2(0.5216667, 0.52166665)
+texture = ExtResource("5_a0ihe")
+
+[node name="Parallax2D4" type="Parallax2D" parent="." unique_id=1529364888]
+repeat_size = Vector2(1980, 0)
+autoscroll = Vector2(25, 0)
+
+[node name="ForestLong" type="Sprite2D" parent="Parallax2D4" unique_id=618256032]
+position = Vector2(990.00006, 597.99994)
+scale = Vector2(0.52166677, 0.52166665)
+texture = ExtResource("6_rgwxq")
+
+[node name="Parallax2D5" type="Parallax2D" parent="." unique_id=2099440712]
+repeat_size = Vector2(1980, 0)
+autoscroll = Vector2(35, 0)
+
+[node name="ForestShort" type="Sprite2D" parent="Parallax2D5" unique_id=1032222226]
+position = Vector2(991.99994, 455)
+scale = Vector2(0.5225001, 0.52250004)
+texture = ExtResource("7_he51e")
+
+[node name="DayNightMask" type="ColorRect" parent="." unique_id=1620850352]
+material = SubResource("CanvasItemMaterial_wpy5q")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.09953258, 0.0829011, 0.15627083, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=150952888]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -350.0
+offset_top = -85.0
+offset_right = 350.0
+offset_bottom = 85.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="StatusText" type="Label" parent="VBoxContainer" unique_id=772250742]
+layout_mode = 2
+
+[node name="ProgressBar" type="TextureProgressBar" parent="VBoxContainer" unique_id=602342151]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+stretch_margin_left = 2
+stretch_margin_top = 2
+stretch_margin_right = 2
+stretch_margin_bottom = 2
+texture_under = ExtResource("9_a0ihe")
+texture_over = ExtResource("10_rgwxq")
+texture_progress = ExtResource("11_he51e")
+
+[node name="CancelButton" type="Button" parent="VBoxContainer" unique_id=912144568]
+layout_mode = 2
+size_flags_vertical = 10
+theme_override_fonts/font = ExtResource("12_rgwxq")
+theme_override_font_sizes/font_size = 25
+text = "btn_cancel"

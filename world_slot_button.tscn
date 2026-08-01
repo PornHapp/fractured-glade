@@ -1,0 +1,337 @@
+[gd_scene format=3 uid="uid://chtwpdwkqgcd"]
+
+[ext_resource type="Script" uid="uid://dsj4jthtu370a" path="res://world_slot_button.gd" id="1_l74wn"]
+[ext_resource type="Texture2D" uid="uid://ci1fgclur7po7" path="res://меню/free-icon-skull-556209.png" id="1_yrdhy"]
+[ext_resource type="Texture2D" uid="uid://dbgiie43u1k7u" path="res://меню/Ikon2.png" id="2_l74wn"]
+[ext_resource type="FontFile" uid="uid://boa4mv17gvh6u" path="res://Шрифты/Izax SHA_0.otf" id="3_3notj"]
+[ext_resource type="AudioStream" uid="uid://bd030fldl6s18" path="res://Музыка/Звуки/liecio-menu_beep_short_wood-533772.mp3" id="4_h7w80"]
+[ext_resource type="AudioStream" uid="uid://bheu8efgcm4wf" path="res://Музыка/Звуки/universfield-click-button-140881 (1).mp3" id="5_3notj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tvyfg"]
+bg_color = Color(0.1254902, 0.10980392, 0.2509804, 0.7058824)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.11947621, 0.0047510043, 0.13664812, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 1
+expand_margin_top = 5.0
+expand_margin_bottom = 5.0
+shadow_size = 6
+shadow_offset = Vector2(0, 5)
+anti_aliasing_size = 10.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h7w80"]
+bg_color = Color(0.33009, 0.30441728, 0.5869983, 0.7058824)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.11947621, 0.0047510043, 0.13664812, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 1
+expand_margin_top = 5.0
+expand_margin_bottom = 5.0
+shadow_size = 6
+shadow_offset = Vector2(0, 5)
+anti_aliasing_size = 10.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3notj"]
+bg_color = Color(0.06346625, 0.053076133, 0.14611506, 0.7058824)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.11947621, 0.0047510043, 0.13664812, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 1
+expand_margin_top = 5.0
+expand_margin_bottom = 5.0
+shadow_size = 6
+shadow_offset = Vector2(0, 5)
+anti_aliasing_size = 10.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8ab7d"]
+content_margin_left = 15.0
+content_margin_top = 8.0
+content_margin_right = 15.0
+content_margin_bottom = 8.0
+bg_color = Color(0.27921838, 0.000801377, 0.46708357, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.2676938, 0.08202162, 0.21039507, 1)
+corner_detail = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pwjwc"]
+bg_color = Color(0.13046244, 0.08223336, 0.14901099, 1)
+border_width_left = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.27184004, 0.09057642, 0.2895772, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 500
+corner_radius_bottom_left = 500
+corner_detail = 1
+shadow_color = Color(0.078814976, 0.07881499, 0.078814976, 0.6)
+shadow_size = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_114uy"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+corner_radius_bottom_right = 500
+corner_radius_bottom_left = 500
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b8p7q"]
+bg_color = Color(0.23060802, 0.15838093, 0.26072595, 1)
+border_width_left = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.27184004, 0.09057642, 0.2895772, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 500
+corner_radius_bottom_left = 500
+corner_detail = 1
+shadow_color = Color(0.078814976, 0.07881499, 0.078814976, 0.6)
+shadow_size = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_86iut"]
+bg_color = Color(0.07282763, 0.03917005, 0.085213654, 1)
+border_width_left = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.27184004, 0.09057642, 0.2895772, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 500
+corner_radius_bottom_left = 500
+corner_detail = 1
+shadow_color = Color(0.078814976, 0.07881499, 0.078814976, 0.6)
+shadow_size = 10
+
+[node name="WorldSlotButton" type="Button" unique_id=574293745]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(120, 120)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_tvyfg")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_h7w80")
+theme_override_styles/hover = SubResource("StyleBoxFlat_h7w80")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_3notj")
+script = ExtResource("1_l74wn")
+
+[node name="BgPanel" type="Panel" parent="." unique_id=56950255]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_tvyfg")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1925501229]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 131.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
+
+[node name="MainRow" type="HBoxContainer" parent="MarginContainer" unique_id=36558831]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="CharacterIcon" type="TextureRect" parent="MarginContainer/MainRow" unique_id=1838819177]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 0
+mouse_filter = 2
+texture = ExtResource("1_yrdhy")
+expand_mode = 2
+
+[node name="TextColumn" type="VBoxContainer" parent="MarginContainer/MainRow" unique_id=922301238]
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+theme_override_constants/separation = 20
+
+[node name="StatsRow" type="HBoxContainer" parent="MarginContainer/MainRow/TextColumn" unique_id=446470155]
+layout_mode = 2
+size_flags_vertical = 8
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="MarginContainer/MainRow/TextColumn/StatsRow" unique_id=874779030]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("3_3notj")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_8ab7d")
+text = "Хард"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="MarginContainer/MainRow/TextColumn/StatsRow" unique_id=1415050971]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("3_3notj")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_8ab7d")
+text = "Средний"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/MainRow/TextColumn" unique_id=918247827]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="WorldName" type="Label" parent="MarginContainer/MainRow/TextColumn/HBoxContainer" unique_id=1511873235]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9786014, 0.64445776, 0, 1)
+theme_override_fonts/font = ExtResource("3_3notj")
+theme_override_font_sizes/font_size = 25
+text = "Мой крутой мир"
+
+[node name="Control" type="Control" parent="MarginContainer/MainRow/TextColumn/HBoxContainer" unique_id=935496073]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="CharacterName" type="Label" parent="MarginContainer/MainRow/TextColumn/HBoxContainer" unique_id=280622921]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5033745, 0.5033746, 0.5033746, 1)
+theme_override_fonts/font = ExtResource("3_3notj")
+theme_override_font_sizes/font_size = 25
+text = "Персонааж: Melissa"
+
+[node name="Spacer" type="Control" parent="MarginContainer/MainRow" unique_id=2001904968]
+layout_direction = 1
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="DateLabel" type="Label" parent="MarginContainer/MainRow" unique_id=103911859]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_3notj")
+theme_override_font_sizes/font_size = 25
+text = "02.07.2026"
+
+[node name="WorldIcon" type="TextureRect" parent="MarginContainer/MainRow" unique_id=1100173123]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("2_l74wn")
+expand_mode = 2
+
+[node name="ActionButtons" type="VBoxContainer" parent="MarginContainer/MainRow" unique_id=2047163866]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="PinButton" type="Button" parent="MarginContainer/MainRow/ActionButtons" unique_id=758892698]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_3notj")
+theme_override_font_sizes/font_size = 25
+text = "*"
+flat = true
+expand_icon = true
+
+[node name="DeleteButton" type="Button" parent="MarginContainer/MainRow/ActionButtons" unique_id=1405063157]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_3notj")
+theme_override_font_sizes/font_size = 25
+text = "<>"
+flat = true
+expand_icon = true
+
+[node name="DropdownMenu" type="Control" parent="." unique_id=1615751412]
+z_index = 10
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+mouse_filter = 2
+
+[node name="TraitsPanel" type="Panel" parent="DropdownMenu" unique_id=387930959]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_bottom = 114.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_pwjwc")
+
+[node name="Label" type="RichTextLabel" parent="DropdownMenu/TraitsPanel" unique_id=757834129]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.73700005
+offset_left = 14.0
+offset_top = 9.0
+offset_right = -15.0
+offset_bottom = 17.981995
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_fonts/normal_font = ExtResource("3_3notj")
+theme_override_font_sizes/normal_font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_114uy")
+bbcode_enabled = true
+autowrap_mode = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BookmarkButton" type="Button" parent="DropdownMenu" unique_id=1836671809]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 167.0
+offset_right = -185.0
+offset_bottom = 31.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 0
+mouse_filter = 2
+theme_override_fonts/font = ExtResource("3_3notj")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_pwjwc")
+theme_override_styles/hover = SubResource("StyleBoxFlat_b8p7q")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_86iut")
+text = "V"
+
+[node name="HoverSound" type="AudioStreamPlayer" parent="." unique_id=1859737778]
+stream = ExtResource("4_h7w80")
+bus = &"SFX"
+
+[node name="ClickSound" type="AudioStreamPlayer" parent="." unique_id=1037720658]
+stream = ExtResource("5_3notj")
+bus = &"SFX"
+
+[connection signal="pressed" from="MarginContainer/MainRow/ActionButtons/PinButton" to="." method="_on_pin_button_pressed"]
+[connection signal="pressed" from="MarginContainer/MainRow/ActionButtons/DeleteButton" to="." method="_on_delete_button_pressed"]

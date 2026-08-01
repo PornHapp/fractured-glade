@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://cdyggf3wxdphf"]
+
+[ext_resource type="AudioStream" uid="uid://x7d6kcacldyx" path="res://Музыка/chase9602-the-wind-awakening-memories-of-the-forest-468155.mp3" id="1_tylfe"]
+
+[node name="MusicManager" type="Node2D" unique_id=1363576646]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1545024489]
+stream = ExtResource("1_tylfe")
+autoplay = true
+bus = &"Music"

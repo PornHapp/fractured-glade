@@ -1,0 +1,200 @@
+[gd_scene format=3 uid="uid://cq1wlr61narvb"]
+
+[ext_resource type="Script" uid="uid://u4gggi73cdxl" path="res://world_selection_menu.gd" id="1_fqgu0"]
+[ext_resource type="Shader" uid="uid://bxgwlq4m68kx8" path="res://canvas_layer.gdshader" id="2_86iut"]
+[ext_resource type="FontFile" uid="uid://boa4mv17gvh6u" path="res://Шрифты/Izax SHA_0.otf" id="3_pwjwc"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pwjwc"]
+shader = ExtResource("2_86iut")
+shader_parameter/brightness = 0.1
+shader_parameter/chromatic_shift_amount = 0.2
+shader_parameter/bend_amount = 0.4
+shader_parameter/blur_amount = 2.0
+shader_parameter/grain_amount = 0.05
+shader_parameter/curve_light_blend = 0.5
+shader_parameter/rim_light_blend = 0.8
+shader_parameter/shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e04rw"]
+bg_color = Color(0.5764706, 0.41960785, 0.7137255, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.8627451, 0.67058825, 1, 0.27450982)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+shadow_color = Color(0, 0, 0, 0.15686275)
+shadow_size = 15
+
+[sub_resource type="Shader" id="Shader_b8p7q"]
+code = "shader_type canvas_item;
+
+uniform sampler2D screen_texture : hint_screen_texture, filter_linear_mipmap;
+uniform float blur : hint_range(0.0, 10.0) = 3.0;
+uniform vec4 glass_tint : source_color = vec4(0.2, 0.0, 0.4, 0.3); // Чуть темнее
+
+void fragment() {
+    vec4 style_color = COLOR;
+    
+    if (style_color.r < 0.05 && style_color.g < 0.05 && style_color.b < 0.05 && style_color.a > 0.9) {
+        // Размываем фон
+        vec4 bg = textureLod(screen_texture, SCREEN_UV, blur);
+        
+        // ДОБАВЛЯЕМ ОБЪЕМ: легкий диагональный градиент поверх стекла
+        float shine = (UV.x + UV.y) * 0.15; 
+        vec3 final_color = glass_tint.rgb + vec3(shine);
+        
+        COLOR.rgb = mix(bg.rgb, final_color, glass_tint.a);
+        COLOR.a = style_color.a; 
+    } 
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_86iut"]
+shader = SubResource("Shader_b8p7q")
+shader_parameter/blur = 4.0
+shader_parameter/glass_tint = Color(0.4, 0.1, 0.6, 0.25)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gunwg"]
+bg_color = Color(0, 0, 0, 0)
+border_width_left = 2
+border_width_top = 2
+border_color = Color(1, 1, 1, 0.19607843)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8noj8"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.11426885, 0.00018795059, 0.26656103, 0.5882353)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.4817359, 0.29790357, 0, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+
+[node name="WorldSelectionMenu" type="Control" unique_id=584334806]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_fqgu0")
+
+[node name="CenterGlassMenu" type="Panel" parent="." unique_id=792002983]
+material = SubResource("ShaderMaterial_pwjwc")
+custom_minimum_size = Vector2(800, 500)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.296
+anchor_top = 0.147
+anchor_right = 0.70400006
+anchor_bottom = 0.628
+offset_left = -38.080017
+offset_top = -11.7599945
+offset_right = 31.079834
+offset_bottom = 141.75995
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e04rw")
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterGlassMenu" unique_id=851481693]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CenterGlassMenu/MarginContainer" unique_id=2134916434]
+layout_mode = 2
+
+[node name="WorldsList" type="VBoxContainer" parent="CenterGlassMenu/MarginContainer/ScrollContainer" unique_id=1654937841]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="Panel" type="Panel" parent="." unique_id=1554955676]
+material = SubResource("ShaderMaterial_86iut")
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_gunwg")
+
+[node name="BackButton" type="Button" parent="." unique_id=2089796306]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -200.0
+offset_top = -243.0
+offset_right = -43.0
+offset_bottom = -169.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("3_pwjwc")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_8noj8")
+text = "btn_exit_world"
+
+[node name="CreateWorldButton" type="Button" parent="." unique_id=488618047]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 23.0
+offset_top = -243.0
+offset_right = 178.0
+offset_bottom = -169.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("3_pwjwc")
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxFlat_8noj8")
+text = "btn_create"
+
+[node name="InfoPanel" type="Panel" parent="." unique_id=1262561330]
+visible = false
+layout_mode = 0
+offset_left = 1401.0
+offset_top = 188.0
+offset_right = 1673.0
+offset_bottom = 610.0
+
+[node name="InfoText" type="RichTextLabel" parent="InfoPanel" unique_id=758477885]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 9.0
+offset_top = 12.0
+offset_right = -9.0
+offset_bottom = -11.0
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true

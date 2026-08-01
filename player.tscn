@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://44fo3ep3cfc"]
+
+[ext_resource type="Texture2D" uid="uid://ghpk35a34m0d" path="res://characters/astral_f.png" id="1_4flbx"]
+[ext_resource type="Script" uid="uid://dmk827skpa775" path="res://player.gd" id="1_onrkg"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_onrkg"]
+atlas = ExtResource("1_4flbx")
+region = Rect2(0, 0, 37, 37)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_i3pqv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_onrkg")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hqtel"]
+radius = 7.0
+
+[sub_resource type="SeparationRayShape2D" id="SeparationRayShape2D_onrkg"]
+length = 21.0
+
+[node name="Player" type="CharacterBody2D" unique_id=1706502300]
+floor_max_angle = 1.0471976
+floor_snap_length = 8.0
+script = ExtResource("1_onrkg")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=737105502]
+scale = Vector2(1.0945946, 1.0945946)
+sprite_frames = SubResource("SpriteFrames_i3pqv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2140895631]
+shape = SubResource("CapsuleShape2D_hqtel")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=341761366]
+position = Vector2(0, -1)
+zoom = Vector2(3, 3)
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="." unique_id=1575651233]
+position = Vector2(0, 1)
+shape = SubResource("SeparationRayShape2D_onrkg")
