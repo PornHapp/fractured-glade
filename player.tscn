@@ -13,9 +13,73 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_onrkg")
 }],
-"loop": true,
+"loop": 0,
+"name": &"attack_axe",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_onrkg")
+}],
+"loop": 0,
+"name": &"attack_pickaxe",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_onrkg")
+}],
+"loop": 0,
+"name": &"attack_sword",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_onrkg")
+}],
+"loop": 1,
 "name": &"default",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_onrkg")
+}],
+"loop": 0,
+"name": &"fall",
+"speed": 14.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_onrkg")
+}],
+"loop": 0,
+"name": &"hurt",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_onrkg")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_onrkg")
+}],
+"loop": 0,
+"name": &"jump",
+"speed": 14.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_onrkg")
+}],
+"loop": 1,
+"name": &"walk",
+"speed": 12.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hqtel"]
@@ -28,6 +92,7 @@ length = 21.0
 floor_max_angle = 1.0471976
 floor_snap_length = 8.0
 script = ExtResource("1_onrkg")
+run_speed = 211.055
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=737105502]
 scale = Vector2(1.0945946, 1.0945946)
