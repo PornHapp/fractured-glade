@@ -1,2 +1,32 @@
-# Auto detect text files and perform LF normalization
+# Автоопределение для текстовых файлов
 * text=auto
+
+# Явно указываем бинарные расширения - они не должны нормализоваться
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.bmp binary
+*.tga binary
+*.svg binary
+*.otf binary
+*.ttf binary
+*.wav binary
+*.ogg binary
+*.mp3 binary
+*.glb binary
+*.gltf binary
+*.fbx binary
+*.dae binary
+*.blend binary
+
+# Файлы .import тоже не должны нормализоваться (они текстовые, но их содержимое зависит от хешей)
+*.import -text
+
+# Если нужно, можно явно указать текстовые файлы (например, скрипты, сцены) - они будут нормализованы
+*.gd text
+*.tscn text
+*.tres text
+*.json text
+*.cfg text
+*.txt text
+*.md text
