@@ -251,7 +251,7 @@ position = Vector2(350.00003, -142.00002)
 scale = Vector2(5.38813, 5.3881307)
 sprite_frames = SubResource("SpriteFrames_bhunq")
 autoplay = "default"
-frame_progress = 0.13980277
+frame_progress = 0.64034534
 
 [node name="CancelButton" type="Button" parent="VBoxContainer" unique_id=912144568]
 visible = false
@@ -260,3 +260,14 @@ size_flags_vertical = 10
 theme_override_fonts/font = ExtResource("12_rgwxq")
 theme_override_font_sizes/font_size = 25
 text = "btn_cancel"
+
+[node name="DayNightMask2" type="ColorRect" parent="." unique_id=1303955239]
+material = SubResource("CanvasItemMaterial_wpy5q")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.8879662, 0.52689373, 0.47466105, 1)
