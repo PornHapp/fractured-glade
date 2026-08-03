@@ -48,51 +48,6 @@ shader_parameter/transition_progress = 0.0
 shader = ExtResource("5_ctwoq")
 shader_parameter/glitch_intensity = 0.0
 
-[sub_resource type="Shader" id="Shader_ctwoq"]
-code = "shader_type canvas_item;
-
-uniform sampler2D noise_texture; 
-uniform float dissolve_value : hint_range(0.0, 1.0) = 0.0;
-uniform vec4 burn_color : source_color = vec4(0.7, 0.3, 1.0, 1.0); 
-uniform float burn_size : hint_range(0.0, 0.2) = 0.05;
-
-void fragment() {
-    // ПРАВИЛЬНЫЙ СПОСОБ: Умножаем COLOR на текстуру. 
-    // Это сохранит и твой полупрозрачный фон (StyleBox), и сам текст!
-    vec4 tex_color = COLOR * texture(TEXTURE, UV);
-    
-    // Берем узор трещин
-    float noise = texture(noise_texture, UV).r;
-    
-    // Распад пикселей
-    if (noise < dissolve_value) {
-        discard; 
-    }
-    
-    // Делаем светящуюся кромку ТОЛЬКО если анимация раскола уже началась (dissolve_value > 0.0)
-    if (dissolve_value > 0.0 && noise < dissolve_value + burn_size) {
-        tex_color.rgb = burn_color.rgb * 1.8; // Эффект свечения
-        tex_color.a = 1.0; 
-    }
-    
-    COLOR = tex_color;
-}"
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_ppfnh"]
-noise_type = 2
-cellular_return_type = 2
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_7boi2"]
-noise = SubResource("FastNoiseLite_ppfnh")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_73a2t"]
-resource_local_to_scene = true
-shader = SubResource("Shader_ctwoq")
-shader_parameter/noise_texture = SubResource("NoiseTexture2D_7boi2")
-shader_parameter/dissolve_value = 0.0
-shader_parameter/burn_color = Color(0.7, 0.3, 1, 1)
-shader_parameter/burn_size = 0.05
-
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bhunq"]
 texture = ExtResource("8_8w6hp")
 
@@ -132,14 +87,6 @@ texture = ExtResource("12_vdj8r")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1esiv"]
 texture = ExtResource("13_exiih")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ctwoq"]
-resource_local_to_scene = true
-shader = SubResource("Shader_ctwoq")
-shader_parameter/noise_texture = SubResource("NoiseTexture2D_7boi2")
-shader_parameter/dissolve_value = 0.0
-shader_parameter/burn_color = Color(0.7, 0.3, 1, 1)
-shader_parameter/burn_size = 0.05
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2r0jt"]
 texture = ExtResource("14_4fm4p")
@@ -447,7 +394,6 @@ offset_right = 946.0
 offset_bottom = 1023.0
 
 [node name="Multiplayer" type="Button" parent="MenuBox1" unique_id=1553394025]
-material = SubResource("ShaderMaterial_73a2t")
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
@@ -466,7 +412,6 @@ custom_minimum_size = Vector2(0, 9)
 layout_mode = 2
 
 [node name="StartButton" type="Button" parent="MenuBox1" unique_id=224807441]
-material = SubResource("ShaderMaterial_73a2t")
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("6_g3efl")
@@ -489,7 +434,6 @@ offset_right = 1192.0
 offset_bottom = 1023.0
 
 [node name="SettingsButton" type="Button" parent="MenuBox2" unique_id=1300535835]
-material = SubResource("ShaderMaterial_73a2t")
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("6_g3efl")
@@ -509,7 +453,6 @@ custom_minimum_size = Vector2(0, 9)
 layout_mode = 2
 
 [node name="ExitButton" type="Button" parent="MenuBox2" unique_id=695649850]
-material = SubResource("ShaderMaterial_ctwoq")
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("6_g3efl")
