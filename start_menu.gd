@@ -5,11 +5,11 @@ extends Control
 var has_saved_worlds = false
 
 # --- УЗЛЫ ИНТЕРФЕЙСА ---
-@onready var start_button = $VBoxContainer/StartButton
-@onready var settings_button = $VBoxContainer/SettingsButton
-@onready var exit_button = $VBoxContainer/ExitButton
+@onready var start_button = $MenuBox1/StartButton
+@onready var settings_button = $MenuBox2/SettingsButton
+@onready var exit_button = $MenuBox2/ExitButton
 @onready var settings_menu = $SettingsMenu
-@onready var start_sparks = $VBoxContainer/StartButton/HoverSparks
+@onready var start_sparks = $MenuBox1/StartButton/HoverSparks
 
 # Заглушки для будущих окон (пока они могут быть не созданы, но код к ним готов)
 @onready var character_menu = $Character/CharacterMenu

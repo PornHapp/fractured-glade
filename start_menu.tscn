@@ -434,69 +434,84 @@ grow_horizontal = 2
 grow_vertical = 0
 texture = ExtResource("6_w8w24")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1289614574]
+[node name="MenuBox1" type="VBoxContainer" parent="." unique_id=1289614574]
 material = SubResource("ShaderMaterial_7boi2")
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -241.0
-offset_top = 337.0
-offset_right = -19.0
-offset_bottom = 387.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 0
+offset_left = 769.0
+offset_top = 899.0
+offset_right = 972.0
+offset_bottom = 1047.0
 theme_override_constants/separation = 30
 
-[node name="StartButton" type="Button" parent="VBoxContainer" unique_id=224807441]
+[node name="Multiplayer" type="Button" parent="MenuBox1" unique_id=1553394025]
+material = SubResource("ShaderMaterial_73a2t")
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_73a2t")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ctwoq")
+text = "menu_multiplayer_game"
+
+[node name="HoverSparks" type="GPUParticles2D" parent="MenuBox1/Multiplayer" unique_id=1785623420]
+material = SubResource("CanvasItemMaterial_ctwoq")
+position = Vector2(292, 14)
+emitting = false
+process_material = SubResource("ParticleProcessMaterial_pgi0o")
+
+[node name="Control" type="Control" parent="MenuBox1" unique_id=515405011]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="StartButton" type="Button" parent="MenuBox1" unique_id=224807441]
 material = SubResource("ShaderMaterial_73a2t")
 layout_mode = 2
 theme_override_fonts/font = ExtResource("6_g3efl")
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("StyleBoxFlat_73a2t")
 theme_override_styles/hover = SubResource("StyleBoxFlat_ctwoq")
 text = "menu_start_game"
 
-[node name="HoverSparks" type="GPUParticles2D" parent="VBoxContainer/StartButton" unique_id=699661585]
+[node name="HoverSparks" type="GPUParticles2D" parent="MenuBox1/StartButton" unique_id=699661585]
 material = SubResource("CanvasItemMaterial_ctwoq")
 position = Vector2(292, 14)
 emitting = false
 process_material = SubResource("ParticleProcessMaterial_pgi0o")
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="." unique_id=1274717140]
+[node name="MenuBox2" type="VBoxContainer" parent="." unique_id=1274717140]
 layout_mode = 0
-offset_left = 703.0
-offset_top = 1065.0
-offset_right = 1283.0
-offset_bottom = 1065.0
+offset_left = 1023.0
+offset_top = 897.0
+offset_right = 1226.0
+offset_bottom = 993.0
 
-[node name="SettingsButton" type="Button" parent="VBoxContainer2" unique_id=1300535835]
+[node name="SettingsButton" type="Button" parent="MenuBox2" unique_id=1300535835]
 material = SubResource("ShaderMaterial_73a2t")
 layout_mode = 2
 theme_override_fonts/font = ExtResource("6_g3efl")
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("StyleBoxFlat_73a2t")
 theme_override_styles/hover = SubResource("StyleBoxFlat_ctwoq")
 text = "menu_settings"
 
-[node name="HoverSparks" type="GPUParticles2D" parent="VBoxContainer2/SettingsButton" unique_id=391513267]
+[node name="HoverSparks" type="GPUParticles2D" parent="MenuBox2/SettingsButton" unique_id=391513267]
 material = SubResource("CanvasItemMaterial_ctwoq")
 position = Vector2(292, 14)
 emitting = false
 process_material = SubResource("ParticleProcessMaterial_pgi0o")
 
-[node name="ExitButton" type="Button" parent="VBoxContainer2" unique_id=695649850]
+[node name="Control" type="Control" parent="MenuBox2" unique_id=3862868]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="ExitButton" type="Button" parent="MenuBox2" unique_id=695649850]
 material = SubResource("ShaderMaterial_ctwoq")
 layout_mode = 2
 theme_override_fonts/font = ExtResource("6_g3efl")
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("StyleBoxFlat_xsckg")
 theme_override_styles/hover = SubResource("StyleBoxFlat_ctwoq")
 text = "menu_exit"
 
-[node name="HoverSparks" type="GPUParticles2D" parent="VBoxContainer2/ExitButton" unique_id=1891968203]
+[node name="HoverSparks" type="GPUParticles2D" parent="MenuBox2/ExitButton" unique_id=1891968203]
 material = SubResource("CanvasItemMaterial_ctwoq")
 position = Vector2(292, 14)
 emitting = false
@@ -1235,11 +1250,11 @@ bus = &"SFX"
 visible = false
 layout_mode = 1
 
-[connection signal="mouse_entered" from="VBoxContainer/StartButton" to="." method="_on_start_button_mouse_entered"]
-[connection signal="mouse_exited" from="VBoxContainer/StartButton" to="." method="_on_start_button_mouse_exited"]
-[connection signal="pressed" from="VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
-[connection signal="pressed" from="VBoxContainer2/SettingsButton" to="." method="_on_settings_button_pressed"]
-[connection signal="pressed" from="VBoxContainer2/ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="mouse_entered" from="MenuBox1/StartButton" to="." method="_on_start_button_mouse_entered"]
+[connection signal="mouse_exited" from="MenuBox1/StartButton" to="." method="_on_start_button_mouse_exited"]
+[connection signal="pressed" from="MenuBox1/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="MenuBox2/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="MenuBox2/ExitButton" to="." method="_on_exit_button_pressed"]
 [connection signal="pressed" from="Character/WorldMenu/CenterGlassMenu/MarginContainer/ScrollContainer/MainColumn/SettingsContainer/SizeContainer/SmallSize" to="." method="_on_small_size_pressed"]
 [connection signal="pressed" from="Character/WorldMenu/CenterGlassMenu/MarginContainer/ScrollContainer/MainColumn/SettingsContainer/SizeContainer/MediumSize" to="." method="_on_medium_size_pressed"]
 [connection signal="pressed" from="Character/WorldMenu/CenterGlassMenu/MarginContainer/ScrollContainer/MainColumn/SettingsContainer/SizeContainer/LargeSize" to="." method="_on_large_size_pressed"]
