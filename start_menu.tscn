@@ -9,19 +9,27 @@
 [ext_resource type="Script" uid="uid://dlbygxe6wvwjk" path="res://firefly.gd" id="6_ppfnh"]
 [ext_resource type="Texture2D" uid="uid://cesu0ailqqccn" path="res://меню/Иллюстрация_без_названия-2 (18).png" id="6_w8w24"]
 [ext_resource type="Texture2D" uid="uid://dxb38uvk3hynr" path="res://фон/IMG_6159-2.png" id="7_7boi2"]
+[ext_resource type="Texture2D" uid="uid://5dqr236hrv4p" path="res://меню/Иллюстрация_без_названия-3 (15).png" id="8_8w6hp"]
 [ext_resource type="PackedScene" uid="uid://dwbggc3f8xfuq" path="res://canvas_layer.tscn" id="8_pgi0o"]
+[ext_resource type="Texture2D" uid="uid://cqujilxj17ocf" path="res://меню/Иллюстрация_без_названия-4 (11).png" id="9_a6nfu"]
 [ext_resource type="AudioStream" uid="uid://bd030fldl6s18" path="res://Музыка/Звуки/liecio-menu_beep_short_wood-533772.mp3" id="9_jxkec"]
 [ext_resource type="Shader" uid="uid://bxgwlq4m68kx8" path="res://canvas_layer.gdshader" id="10_4tuia"]
+[ext_resource type="Texture2D" uid="uid://bou6yltncx8xc" path="res://меню/Иллюстрация_без_названия-4 (10).png" id="10_g8l62"]
 [ext_resource type="Script" uid="uid://d1xp7qeq8riyq" path="res://character_menu.gd" id="10_j1xkj"]
 [ext_resource type="AudioStream" uid="uid://bheu8efgcm4wf" path="res://Музыка/Звуки/universfield-click-button-140881 (1).mp3" id="10_ld0yp"]
 [ext_resource type="Script" uid="uid://cubldoibw6bmy" path="res://world_menu.gd" id="11_2beny"]
+[ext_resource type="Texture2D" uid="uid://cmttt2avoil8m" path="res://меню/Иллюстрация_без_названия-3 (16).png" id="11_tb5yr"]
 [ext_resource type="AudioStream" uid="uid://bundq1ujfwhk0" path="res://Музыка/Звуки/studiokolomna-glitch-sound-fx-pack-07-118239.mp3" id="11_w8jvl"]
 [ext_resource type="AudioStream" uid="uid://df7w83tgcg1sa" path="res://Музыка/Звуки/studiokolomna-glitch-sound-fx-pack-05-118237.mp3" id="12_8y6t8"]
 [ext_resource type="Texture2D" uid="uid://xumvjlnxeu12" path="res://меню/free-icon-generator-1817462.png" id="12_cl221"]
+[ext_resource type="Texture2D" uid="uid://dds5wdfwgk5h6" path="res://меню/Иллюстрация_без_названия-1 (19).png" id="12_vdj8r"]
 [ext_resource type="AudioStream" uid="uid://dvil87k57ixrg" path="res://Музыка/Звуки/studiokolomna-glitch-sound-fx-pack-01-118233.mp3" id="13_4tuia"]
+[ext_resource type="Texture2D" uid="uid://b8yjw3wqe0ujp" path="res://меню/Иллюстрация_без_названия-2 (20).png" id="13_exiih"]
 [ext_resource type="Texture2D" uid="uid://doswlvgk1pgvq" path="res://меню/free-icon-hydro-power-1697443.png" id="13_g3efl"]
+[ext_resource type="Texture2D" uid="uid://b77s6xffmgch" path="res://меню/Иллюстрация_без_названия-2 (19).png" id="14_4fm4p"]
 [ext_resource type="AudioStream" uid="uid://bl45jrwv18ol4" path="res://Музыка/Звуки/dragon-studio-glitch-sound-effect-450447.mp3" id="14_j1xkj"]
 [ext_resource type="Texture2D" uid="uid://b7l3u6vfyevhc" path="res://меню/Ikon1.png" id="14_w8w24"]
+[ext_resource type="Texture2D" uid="uid://djgu8vkxkarps" path="res://меню/Иллюстрация_без_названия-1 (20).png" id="15_anp0p"]
 [ext_resource type="AudioStream" uid="uid://bn72kihgh5uws" path="res://Музыка/Звуки/gregorquendel-designed-fire-winds-swoosh-04-116788.mp3" id="15_jqt8n"]
 [ext_resource type="Texture2D" uid="uid://nkcw5p6opth1" path="res://меню/free-icon-leaves-12883742.png" id="15_oqkqq"]
 [ext_resource type="Texture2D" uid="uid://b4xo5sqe1kw6s" path="res://меню/free-icon-swords-861891.png" id="16_yddg6"]
@@ -85,21 +93,11 @@ shader_parameter/dissolve_value = 0.0
 shader_parameter/burn_color = Color(0.7, 0.3, 1, 1)
 shader_parameter/burn_size = 0.05
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_73a2t"]
-bg_color = Color(0.5019608, 0.5019608, 0.5019608, 0.39215687)
-border_width_left = 2
-border_width_bottom = 2
-border_color = Color(0.5411765, 0.24705882, 0.8352941, 1)
-corner_radius_top_right = 15
-corner_radius_bottom_left = 15
-expand_margin_left = 5.0
-expand_margin_top = 5.0
-expand_margin_right = 5.0
-expand_margin_bottom = 5.0
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bhunq"]
+texture = ExtResource("8_8w6hp")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ctwoq"]
-resource_local_to_scene = true
-bg_color = Color(0.5019608, 0.5019608, 0.5019608, 0.39215687)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_riqys"]
+texture = ExtResource("9_a6nfu")
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ctwoq"]
 blend_mode = 1
@@ -123,6 +121,18 @@ scale_min = 2.0
 scale_max = 5.0
 color_initial_ramp = SubResource("GradientTexture1D_7boi2")
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_sn0t7"]
+texture = ExtResource("10_g8l62")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6f8o3"]
+texture = ExtResource("11_tb5yr")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qr0ht"]
+texture = ExtResource("12_vdj8r")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1esiv"]
+texture = ExtResource("13_exiih")
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ctwoq"]
 resource_local_to_scene = true
 shader = SubResource("Shader_ctwoq")
@@ -131,17 +141,11 @@ shader_parameter/dissolve_value = 0.0
 shader_parameter/burn_color = Color(0.7, 0.3, 1, 1)
 shader_parameter/burn_size = 0.05
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xsckg"]
-bg_color = Color(0.5019608, 0.5019608, 0.5019608, 0.39215687)
-border_width_left = 2
-border_width_bottom = 2
-border_color = Color(0.5411765, 0.24705882, 0.8352941, 1)
-corner_radius_top_right = 15
-corner_radius_bottom_left = 15
-expand_margin_left = 5.0
-expand_margin_top = 5.0
-expand_margin_right = 5.0
-expand_margin_bottom = 5.0
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2r0jt"]
+texture = ExtResource("14_4fm4p")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xvofd"]
+texture = ExtResource("15_anp0p")
 
 [sub_resource type="Animation" id="Animation_vpdu5"]
 length = 0.001
@@ -437,19 +441,19 @@ texture = ExtResource("6_w8w24")
 [node name="MenuBox1" type="VBoxContainer" parent="." unique_id=1289614574]
 material = SubResource("ShaderMaterial_7boi2")
 layout_mode = 0
-offset_left = 769.0
+offset_left = 797.0
 offset_top = 899.0
-offset_right = 972.0
-offset_bottom = 1047.0
-theme_override_constants/separation = 30
+offset_right = 946.0
+offset_bottom = 1023.0
 
 [node name="Multiplayer" type="Button" parent="MenuBox1" unique_id=1553394025]
 material = SubResource("ShaderMaterial_73a2t")
+custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
-theme_override_styles/normal = SubResource("StyleBoxFlat_73a2t")
-theme_override_styles/hover = SubResource("StyleBoxFlat_ctwoq")
-text = "menu_multiplayer_game"
+theme_override_styles/normal = SubResource("StyleBoxTexture_bhunq")
+theme_override_styles/hover = SubResource("StyleBoxTexture_riqys")
+text = "menu_multiplayer"
 
 [node name="HoverSparks" type="GPUParticles2D" parent="MenuBox1/Multiplayer" unique_id=1785623420]
 material = SubResource("CanvasItemMaterial_ctwoq")
@@ -458,16 +462,17 @@ emitting = false
 process_material = SubResource("ParticleProcessMaterial_pgi0o")
 
 [node name="Control" type="Control" parent="MenuBox1" unique_id=515405011]
-custom_minimum_size = Vector2(0, 40)
+custom_minimum_size = Vector2(0, 9)
 layout_mode = 2
 
 [node name="StartButton" type="Button" parent="MenuBox1" unique_id=224807441]
 material = SubResource("ShaderMaterial_73a2t")
+custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("6_g3efl")
 theme_override_font_sizes/font_size = 20
-theme_override_styles/normal = SubResource("StyleBoxFlat_73a2t")
-theme_override_styles/hover = SubResource("StyleBoxFlat_ctwoq")
+theme_override_styles/normal = SubResource("StyleBoxTexture_sn0t7")
+theme_override_styles/hover = SubResource("StyleBoxTexture_6f8o3")
 text = "menu_start_game"
 
 [node name="HoverSparks" type="GPUParticles2D" parent="MenuBox1/StartButton" unique_id=699661585]
@@ -478,18 +483,19 @@ process_material = SubResource("ParticleProcessMaterial_pgi0o")
 
 [node name="MenuBox2" type="VBoxContainer" parent="." unique_id=1274717140]
 layout_mode = 0
-offset_left = 1023.0
-offset_top = 897.0
-offset_right = 1226.0
-offset_bottom = 993.0
+offset_left = 1043.0
+offset_top = 899.0
+offset_right = 1192.0
+offset_bottom = 1023.0
 
 [node name="SettingsButton" type="Button" parent="MenuBox2" unique_id=1300535835]
 material = SubResource("ShaderMaterial_73a2t")
+custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("6_g3efl")
 theme_override_font_sizes/font_size = 20
-theme_override_styles/normal = SubResource("StyleBoxFlat_73a2t")
-theme_override_styles/hover = SubResource("StyleBoxFlat_ctwoq")
+theme_override_styles/normal = SubResource("StyleBoxTexture_qr0ht")
+theme_override_styles/hover = SubResource("StyleBoxTexture_1esiv")
 text = "menu_settings"
 
 [node name="HoverSparks" type="GPUParticles2D" parent="MenuBox2/SettingsButton" unique_id=391513267]
@@ -499,16 +505,17 @@ emitting = false
 process_material = SubResource("ParticleProcessMaterial_pgi0o")
 
 [node name="Control" type="Control" parent="MenuBox2" unique_id=3862868]
-custom_minimum_size = Vector2(0, 40)
+custom_minimum_size = Vector2(0, 9)
 layout_mode = 2
 
 [node name="ExitButton" type="Button" parent="MenuBox2" unique_id=695649850]
 material = SubResource("ShaderMaterial_ctwoq")
+custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("6_g3efl")
 theme_override_font_sizes/font_size = 20
-theme_override_styles/normal = SubResource("StyleBoxFlat_xsckg")
-theme_override_styles/hover = SubResource("StyleBoxFlat_ctwoq")
+theme_override_styles/normal = SubResource("StyleBoxTexture_2r0jt")
+theme_override_styles/hover = SubResource("StyleBoxTexture_xvofd")
 text = "menu_exit"
 
 [node name="HoverSparks" type="GPUParticles2D" parent="MenuBox2/ExitButton" unique_id=1891968203]
