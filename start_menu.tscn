@@ -3,10 +3,11 @@
 [ext_resource type="Script" uid="uid://sugr6n4bf8qj" path="res://start_menu.gd" id="1_v2mkm"]
 [ext_resource type="Texture2D" uid="uid://bsa007xn4e8vk" path="res://меню/ChatGPT Image 26 июн. 2026 г., 21_23_05 (2).png" id="1_vpdu5"]
 [ext_resource type="Shader" uid="uid://c6qqccnp5n37r" path="res://new_shader.gdshader" id="2_v2mkm"]
-[ext_resource type="Texture2D" uid="uid://bnyuos5tlqrub" path="res://меню/ChatGPT Image 26 июн. 2026 г., 21_23_04 (1).png" id="3_ctwoq"]
+[ext_resource type="Texture2D" uid="uid://cqi40pwkpyrmc" path="res://меню/ChatGPT Image 26 июн. 2026 г., 21_23_04 (1).png" id="3_ctwoq"]
 [ext_resource type="Shader" uid="uid://8aw6v2kx8er5" path="res://start_menu.gdshader" id="5_ctwoq"]
 [ext_resource type="FontFile" uid="uid://boa4mv17gvh6u" path="res://Шрифты/Izax SHA_0.otf" id="6_g3efl"]
 [ext_resource type="Script" uid="uid://dlbygxe6wvwjk" path="res://firefly.gd" id="6_ppfnh"]
+[ext_resource type="Texture2D" uid="uid://cesu0ailqqccn" path="res://меню/Иллюстрация_без_названия-2 (18).png" id="6_w8w24"]
 [ext_resource type="Texture2D" uid="uid://dxb38uvk3hynr" path="res://фон/IMG_6159-2.png" id="7_7boi2"]
 [ext_resource type="PackedScene" uid="uid://dwbggc3f8xfuq" path="res://canvas_layer.tscn" id="8_pgi0o"]
 [ext_resource type="AudioStream" uid="uid://bd030fldl6s18" path="res://Музыка/Звуки/liecio-menu_beep_short_wood-533772.mp3" id="9_jxkec"]
@@ -411,9 +412,27 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -9.0
+offset_top = -151.0
+offset_right = 10.0
+offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_ctwoq")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=405682722]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -814.9219
+offset_top = -1004.0
+offset_right = 814.9219
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("6_w8w24")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1289614574]
 material = SubResource("ShaderMaterial_7boi2")
@@ -423,10 +442,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -431.0
-offset_top = -196.0
-offset_right = 149.0
-offset_bottom = -43.0
+offset_left = -241.0
+offset_top = 337.0
+offset_right = -19.0
+offset_bottom = 387.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 30
@@ -435,7 +454,7 @@ theme_override_constants/separation = 30
 material = SubResource("ShaderMaterial_73a2t")
 layout_mode = 2
 theme_override_fonts/font = ExtResource("6_g3efl")
-theme_override_font_sizes/font_size = 45
+theme_override_font_sizes/font_size = 30
 theme_override_styles/normal = SubResource("StyleBoxFlat_73a2t")
 theme_override_styles/hover = SubResource("StyleBoxFlat_ctwoq")
 text = "menu_start_game"
@@ -446,31 +465,38 @@ position = Vector2(292, 14)
 emitting = false
 process_material = SubResource("ParticleProcessMaterial_pgi0o")
 
-[node name="SettingsButton" type="Button" parent="VBoxContainer" unique_id=1300535835]
+[node name="VBoxContainer2" type="VBoxContainer" parent="." unique_id=1274717140]
+layout_mode = 0
+offset_left = 703.0
+offset_top = 1065.0
+offset_right = 1283.0
+offset_bottom = 1065.0
+
+[node name="SettingsButton" type="Button" parent="VBoxContainer2" unique_id=1300535835]
 material = SubResource("ShaderMaterial_73a2t")
 layout_mode = 2
 theme_override_fonts/font = ExtResource("6_g3efl")
-theme_override_font_sizes/font_size = 45
+theme_override_font_sizes/font_size = 30
 theme_override_styles/normal = SubResource("StyleBoxFlat_73a2t")
 theme_override_styles/hover = SubResource("StyleBoxFlat_ctwoq")
 text = "menu_settings"
 
-[node name="HoverSparks" type="GPUParticles2D" parent="VBoxContainer/SettingsButton" unique_id=391513267]
+[node name="HoverSparks" type="GPUParticles2D" parent="VBoxContainer2/SettingsButton" unique_id=391513267]
 material = SubResource("CanvasItemMaterial_ctwoq")
 position = Vector2(292, 14)
 emitting = false
 process_material = SubResource("ParticleProcessMaterial_pgi0o")
 
-[node name="ExitButton" type="Button" parent="VBoxContainer" unique_id=695649850]
+[node name="ExitButton" type="Button" parent="VBoxContainer2" unique_id=695649850]
 material = SubResource("ShaderMaterial_ctwoq")
 layout_mode = 2
 theme_override_fonts/font = ExtResource("6_g3efl")
-theme_override_font_sizes/font_size = 45
+theme_override_font_sizes/font_size = 30
 theme_override_styles/normal = SubResource("StyleBoxFlat_xsckg")
 theme_override_styles/hover = SubResource("StyleBoxFlat_ctwoq")
 text = "menu_exit"
 
-[node name="HoverSparks" type="GPUParticles2D" parent="VBoxContainer/ExitButton" unique_id=1891968203]
+[node name="HoverSparks" type="GPUParticles2D" parent="VBoxContainer2/ExitButton" unique_id=1891968203]
 material = SubResource("CanvasItemMaterial_ctwoq")
 position = Vector2(292, 14)
 emitting = false
@@ -1212,8 +1238,8 @@ layout_mode = 1
 [connection signal="mouse_entered" from="VBoxContainer/StartButton" to="." method="_on_start_button_mouse_entered"]
 [connection signal="mouse_exited" from="VBoxContainer/StartButton" to="." method="_on_start_button_mouse_exited"]
 [connection signal="pressed" from="VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="pressed" from="VBoxContainer2/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="VBoxContainer2/ExitButton" to="." method="_on_exit_button_pressed"]
 [connection signal="pressed" from="Character/WorldMenu/CenterGlassMenu/MarginContainer/ScrollContainer/MainColumn/SettingsContainer/SizeContainer/SmallSize" to="." method="_on_small_size_pressed"]
 [connection signal="pressed" from="Character/WorldMenu/CenterGlassMenu/MarginContainer/ScrollContainer/MainColumn/SettingsContainer/SizeContainer/MediumSize" to="." method="_on_medium_size_pressed"]
 [connection signal="pressed" from="Character/WorldMenu/CenterGlassMenu/MarginContainer/ScrollContainer/MainColumn/SettingsContainer/SizeContainer/LargeSize" to="." method="_on_large_size_pressed"]
