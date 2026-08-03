@@ -405,7 +405,7 @@ offset_top = 871.0
 offset_right = 1030.0
 offset_bottom = 1017.0
 theme_override_styles/normal = SubResource("StyleBoxTexture_jyycw")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_c0dwe")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_jyycw")
 theme_override_styles/hover = SubResource("StyleBoxTexture_c0dwe")
 
 [node name="MenuBox1" type="VBoxContainer" parent="." unique_id=1289614574]
@@ -421,7 +421,7 @@ custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("StyleBoxTexture_bhunq")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_riqys")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_bhunq")
 theme_override_styles/hover = SubResource("StyleBoxTexture_riqys")
 text = "menu_multiplayer"
 
@@ -441,7 +441,7 @@ layout_mode = 2
 theme_override_fonts/font = ExtResource("6_g3efl")
 theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("StyleBoxTexture_sn0t7")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_6f8o3")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_sn0t7")
 theme_override_styles/hover = SubResource("StyleBoxTexture_6f8o3")
 text = "menu_start_game"
 
@@ -464,7 +464,7 @@ layout_mode = 2
 theme_override_fonts/font = ExtResource("6_g3efl")
 theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("StyleBoxTexture_qr0ht")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_1esiv")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_qr0ht")
 theme_override_styles/hover = SubResource("StyleBoxTexture_1esiv")
 text = "menu_settings"
 
@@ -484,7 +484,7 @@ layout_mode = 2
 theme_override_fonts/font = ExtResource("6_g3efl")
 theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("StyleBoxTexture_2r0jt")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_xvofd")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_2r0jt")
 theme_override_styles/hover = SubResource("StyleBoxTexture_xvofd")
 text = "menu_exit"
 

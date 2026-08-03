@@ -1,9 +1,10 @@
 extends Control
 
 # --- УЗЛЫ ИНТЕРФЕЙСА ЗАГРУЗКИ ---
-@onready var status_text = $VBoxContainer/StatusText
-@onready var progress_bar = $VBoxContainer/ProgressBar
-@onready var cancel_btn = $VBoxContainer/CancelButton
+@onready var status_text = $StatusText
+@onready var loading_frame = $VBoxContainer/LoadingFrame # Твоя анимированная рамка
+@onready var progress_bar_left = $ProgressBarLeft        # Первая полоска (вне VBox)
+@onready var progress_bar_right = $ProgressBarRight      # Вторая полоска (вне VBox)
 
 # --- УЗЛЫ ФОНА (ДЕНЬ/НОЧЬ) ---
 @onready var sun = $Sun
@@ -32,14 +33,20 @@ var loading_phrases = [
 var is_cancelled = false 
 
 func _ready():
-	# Сбрасываем значения полоски перед стартом
-	progress_bar.min_value = 0
-	progress_bar.max_value = 100
-	progress_bar.value = 0
+	# Сбрасываем значения обеих полосок перед стартом
+	progress_bar_left.min_value = 0
+	progress_bar_left.max_value = 100
+	progress_bar_left.value = 0
 	
-	cancel_btn.pressed.connect(_on_cancel_pressed)
+	progress_bar_right.min_value = 0
+	progress_bar_right.max_value = 100
+	progress_bar_right.value = 0
 	
-	# Запускаем магию загрузки
+	# Включаем анимацию рамки (убедись, что анимация называется "default", 
+	# или впиши свое название в кавычки)
+	loading_frame.play("default")
+	
+	# Запускаем загрузку
 	_start_fake_loading()
 
 # --- АНИМАЦИЯ ДНЯ И НОЧИ (Работает каждый кадр) ---
@@ -83,14 +90,16 @@ func _start_fake_loading():
 		if is_cancelled:
 			return 
 			
-		# БЫЛО: status_text.text = loading_phrases[i]
-		# СТАЛО: Оборачиваем фразу в переводчик tr()
 		status_text.text = tr(loading_phrases[i])
 		
-		# Плавно двигаем полоску
+		# Плавно двигаем ОБЕ полоски одновременно
 		var target_value = i * progress_step
 		var tween = create_tween()
-		tween.tween_property(progress_bar, "value", target_value, step_time)
+		
+		tween.set_parallel(true) # <-- Эта магия заставляет полоски ползти вместе!
+		
+		tween.tween_property(progress_bar_left, "value", target_value, step_time)
+		tween.tween_property(progress_bar_right, "value", target_value, step_time)
 		
 		await get_tree().create_timer(step_time).timeout
 		

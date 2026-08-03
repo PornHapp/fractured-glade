@@ -8,10 +8,20 @@
 [ext_resource type="Texture2D" uid="uid://cy7tds8qmnutm" path="res://фон/forest_mid.png" id="5_a0ihe"]
 [ext_resource type="Texture2D" uid="uid://b407sh70lne3c" path="res://фон/forest_long.png" id="6_rgwxq"]
 [ext_resource type="Texture2D" uid="uid://bx1fe51ovko1l" path="res://фон/forest_short.png" id="7_he51e"]
-[ext_resource type="Texture2D" uid="uid://bhxov7igsq07u" path="res://меню/Иллюстрация_без_названия-1 (17).png" id="9_a0ihe"]
-[ext_resource type="Texture2D" uid="uid://bym7t72peb4px" path="res://меню/Иллюстрация_без_названия-3 (14).png" id="10_rgwxq"]
-[ext_resource type="Texture2D" uid="uid://1tid6cagaes7" path="res://меню/Иллюстрация_без_названия-2 (17).png" id="11_he51e"]
+[ext_resource type="Texture2D" uid="uid://duni0rqi5fdkd" path="res://progress_bar/Иллюстрация_без_названия-61 (17).png" id="9_f5yxk"]
+[ext_resource type="Texture2D" uid="uid://hb8dyqk375w" path="res://progress_bar/Иллюстрация_без_названия-1 (24).png" id="10_e21s8"]
+[ext_resource type="Texture2D" uid="uid://dnv1se56k02oj" path="res://progress_bar/Иллюстрация_без_названия-6 (17).png" id="11_8geaq"]
+[ext_resource type="Texture2D" uid="uid://d1o7f23bvxvuu" path="res://progress_bar/Иллюстрация_без_названия-2 (24).png" id="12_guyqc"]
 [ext_resource type="FontFile" uid="uid://boa4mv17gvh6u" path="res://Шрифты/Izax SHA_0.otf" id="12_rgwxq"]
+[ext_resource type="Texture2D" uid="uid://51vmrkag6c7i" path="res://progress_bar/Иллюстрация_без_названия-3 (17).png" id="13_boc87"]
+[ext_resource type="Texture2D" uid="uid://6xbf4b75cklx" path="res://progress_bar/Иллюстрация_без_названия-4 (12).png" id="14_vpr0m"]
+[ext_resource type="Texture2D" uid="uid://0sjbk05v85u" path="res://progress_bar/Иллюстрация_без_названия-5 (6).png" id="15_wqeei"]
+[ext_resource type="Texture2D" uid="uid://bseotmo0g4cpc" path="res://progress_bar/Иллюстрация_без_названия-6 (5).png" id="16_xu5aj"]
+[ext_resource type="Texture2D" uid="uid://lllsiir321kg" path="res://progress_bar/Иллюстрация_без_названия-7 (5).png" id="17_ivy6w"]
+[ext_resource type="Texture2D" uid="uid://bp6hxfkcxowxx" path="res://progress_bar/Иллюстрация_без_названия-8 (5).png" id="18_lcorc"]
+[ext_resource type="Texture2D" uid="uid://db7x678w4ll14" path="res://progress_bar/Иллюстрация_без_названия-9 (3).png" id="19_7mn8w"]
+[ext_resource type="Texture2D" uid="uid://cmaih8t4gn2ph" path="res://progress_bar/Иллюстрация_без_названия-10 (3).png" id="20_db66n"]
+[ext_resource type="Texture2D" uid="uid://dmw0fo845xxrb" path="res://progress_bar/Иллюстрация_без_названия-11 (2).png" id="21_vr38c"]
 
 [sub_resource type="Gradient" id="Gradient_8qtwp"]
 colors = PackedColorArray(0.8687681, 0.8357968, 0.72095555, 0.5882353, 1, 1, 1, 0)
@@ -24,6 +34,77 @@ fill_to = Vector2(0.74786323, 0.34188035)
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_wpy5q"]
 blend_mode = 3
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tuo6l"]
+atlas = ExtResource("13_boc87")
+region = Rect2(0, 0, 144, 119)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fvwt6"]
+atlas = ExtResource("14_vpr0m")
+region = Rect2(0, 0, 144, 119)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dm1vr"]
+atlas = ExtResource("15_wqeei")
+region = Rect2(0, 0, 144, 119)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qdoxp"]
+atlas = ExtResource("16_xu5aj")
+region = Rect2(0, 0, 144, 119)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2l5r3"]
+atlas = ExtResource("17_ivy6w")
+region = Rect2(0, 0, 144, 119)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bgvla"]
+atlas = ExtResource("18_lcorc")
+region = Rect2(0, 0, 144, 119)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hpr40"]
+atlas = ExtResource("19_7mn8w")
+region = Rect2(0, 0, 144, 119)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_btpdf"]
+atlas = ExtResource("20_db66n")
+region = Rect2(0, 0, 144, 119)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rjc1x"]
+atlas = ExtResource("21_vr38c")
+region = Rect2(0, 0, 144, 119)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bhunq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tuo6l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fvwt6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dm1vr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qdoxp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2l5r3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bgvla")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hpr40")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_btpdf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rjc1x")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 10.0
+}]
 
 [node name="LoadingScreen" type="Control" unique_id=1761019944]
 layout_mode = 3
@@ -110,6 +191,47 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0.09953258, 0.0829011, 0.15627083, 1)
 
+[node name="ProgressBarLeft" type="TextureProgressBar" parent="." unique_id=602342151]
+layout_mode = 0
+offset_left = 645.0
+offset_top = 828.0
+offset_right = 995.0
+offset_bottom = 936.0
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+fill_mode = 1
+nine_patch_stretch = true
+stretch_margin_left = 2
+stretch_margin_top = 2
+stretch_margin_right = 2
+stretch_margin_bottom = 2
+texture_under = ExtResource("9_f5yxk")
+texture_progress = ExtResource("10_e21s8")
+
+[node name="ProgressBarRight" type="TextureProgressBar" parent="." unique_id=1976669046]
+layout_mode = 0
+offset_left = 985.0
+offset_top = 828.0
+offset_right = 1335.0
+offset_bottom = 936.0
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+nine_patch_stretch = true
+stretch_margin_left = 2
+stretch_margin_top = 2
+stretch_margin_right = 2
+stretch_margin_bottom = 2
+texture_under = ExtResource("11_8geaq")
+texture_progress = ExtResource("12_guyqc")
+
+[node name="StatusText" type="Label" parent="." unique_id=772250742]
+layout_mode = 0
+offset_left = 646.0
+offset_top = 997.0
+offset_right = 1346.0
+offset_bottom = 1020.0
+size_flags_vertical = 8
+
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=150952888]
 layout_mode = 1
 anchors_preset = 8
@@ -118,28 +240,21 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -350.0
-offset_top = -85.0
+offset_top = 260.0
 offset_right = 350.0
-offset_bottom = 85.0
+offset_bottom = 434.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="StatusText" type="Label" parent="VBoxContainer" unique_id=772250742]
-layout_mode = 2
-
-[node name="ProgressBar" type="TextureProgressBar" parent="VBoxContainer" unique_id=602342151]
-layout_mode = 2
-size_flags_vertical = 3
-size_flags_stretch_ratio = 0.0
-stretch_margin_left = 2
-stretch_margin_top = 2
-stretch_margin_right = 2
-stretch_margin_bottom = 2
-texture_under = ExtResource("9_a0ihe")
-texture_over = ExtResource("10_rgwxq")
-texture_progress = ExtResource("11_he51e")
+[node name="LoadingFrame" type="AnimatedSprite2D" parent="VBoxContainer" unique_id=495868677]
+position = Vector2(350.00003, -142.00002)
+scale = Vector2(5.38813, 5.3881307)
+sprite_frames = SubResource("SpriteFrames_bhunq")
+autoplay = "default"
+frame_progress = 0.13980277
 
 [node name="CancelButton" type="Button" parent="VBoxContainer" unique_id=912144568]
+visible = false
 layout_mode = 2
 size_flags_vertical = 10
 theme_override_fonts/font = ExtResource("12_rgwxq")

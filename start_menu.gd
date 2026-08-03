@@ -5,6 +5,7 @@ extends Control
 var has_saved_worlds = false
 
 # --- УЗЛЫ ИНТЕРФЕЙСА ---
+#@onready var multiplayer = $MenuBox1/Multiplayer
 @onready var start_button = $MenuBox1/StartButton
 @onready var settings_button = $MenuBox2/SettingsButton
 @onready var exit_button = $MenuBox2/ExitButton
@@ -30,7 +31,7 @@ var has_saved_worlds = false
 func _ready():
 	if Global.return_from_loading:
 		# --- МЫ ВЕРНУЛИСЬ ИЗ ЗАГРУЗКИ ---
-		$VBoxContainer.hide() 
+		#$VBoxContainer.hide() 
 		
 		# Плавно показываем меню миров
 		world_selection_menu.modulate = Color(1, 1, 1, 0)
