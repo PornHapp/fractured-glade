@@ -9,8 +9,10 @@
 [ext_resource type="Script" uid="uid://dlbygxe6wvwjk" path="res://firefly.gd" id="6_ppfnh"]
 [ext_resource type="Texture2D" uid="uid://cesu0ailqqccn" path="res://меню/Иллюстрация_без_названия-2 (18).png" id="6_w8w24"]
 [ext_resource type="Texture2D" uid="uid://dxb38uvk3hynr" path="res://фон/IMG_6159-2.png" id="7_7boi2"]
+[ext_resource type="Texture2D" uid="uid://dig3wxqomupqr" path="res://меню/Иллюстрация_без_названия-1 (22).png" id="7_g8l62"]
 [ext_resource type="Texture2D" uid="uid://5dqr236hrv4p" path="res://меню/Иллюстрация_без_названия-3 (15).png" id="8_8w6hp"]
 [ext_resource type="PackedScene" uid="uid://dwbggc3f8xfuq" path="res://canvas_layer.tscn" id="8_pgi0o"]
+[ext_resource type="Texture2D" uid="uid://ce8d6t5rf1f4d" path="res://меню/Иллюстрация_без_названия-2 (22).png" id="8_tb5yr"]
 [ext_resource type="Texture2D" uid="uid://cqujilxj17ocf" path="res://меню/Иллюстрация_без_названия-4 (11).png" id="9_a6nfu"]
 [ext_resource type="AudioStream" uid="uid://bd030fldl6s18" path="res://Музыка/Звуки/liecio-menu_beep_short_wood-533772.mp3" id="9_jxkec"]
 [ext_resource type="Shader" uid="uid://bxgwlq4m68kx8" path="res://canvas_layer.gdshader" id="10_4tuia"]
@@ -43,6 +45,16 @@ default_font = ExtResource("6_g3efl")
 shader = ExtResource("2_v2mkm")
 shader_parameter/dark_texture = ExtResource("1_vpdu5")
 shader_parameter/transition_progress = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g8l62"]
+shader = ExtResource("2_v2mkm")
+shader_parameter/transition_progress = 0.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jyycw"]
+texture = ExtResource("7_g8l62")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_c0dwe"]
+texture = ExtResource("8_tb5yr")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7boi2"]
 shader = ExtResource("5_ctwoq")
@@ -372,6 +384,7 @@ grow_vertical = 2
 texture = ExtResource("3_ctwoq")
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=405682722]
+material = SubResource("ShaderMaterial_g8l62")
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -385,10 +398,20 @@ grow_horizontal = 2
 grow_vertical = 0
 texture = ExtResource("6_w8w24")
 
+[node name="Flower" type="Button" parent="." unique_id=189548907]
+layout_mode = 0
+offset_left = 956.0
+offset_top = 871.0
+offset_right = 1030.0
+offset_bottom = 1017.0
+theme_override_styles/normal = SubResource("StyleBoxTexture_jyycw")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_c0dwe")
+theme_override_styles/hover = SubResource("StyleBoxTexture_c0dwe")
+
 [node name="MenuBox1" type="VBoxContainer" parent="." unique_id=1289614574]
 material = SubResource("ShaderMaterial_7boi2")
 layout_mode = 0
-offset_left = 797.0
+offset_left = 777.0
 offset_top = 899.0
 offset_right = 946.0
 offset_bottom = 1023.0
@@ -398,6 +421,7 @@ custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("StyleBoxTexture_bhunq")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_riqys")
 theme_override_styles/hover = SubResource("StyleBoxTexture_riqys")
 text = "menu_multiplayer"
 
@@ -417,6 +441,7 @@ layout_mode = 2
 theme_override_fonts/font = ExtResource("6_g3efl")
 theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("StyleBoxTexture_sn0t7")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_6f8o3")
 theme_override_styles/hover = SubResource("StyleBoxTexture_6f8o3")
 text = "menu_start_game"
 
@@ -430,7 +455,7 @@ process_material = SubResource("ParticleProcessMaterial_pgi0o")
 layout_mode = 0
 offset_left = 1043.0
 offset_top = 899.0
-offset_right = 1192.0
+offset_right = 1212.0
 offset_bottom = 1023.0
 
 [node name="SettingsButton" type="Button" parent="MenuBox2" unique_id=1300535835]
@@ -439,6 +464,7 @@ layout_mode = 2
 theme_override_fonts/font = ExtResource("6_g3efl")
 theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("StyleBoxTexture_qr0ht")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_1esiv")
 theme_override_styles/hover = SubResource("StyleBoxTexture_1esiv")
 text = "menu_settings"
 
@@ -458,6 +484,7 @@ layout_mode = 2
 theme_override_fonts/font = ExtResource("6_g3efl")
 theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("StyleBoxTexture_2r0jt")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_xvofd")
 theme_override_styles/hover = SubResource("StyleBoxTexture_xvofd")
 text = "menu_exit"
 
