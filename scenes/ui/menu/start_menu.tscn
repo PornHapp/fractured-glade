@@ -60,14 +60,18 @@ glow_enabled = true
 glow_levels/3 = 6.74
 glow_levels/5 = 5.36
 glow_levels/7 = 11.4
-glow_strength = 1.8
+glow_intensity = 0.09
+glow_strength = 1.58
 glow_blend_mode = 0
-glow_hdr_threshold = 0.55
-glow_hdr_scale = 2.62
+glow_hdr_threshold = 0.58
+glow_hdr_scale = 2.65
+glow_hdr_luminance_cap = 32.06
+glow_map_strength = 1.0
 fog_depth_curve = 0.0043342616
 adjustment_enabled = true
-adjustment_contrast = 1.115
-adjustment_saturation = 1.06
+adjustment_brightness = 0.8
+adjustment_contrast = 1.145
+adjustment_saturation = 1.05
 
 [sub_resource type="Shader" id="Shader_g8l62"]
 code = "shader_type canvas_item;
