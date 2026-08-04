@@ -5,20 +5,25 @@
 [ext_resource type="Shader" uid="uid://c6qqccnp5n37r" path="res://new_shader.gdshader" id="2_v2mkm"]
 [ext_resource type="Texture2D" uid="uid://cqi40pwkpyrmc" path="res://меню/ChatGPT Image 26 июн. 2026 г., 21_23_04 (1).png" id="3_ctwoq"]
 [ext_resource type="Shader" uid="uid://8aw6v2kx8er5" path="res://start_menu.gdshader" id="5_ctwoq"]
+[ext_resource type="Script" uid="uid://chmpwdrbpydip" path="res://creepy_eyes.gd" id="6_anp0p"]
 [ext_resource type="FontFile" uid="uid://boa4mv17gvh6u" path="res://Шрифты/Izax SHA_0.otf" id="6_g3efl"]
 [ext_resource type="Script" uid="uid://dlbygxe6wvwjk" path="res://firefly.gd" id="6_ppfnh"]
 [ext_resource type="Texture2D" uid="uid://cesu0ailqqccn" path="res://меню/Иллюстрация_без_названия-2 (18).png" id="6_w8w24"]
 [ext_resource type="Texture2D" uid="uid://dxb38uvk3hynr" path="res://фон/IMG_6159-2.png" id="7_7boi2"]
 [ext_resource type="Texture2D" uid="uid://dig3wxqomupqr" path="res://меню/Иллюстрация_без_названия-1 (22).png" id="7_g8l62"]
+[ext_resource type="Texture2D" uid="uid://c0fyapxuj7gu8" path="res://меню/Иллюстрация_без_названия-1 (25).png" id="7_np4tr"]
 [ext_resource type="Texture2D" uid="uid://5dqr236hrv4p" path="res://меню/Иллюстрация_без_названия-3 (15).png" id="8_8w6hp"]
+[ext_resource type="Texture2D" uid="uid://y40xglnmgece" path="res://меню/Иллюстрация_без_названия-2 (25).png" id="8_407wv"]
 [ext_resource type="PackedScene" uid="uid://dwbggc3f8xfuq" path="res://canvas_layer.tscn" id="8_pgi0o"]
 [ext_resource type="Texture2D" uid="uid://ce8d6t5rf1f4d" path="res://меню/Иллюстрация_без_названия-2 (22).png" id="8_tb5yr"]
 [ext_resource type="Texture2D" uid="uid://cqujilxj17ocf" path="res://меню/Иллюстрация_без_названия-4 (11).png" id="9_a6nfu"]
 [ext_resource type="AudioStream" uid="uid://bd030fldl6s18" path="res://Музыка/Звуки/liecio-menu_beep_short_wood-533772.mp3" id="9_jxkec"]
+[ext_resource type="Texture2D" uid="uid://coglont2usgl7" path="res://меню/Иллюстрация_без_названия-3 (18).png" id="9_x32t5"]
 [ext_resource type="Shader" uid="uid://bxgwlq4m68kx8" path="res://canvas_layer.gdshader" id="10_4tuia"]
 [ext_resource type="Texture2D" uid="uid://bou6yltncx8xc" path="res://меню/Иллюстрация_без_названия-4 (10).png" id="10_g8l62"]
 [ext_resource type="Script" uid="uid://d1xp7qeq8riyq" path="res://character_menu.gd" id="10_j1xkj"]
 [ext_resource type="AudioStream" uid="uid://bheu8efgcm4wf" path="res://Музыка/Звуки/universfield-click-button-140881 (1).mp3" id="10_ld0yp"]
+[ext_resource type="Texture2D" uid="uid://c8qsuvbqwip56" path="res://меню/Иллюстрация_без_названия-4 (13).png" id="10_r7qev"]
 [ext_resource type="Script" uid="uid://cubldoibw6bmy" path="res://world_menu.gd" id="11_2beny"]
 [ext_resource type="Texture2D" uid="uid://cmttt2avoil8m" path="res://меню/Иллюстрация_без_названия-3 (16).png" id="11_tb5yr"]
 [ext_resource type="AudioStream" uid="uid://bundq1ujfwhk0" path="res://Музыка/Звуки/studiokolomna-glitch-sound-fx-pack-07-118239.mp3" id="11_w8jvl"]
@@ -45,6 +50,24 @@ default_font = ExtResource("6_g3efl")
 shader = ExtResource("2_v2mkm")
 shader_parameter/dark_texture = ExtResource("1_vpdu5")
 shader_parameter/transition_progress = 0.0
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_anp0p"]
+blend_mode = 1
+
+[sub_resource type="Environment" id="Environment_bhunq"]
+background_mode = 3
+glow_enabled = true
+glow_levels/3 = 6.74
+glow_levels/5 = 5.36
+glow_levels/7 = 11.4
+glow_strength = 1.8
+glow_blend_mode = 0
+glow_hdr_threshold = 0.55
+glow_hdr_scale = 2.62
+fog_depth_curve = 0.0043342616
+adjustment_enabled = true
+adjustment_contrast = 1.115
+adjustment_saturation = 1.06
 
 [sub_resource type="Shader" id="Shader_g8l62"]
 code = "shader_type canvas_item;
@@ -428,6 +451,200 @@ offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_ctwoq")
+
+[node name="CreepyEyes" type="Control" parent="LightBackground" unique_id=57903550]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("6_anp0p")
+
+[node name="Eye1" type="TextureRect" parent="LightBackground/CreepyEyes" unique_id=1750878233]
+modulate = Color(18.892157, 0, 0, 1)
+material = SubResource("CanvasItemMaterial_anp0p")
+layout_mode = 0
+offset_left = 847.6476
+offset_top = 276.27097
+offset_right = 894.44586
+offset_bottom = 290.39874
+rotation = -0.13440429
+texture = ExtResource("7_np4tr")
+
+[node name="Eye9" type="TextureRect" parent="LightBackground/CreepyEyes" unique_id=1975397349]
+modulate = Color(18.892157, 0, 0, 1)
+material = SubResource("CanvasItemMaterial_anp0p")
+layout_mode = 0
+offset_left = 1561.5017
+offset_top = 590.102
+offset_right = 1608.3
+offset_bottom = 604.2298
+rotation = -0.13440429
+texture = ExtResource("7_np4tr")
+
+[node name="Eye8" type="TextureRect" parent="LightBackground/CreepyEyes" unique_id=1187978002]
+modulate = Color(18.892157, 0, 0, 1)
+material = SubResource("CanvasItemMaterial_anp0p")
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 0
+offset_left = 1048.5017
+offset_top = 430.102
+offset_right = 1101.5017
+offset_bottom = 446.102
+rotation = -0.062016003
+texture = ExtResource("7_np4tr")
+
+[node name="Eye10" type="TextureRect" parent="LightBackground/CreepyEyes" unique_id=155996839]
+modulate = Color(18.892157, 0, 0, 1)
+material = SubResource("CanvasItemMaterial_anp0p")
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 0
+offset_left = 536.5018
+offset_top = 740.102
+offset_right = 589.5018
+offset_bottom = 756.102
+rotation = -0.062016003
+texture = ExtResource("7_np4tr")
+
+[node name="Eye2" type="TextureRect" parent="LightBackground/CreepyEyes" unique_id=1467246105]
+modulate = Color(18.892157, 0, 0, 1)
+material = SubResource("CanvasItemMaterial_anp0p")
+layout_mode = 0
+offset_left = 658.10175
+offset_top = 461.102
+offset_right = 722.5018
+offset_bottom = 475.102
+texture = ExtResource("8_407wv")
+
+[node name="Eye11" type="TextureRect" parent="LightBackground/CreepyEyes" unique_id=96003850]
+modulate = Color(18.892157, 0, 0, 1)
+material = SubResource("CanvasItemMaterial_anp0p")
+layout_mode = 0
+offset_left = 1308.5017
+offset_top = 281.102
+offset_right = 1372.9017
+offset_bottom = 295.102
+texture = ExtResource("8_407wv")
+
+[node name="Eye7" type="TextureRect" parent="LightBackground/CreepyEyes" unique_id=1299327254]
+modulate = Color(18.892157, 0, 0, 1)
+material = SubResource("CanvasItemMaterial_anp0p")
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 0
+offset_left = 1411.5017
+offset_top = 667.102
+offset_right = 1457.5017
+offset_bottom = 677.102
+texture = ExtResource("8_407wv")
+
+[node name="Eye12" type="TextureRect" parent="LightBackground/CreepyEyes" unique_id=786643460]
+modulate = Color(18.892157, 0, 0, 1)
+material = SubResource("CanvasItemMaterial_anp0p")
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 0
+offset_left = 531.5018
+offset_top = 383.102
+offset_right = 577.5018
+offset_bottom = 393.102
+texture = ExtResource("8_407wv")
+
+[node name="Eye3" type="TextureRect" parent="LightBackground/CreepyEyes" unique_id=2001862334]
+modulate = Color(18.892157, 0, 0, 1)
+material = SubResource("CanvasItemMaterial_anp0p")
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 0
+offset_left = 503.50177
+offset_top = 604.102
+offset_right = 549.5018
+offset_bottom = 614.102
+rotation = 0.050197683
+texture = ExtResource("9_x32t5")
+
+[node name="Eye13" type="TextureRect" parent="LightBackground/CreepyEyes" unique_id=1110684320]
+modulate = Color(18.892157, 0, 0, 1)
+material = SubResource("CanvasItemMaterial_anp0p")
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 0
+offset_left = 1139.5017
+offset_top = 296.102
+offset_right = 1185.5017
+offset_bottom = 306.102
+rotation = 0.050197683
+texture = ExtResource("9_x32t5")
+
+[node name="Eye6" type="TextureRect" parent="LightBackground/CreepyEyes" unique_id=203107327]
+modulate = Color(18.892157, 0, 0, 1)
+material = SubResource("CanvasItemMaterial_anp0p")
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 0
+offset_left = 1395.5017
+offset_top = 393.102
+offset_right = 1441.5017
+offset_bottom = 403.102
+texture = ExtResource("9_x32t5")
+
+[node name="Eye14" type="TextureRect" parent="LightBackground/CreepyEyes" unique_id=1743845985]
+modulate = Color(18.892157, 0, 0, 1)
+material = SubResource("CanvasItemMaterial_anp0p")
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 0
+offset_left = 1090.5017
+offset_top = 746.102
+offset_right = 1136.5017
+offset_bottom = 756.102
+texture = ExtResource("9_x32t5")
+
+[node name="Eye4" type="TextureRect" parent="LightBackground/CreepyEyes" unique_id=1692186053]
+modulate = Color(18.892157, 0, 0, 1)
+material = SubResource("CanvasItemMaterial_anp0p")
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 0
+offset_left = 841.5018
+offset_top = 724.102
+offset_right = 894.5018
+offset_bottom = 742.102
+rotation = 0.12700799
+texture = ExtResource("10_r7qev")
+
+[node name="Eye15" type="TextureRect" parent="LightBackground/CreepyEyes" unique_id=1283973999]
+modulate = Color(18.892157, 0, 0, 1)
+material = SubResource("CanvasItemMaterial_anp0p")
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 0
+offset_left = 772.5018
+offset_top = 547.102
+offset_right = 825.5018
+offset_bottom = 565.102
+rotation = 0.12700799
+texture = ExtResource("10_r7qev")
+
+[node name="Eye5" type="TextureRect" parent="LightBackground/CreepyEyes" unique_id=608797350]
+modulate = Color(18.892157, 0, 0, 1)
+material = SubResource("CanvasItemMaterial_anp0p")
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 0
+offset_left = 1204.4006
+offset_top = 533.14557
+offset_right = 1254.4006
+offset_bottom = 549.0995
+rotation = 0.049410027
+texture = ExtResource("10_r7qev")
+
+[node name="Eye16" type="TextureRect" parent="LightBackground/CreepyEyes" unique_id=1200448330]
+modulate = Color(18.892157, 0, 0, 1)
+material = SubResource("CanvasItemMaterial_anp0p")
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 0
+offset_left = 978.5018
+offset_top = 607.10205
+offset_right = 1028.5017
+offset_bottom = 623.05597
+rotation = 0.049410027
+texture = ExtResource("10_r7qev")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="LightBackground/CreepyEyes" unique_id=2109196051]
+environment = SubResource("Environment_bhunq")
 
 [node name="MenuPicture" type="TextureRect" parent="." unique_id=405682722]
 material = SubResource("ShaderMaterial_g8l62")

@@ -59,6 +59,25 @@ fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.74786323, 0.34188035)
 
+[sub_resource type="Environment" id="Environment_j5v2v"]
+background_mode = 3
+glow_enabled = true
+glow_levels/3 = 6.74
+glow_levels/5 = 5.36
+glow_levels/7 = 11.4
+glow_intensity = 1.38
+glow_strength = 1.09
+glow_blend_mode = 0
+glow_hdr_threshold = 0.55
+glow_hdr_scale = 4.0
+glow_hdr_luminance_cap = 2.32
+glow_map_strength = 0.0
+fog_depth_curve = 0.0043342616
+adjustment_enabled = true
+adjustment_brightness = 1.04
+adjustment_contrast = 1.265
+adjustment_saturation = -0.64
+
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_g8g3n"]
 blend_mode = 3
 
@@ -181,6 +200,9 @@ position = Vector2(-1.5258789e-05, -1)
 scale = Vector2(5.0156245, 5.0156245)
 texture = SubResource("GradientTexture2D_dy7ct")
 texture_scale = 3.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Sun" unique_id=641705006]
+environment = SubResource("Environment_j5v2v")
 
 [node name="Moon" type="Sprite2D" parent="." unique_id=1412030649]
 position = Vector2(990, 395)
