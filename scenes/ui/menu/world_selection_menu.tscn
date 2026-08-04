@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cq1wlr61narvb"]
 
 [ext_resource type="Script" uid="uid://u4gggi73cdxl" path="res://scripts/ui/menu/world_selection_menu.gd" id="1_fqgu0"]
-[ext_resource type="Shader" uid="uid://bxgwlq4m68kx8" path="res://canvas_layer.gdshader" id="2_86iut"]
+[ext_resource type="Shader" uid="uid://bxgwlq4m68kx8" path="res://shaders/ui/glass.gdshader" id="2_86iut"]
 [ext_resource type="FontFile" uid="uid://boa4mv17gvh6u" path="res://assets/fonts/izax_sha_0.otf" id="3_pwjwc"]
 
 

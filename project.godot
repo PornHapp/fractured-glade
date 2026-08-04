@@ -41,6 +41,7 @@ folder_colors={
 "res://docs/": "gray",
 "res://scenes/": "orange",
 "res://scripts/": "yellow",
+"res://shaders/": "purple",
 "res://world/Biomes/DarkForest/": "blue"
 }
 
