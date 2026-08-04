@@ -41,8 +41,7 @@ folder_colors={
 "res://scripts/": "yellow",
 "res://world/": "purple",
 "res://world/Biomes/DarkForest/": "blue",
-"res://world/Biomes/Forest/": "blue",
-"res://Музыка/": "green"
+"res://world/Biomes/Forest/": "blue"
 }
 
 [input]
