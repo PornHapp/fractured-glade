@@ -7,7 +7,7 @@
 [ext_resource type="Shader" uid="uid://8aw6v2kx8er5" path="res://shaders/ui/start_menu.gdshader" id="5_ctwoq"]
 [ext_resource type="Script" uid="uid://chmpwdrbpydip" path="res://scripts/ui/menu/creepy_eyes.gd" id="6_anp0p"]
 [ext_resource type="FontFile" uid="uid://boa4mv17gvh6u" path="res://assets/fonts/izax_sha_0.otf" id="6_g3efl"]
-[ext_resource type="Shader" uid="uid://cu6s8stwsfq7a" path="res://scenes/ui/menu/creepy_eyes.gdshader" id="6_kp5rx"]
+[ext_resource type="Shader" uid="uid://cu6s8stwsfq7a" path="res://shaders/ui/creepy_eyes.gdshader" id="6_kp5rx"]
 [ext_resource type="Script" uid="uid://dlbygxe6wvwjk" path="res://scripts/ui/menu/firefly.gd" id="6_ppfnh"]
 [ext_resource type="Texture2D" uid="uid://cesu0ailqqccn" path="res://assets/textures/ui/menu/start_menu_main.png" id="6_w8w24"]
 [ext_resource type="Texture2D" uid="uid://dxb38uvk3hynr" path="res://assets/textures/ui/pre_menu_background/sun.png" id="7_7boi2"]
