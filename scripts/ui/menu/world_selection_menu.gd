@@ -6,7 +6,7 @@ extends Control
 @onready var worlds_list = $CenterGlassMenu/MarginContainer/ScrollContainer/WorldsList
 
 # ЗАГРУЖАЕМ ШАБЛОН КНОПКИ
-var world_button_scene = preload("res://world_slot_button.tscn")
+var world_button_scene = preload("res://scenes/ui/menu/world_slot_button.tscn")
 
 func _ready():
 	load_saved_worlds() # Это твой сканер, он уже тут есть

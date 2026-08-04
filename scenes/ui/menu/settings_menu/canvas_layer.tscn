@@ -1,12 +1,11 @@
 [gd_scene format=3 uid="uid://dwbggc3f8xfuq"]
 
-[ext_resource type="Script" uid="uid://diq7ffwir6k6h" path="res://scripts/ui/menu/settings_menu.gd" id="1_v2lfg"]
+[ext_resource type="Script" uid="uid://diq7ffwir6k6h" path="res://scripts/ui/menu/settings_menu/settings_menu.gd" id="1_v2lfg"]
 [ext_resource type="Shader" uid="uid://bxgwlq4m68kx8" path="res://canvas_layer.gdshader" id="2_tg4cr"]
-[ext_resource type="Script" uid="uid://52dehvcqtnhe" path="res://rebind_button.gd" id="3_37rai"]
+[ext_resource type="Script" uid="uid://52dehvcqtnhe" path="res://scripts/ui/menu/settings_menu/rebind_button.gd" id="3_37rai"]
 [ext_resource type="FontFile" uid="uid://boa4mv17gvh6u" path="res://assets/fonts/Izax SHA_0.otf" id="3_w4oxd"]
 [ext_resource type="AudioStream" uid="uid://bd030fldl6s18" path="res://assets/audio/sfx/liecio-menu_beep_short_wood-533772.mp3" id="4_mx0kw"]
 [ext_resource type="AudioStream" uid="uid://bheu8efgcm4wf" path="res://assets/audio/sfx/universfield-click-button-140881 (1).mp3" id="5_w4oxd"]
-
 
 [sub_resource type="Theme" id="Theme_w4oxd"]
 default_font = ExtResource("3_w4oxd")

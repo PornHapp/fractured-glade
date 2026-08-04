@@ -1,12 +1,11 @@
 [gd_scene format=3 uid="uid://chtwpdwkqgcd"]
 
-[ext_resource type="Script" uid="uid://dsj4jthtu370a" path="res://world_slot_button.gd" id="1_l74wn"]
-[ext_resource type="Texture2D" uid="uid://ci1fgclur7po7" path="res://assets/textures/ui/menu/free-icon-skull-556209.png" id="1_yrdhy"]
-[ext_resource type="Texture2D" uid="uid://dbgiie43u1k7u" path="res://assets/textures/ui/menu/Ikon2.png" id="2_l74wn"]
-[ext_resource type="FontFile" uid="uid://boa4mv17gvh6u" path="res://assets/fonts/Izax SHA_0.otf" id="3_3notj"]
-[ext_resource type="AudioStream" uid="uid://bd030fldl6s18" path="res://assets/audio/sfx/liecio-menu_beep_short_wood-533772.mp3" id="4_h7w80"]
-[ext_resource type="AudioStream" uid="uid://bheu8efgcm4wf" path="res://assets/audio/sfx/universfield-click-button-140881 (1).mp3" id="5_3notj"]
-
+[ext_resource type="Script" uid="uid://dsj4jthtu370a" path="res://scripts/ui/menu/world_slot_button.gd" id="1_i0cah"]
+[ext_resource type="Texture2D" uid="uid://ci1fgclur7po7" path="res://assets/textures/ui/menu/free-icon-skull-556209.png" id="2_fnoep"]
+[ext_resource type="FontFile" uid="uid://boa4mv17gvh6u" path="res://assets/fonts/Izax SHA_0.otf" id="3_pjehh"]
+[ext_resource type="Texture2D" uid="uid://dbgiie43u1k7u" path="res://assets/textures/ui/menu/Ikon2.png" id="4_2ahuf"]
+[ext_resource type="AudioStream" uid="uid://bd030fldl6s18" path="res://assets/audio/sfx/liecio-menu_beep_short_wood-533772.mp3" id="5_c7jhb"]
+[ext_resource type="AudioStream" uid="uid://bheu8efgcm4wf" path="res://assets/audio/sfx/universfield-click-button-140881 (1).mp3" id="6_wep0c"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tvyfg"]
 bg_color = Color(0.1254902, 0.10980392, 0.2509804, 0.7058824)
@@ -132,7 +131,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_tvyfg")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_h7w80")
 theme_override_styles/hover = SubResource("StyleBoxFlat_h7w80")
 theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_3notj")
-script = ExtResource("1_l74wn")
+script = ExtResource("1_i0cah")
 
 [node name="BgPanel" type="Panel" parent="." unique_id=56950255]
 custom_minimum_size = Vector2(120, 120)
@@ -164,7 +163,7 @@ custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 size_flags_horizontal = 0
 mouse_filter = 2
-texture = ExtResource("1_yrdhy")
+texture = ExtResource("2_fnoep")
 expand_mode = 2
 
 [node name="TextColumn" type="VBoxContainer" parent="MarginContainer/MainRow" unique_id=922301238]
@@ -183,7 +182,7 @@ custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
-theme_override_fonts/font = ExtResource("3_3notj")
+theme_override_fonts/font = ExtResource("3_pjehh")
 theme_override_font_sizes/font_size = 25
 theme_override_styles/normal = SubResource("StyleBoxFlat_8ab7d")
 text = "Хард"
@@ -195,7 +194,7 @@ custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
-theme_override_fonts/font = ExtResource("3_3notj")
+theme_override_fonts/font = ExtResource("3_pjehh")
 theme_override_font_sizes/font_size = 25
 theme_override_styles/normal = SubResource("StyleBoxFlat_8ab7d")
 text = "Средний"
@@ -209,7 +208,7 @@ mouse_filter = 2
 [node name="WorldName" type="Label" parent="MarginContainer/MainRow/TextColumn/HBoxContainer" unique_id=1511873235]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.9786014, 0.64445776, 0, 1)
-theme_override_fonts/font = ExtResource("3_3notj")
+theme_override_fonts/font = ExtResource("3_pjehh")
 theme_override_font_sizes/font_size = 25
 text = "Мой крутой мир"
 
@@ -221,19 +220,19 @@ mouse_filter = 2
 [node name="CharacterName" type="Label" parent="MarginContainer/MainRow/TextColumn/HBoxContainer" unique_id=280622921]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.5033745, 0.5033746, 0.5033746, 1)
-theme_override_fonts/font = ExtResource("3_3notj")
+theme_override_fonts/font = ExtResource("3_pjehh")
 theme_override_font_sizes/font_size = 25
 text = "Персонааж: Melissa"
 
 [node name="Spacer" type="Control" parent="MarginContainer/MainRow" unique_id=2001904968]
-layout_direction = 1
 layout_mode = 2
 size_flags_horizontal = 3
+layout_direction = 1
 mouse_filter = 2
 
 [node name="DateLabel" type="Label" parent="MarginContainer/MainRow" unique_id=103911859]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("3_3notj")
+theme_override_fonts/font = ExtResource("3_pjehh")
 theme_override_font_sizes/font_size = 25
 text = "02.07.2026"
 
@@ -241,7 +240,7 @@ text = "02.07.2026"
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 mouse_filter = 2
-texture = ExtResource("2_l74wn")
+texture = ExtResource("4_2ahuf")
 expand_mode = 2
 
 [node name="ActionButtons" type="VBoxContainer" parent="MarginContainer/MainRow" unique_id=2047163866]
@@ -252,7 +251,7 @@ mouse_filter = 2
 [node name="PinButton" type="Button" parent="MarginContainer/MainRow/ActionButtons" unique_id=758892698]
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
-theme_override_fonts/font = ExtResource("3_3notj")
+theme_override_fonts/font = ExtResource("3_pjehh")
 theme_override_font_sizes/font_size = 25
 text = "*"
 flat = true
@@ -261,7 +260,7 @@ expand_icon = true
 [node name="DeleteButton" type="Button" parent="MarginContainer/MainRow/ActionButtons" unique_id=1405063157]
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
-theme_override_fonts/font = ExtResource("3_3notj")
+theme_override_fonts/font = ExtResource("3_pjehh")
 theme_override_font_sizes/font_size = 25
 text = "<>"
 flat = true
@@ -299,7 +298,7 @@ offset_bottom = 17.981995
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-theme_override_fonts/normal_font = ExtResource("3_3notj")
+theme_override_fonts/normal_font = ExtResource("3_pjehh")
 theme_override_font_sizes/normal_font_size = 25
 theme_override_styles/normal = SubResource("StyleBoxFlat_114uy")
 bbcode_enabled = true
@@ -319,7 +318,7 @@ grow_horizontal = 2
 grow_vertical = 2
 focus_mode = 0
 mouse_filter = 2
-theme_override_fonts/font = ExtResource("3_3notj")
+theme_override_fonts/font = ExtResource("3_pjehh")
 theme_override_font_sizes/font_size = 25
 theme_override_styles/normal = SubResource("StyleBoxFlat_pwjwc")
 theme_override_styles/hover = SubResource("StyleBoxFlat_b8p7q")
@@ -327,11 +326,11 @@ theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_86iut")
 text = "V"
 
 [node name="HoverSound" type="AudioStreamPlayer" parent="." unique_id=1859737778]
-stream = ExtResource("4_h7w80")
+stream = ExtResource("5_c7jhb")
 bus = &"SFX"
 
 [node name="ClickSound" type="AudioStreamPlayer" parent="." unique_id=1037720658]
-stream = ExtResource("5_3notj")
+stream = ExtResource("6_wep0c")
 bus = &"SFX"
 
 [connection signal="pressed" from="MarginContainer/MainRow/ActionButtons/PinButton" to="." method="_on_pin_button_pressed"]
