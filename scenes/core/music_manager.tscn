@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://cdyggf3wxdphf"]
 
-[ext_resource type="AudioStream" uid="uid://x7d6kcacldyx" path="res://assets/audio/music/chase9602-the-wind-awakening-memories-of-the-forest-468155.mp3" id="1_tylfe"]
-
+[ext_resource type="AudioStream" uid="uid://x7d6kcacldyx" path="res://assets/audio/music/main_menu_ost.mp3" id="1_tylfe"]
 
 [node name="MusicManager" type="Node2D" unique_id=1363576646]
 

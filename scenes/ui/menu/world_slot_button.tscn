@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" uid="uid://dsj4jthtu370a" path="res://scripts/ui/menu/world_slot_button.gd" id="1_i0cah"]
 [ext_resource type="Texture2D" uid="uid://ci1fgclur7po7" path="res://assets/textures/ui/menu/free-icon-skull-556209.png" id="2_fnoep"]
-[ext_resource type="FontFile" uid="uid://boa4mv17gvh6u" path="res://assets/fonts/Izax SHA_0.otf" id="3_pjehh"]
+[ext_resource type="FontFile" uid="uid://boa4mv17gvh6u" path="res://assets/fonts/izax_sha_0.otf" id="3_pjehh"]
 [ext_resource type="Texture2D" uid="uid://dbgiie43u1k7u" path="res://assets/textures/ui/menu/Ikon2.png" id="4_2ahuf"]
-[ext_resource type="AudioStream" uid="uid://bd030fldl6s18" path="res://assets/audio/sfx/liecio-menu_beep_short_wood-533772.mp3" id="5_c7jhb"]
-[ext_resource type="AudioStream" uid="uid://bheu8efgcm4wf" path="res://assets/audio/sfx/universfield-click-button-140881 (1).mp3" id="6_wep0c"]
+[ext_resource type="AudioStream" uid="uid://bd030fldl6s18" path="res://assets/audio/sfx/TEST_button_hover.mp3" id="5_c7jhb"]
+[ext_resource type="AudioStream" uid="uid://bheu8efgcm4wf" path="res://assets/audio/sfx/TEST_button_click_02.mp3" id="6_wep0c"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tvyfg"]
 bg_color = Color(0.1254902, 0.10980392, 0.2509804, 0.7058824)
