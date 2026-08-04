@@ -1,11 +1,12 @@
 [gd_scene format=3 uid="uid://chtwpdwkqgcd"]
 
 [ext_resource type="Script" uid="uid://dsj4jthtu370a" path="res://world_slot_button.gd" id="1_l74wn"]
-[ext_resource type="Texture2D" uid="uid://ci1fgclur7po7" path="res://меню/free-icon-skull-556209.png" id="1_yrdhy"]
-[ext_resource type="Texture2D" uid="uid://dbgiie43u1k7u" path="res://меню/Ikon2.png" id="2_l74wn"]
-[ext_resource type="FontFile" uid="uid://boa4mv17gvh6u" path="res://Шрифты/Izax SHA_0.otf" id="3_3notj"]
+[ext_resource type="Texture2D" uid="uid://ci1fgclur7po7" path="res://assets/textures/ui/menu/free-icon-skull-556209.png" id="1_yrdhy"]
+[ext_resource type="Texture2D" uid="uid://dbgiie43u1k7u" path="res://assets/textures/ui/menu/Ikon2.png" id="2_l74wn"]
+[ext_resource type="FontFile" uid="uid://boa4mv17gvh6u" path="res://assets/fonts/Izax SHA_0.otf" id="3_3notj"]
 [ext_resource type="AudioStream" uid="uid://bd030fldl6s18" path="res://Музыка/Звуки/liecio-menu_beep_short_wood-533772.mp3" id="4_h7w80"]
 [ext_resource type="AudioStream" uid="uid://bheu8efgcm4wf" path="res://Музыка/Звуки/universfield-click-button-140881 (1).mp3" id="5_3notj"]
+
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tvyfg"]
 bg_color = Color(0.1254902, 0.10980392, 0.2509804, 0.7058824)

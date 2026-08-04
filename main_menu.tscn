@@ -11,7 +11,8 @@
 [ext_resource type="Texture2D" uid="uid://bx1fe51ovko1l" path="res://фон/forest_short.png" id="7_w44g7"]
 [ext_resource type="Texture2D" uid="uid://c2g6e6nl5d7fd" path="res://фон/IMG_6158.png" id="8_cm266"]
 [ext_resource type="Shader" uid="uid://b2kftrj1frfjg" path="res://main_menu.gdshader" id="9_0o4t1"]
-[ext_resource type="FontFile" uid="uid://boa4mv17gvh6u" path="res://Шрифты/Izax SHA_0.otf" id="11_0k4wn"]
+[ext_resource type="FontFile" uid="uid://boa4mv17gvh6u" path="res://assets/fonts/Izax SHA_0.otf" id="11_0k4wn"]
+
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_iotk1"]
 shader = ExtResource("3_j5v2v")

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dh0ct1fldnoig"
-path="res://.godot/imported/rock_ore_l.png-b60c13f6de0f3c9f26086eced19144dd.ctex"
+path="res://.godot/imported/rock_ore_l.png-cf5676ef8f0416a32790361e35ada4cf.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://World/Ores/rock_ore_l.png"
-dest_files=["res://.godot/imported/rock_ore_l.png-b60c13f6de0f3c9f26086eced19144dd.ctex"]
+source_file="res://world/Ores/rock_ore_l.png"
+dest_files=["res://.godot/imported/rock_ore_l.png-cf5676ef8f0416a32790361e35ada4cf.ctex"]
 
 [params]
 

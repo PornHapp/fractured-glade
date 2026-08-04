@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://0jythamawdqf"
-path="res://.godot/imported/green_ore_m.png-2830658aece3e2caae9472f331c37a11.ctex"
+path="res://.godot/imported/green_ore_m.png-9d428f45e9f7ece95ca5fe076b6611d3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://World/Ores/green_ore_m.png"
-dest_files=["res://.godot/imported/green_ore_m.png-2830658aece3e2caae9472f331c37a11.ctex"]
+source_file="res://world/Ores/green_ore_m.png"
+dest_files=["res://.godot/imported/green_ore_m.png-9d428f45e9f7ece95ca5fe076b6611d3.ctex"]
 
 [params]
 

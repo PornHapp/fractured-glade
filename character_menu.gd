@@ -365,7 +365,7 @@ func _update_character_ui():
 func _update_character_image():
 	var prefix = races_data[current_race_index]["file_prefix"]
 	var suffix = "_m.png" if is_male else "_f.png"
-	var image_path = "res://characters/" + prefix + suffix
+	var image_path = "res://assets/textures/player/" + prefix + suffix
 	if ResourceLoader.exists(image_path):
 		char_image.texture = load(image_path)
 

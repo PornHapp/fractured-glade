@@ -36,19 +36,22 @@ func _ready():
 	# Подключаем нажатия (сразу показываем описание, меняем картинку и ЗАПОМИНАЕМ выбор)
 	normal_diff.pressed.connect(func(): 
 		_show_description("desc_diff_normal")
-		_change_map_icon("res://меню/Ikon1.png")
+		# TODO(Polina): ИЗБАВИТЬСЯ ОТ ХАРДКОДА: `res://assets/textures/ui/menu/Ikon1.png`
+		_change_map_icon("res://assets/textures/ui/menu/Ikon1.png")
 		selected_difficulty = "diff_normal"
 	)
 	
 	hard_diff.pressed.connect(func(): 
 		_show_description("desc_diff_hard")
-		_change_map_icon("res://меню/Ikon2.png")
+		# TODO(Polina): ИЗБАВИТЬСЯ ОТ ХАРДКОДА: `res://assets/textures/ui/menu/Ikon2.png`
+		_change_map_icon("res://assets/textures/ui/menu/Ikon2.png")
 		selected_difficulty = "diff_hard"
 	)
 	
 	expert_diff.pressed.connect(func(): 
 		_show_description("desc_diff_expert")
-		_change_map_icon("res://меню/Ikon3.png")
+		# TODO(Polina): ИЗБАВИТЬСЯ ОТ ХАРДКОДА: `res://assets/textures/ui/menu/Ikon3.png`
+		_change_map_icon("res://assets/textures/ui/menu/Ikon3.png")
 		selected_difficulty = "diff_hardcore"
 	)
 	

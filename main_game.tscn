@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://pc255j752yhv"]
 
 [ext_resource type="Script" uid="uid://gfyd1pqar3hb" path="res://main_game.gd" id="1_l5ukw"]
-[ext_resource type="Texture2D" uid="uid://chku1lnkuocdh" path="res://World/Biomes/Forest/IMG_6263 (18).png" id="3_dugkq"]
-[ext_resource type="Texture2D" uid="uid://b2yytvrfl5t78" path="res://World/Biomes/Forest/IMG_6263 (15).png" id="5_02kkc"]
-[ext_resource type="Texture2D" uid="uid://bdex05hfs0ac" path="res://World/Biomes/Forest/IMG_6263 (1).png" id="5_mf81u"]
-[ext_resource type="Texture2D" uid="uid://x6el777nprm4" path="res://World/Biomes/Forest/IMG_6260 (1).png" id="7_aomqu"]
+[ext_resource type="Texture2D" uid="uid://chku1lnkuocdh" path="res://world/Biomes/Forest/IMG_6263 (18).png" id="3_dugkq"]
+[ext_resource type="Texture2D" uid="uid://b2yytvrfl5t78" path="res://world/Biomes/Forest/IMG_6263 (15).png" id="5_02kkc"]
+[ext_resource type="Texture2D" uid="uid://bdex05hfs0ac" path="res://world/Biomes/Forest/IMG_6263 (1).png" id="5_mf81u"]
+[ext_resource type="Texture2D" uid="uid://x6el777nprm4" path="res://world/Biomes/Forest/IMG_6260 (1).png" id="7_aomqu"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_aomqu"]
 texture = ExtResource("5_02kkc")

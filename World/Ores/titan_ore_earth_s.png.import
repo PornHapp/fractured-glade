@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bxrijqhmeghqu"
-path="res://.godot/imported/titan_ore_earth_s.png-80ec801c561074403663afdfd84f5b9e.ctex"
+path="res://.godot/imported/titan_ore_earth_s.png-5d834d4c3985512895f27ffdbe6bcc6b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://World/Ores/titan_ore_earth_s.png"
-dest_files=["res://.godot/imported/titan_ore_earth_s.png-80ec801c561074403663afdfd84f5b9e.ctex"]
+source_file="res://world/Ores/titan_ore_earth_s.png"
+dest_files=["res://.godot/imported/titan_ore_earth_s.png-5d834d4c3985512895f27ffdbe6bcc6b.ctex"]
 
 [params]
 

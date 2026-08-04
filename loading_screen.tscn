@@ -12,7 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://hb8dyqk375w" path="res://progress_bar/Иллюстрация_без_названия-1 (24).png" id="10_e21s8"]
 [ext_resource type="Texture2D" uid="uid://dnv1se56k02oj" path="res://progress_bar/Иллюстрация_без_названия-6 (17).png" id="11_8geaq"]
 [ext_resource type="Texture2D" uid="uid://d1o7f23bvxvuu" path="res://progress_bar/Иллюстрация_без_названия-2 (24).png" id="12_guyqc"]
-[ext_resource type="FontFile" uid="uid://boa4mv17gvh6u" path="res://Шрифты/Izax SHA_0.otf" id="12_rgwxq"]
+[ext_resource type="FontFile" uid="uid://boa4mv17gvh6u" path="res://assets/fonts/Izax SHA_0.otf" id="12_rgwxq"]
 [ext_resource type="Texture2D" uid="uid://51vmrkag6c7i" path="res://progress_bar/Иллюстрация_без_названия-3 (17).png" id="13_boc87"]
 [ext_resource type="Texture2D" uid="uid://6xbf4b75cklx" path="res://progress_bar/Иллюстрация_без_названия-4 (12).png" id="14_vpr0m"]
 [ext_resource type="Texture2D" uid="uid://0sjbk05v85u" path="res://progress_bar/Иллюстрация_без_названия-5 (6).png" id="15_wqeei"]
@@ -22,6 +22,7 @@
 [ext_resource type="Texture2D" uid="uid://db7x678w4ll14" path="res://progress_bar/Иллюстрация_без_названия-9 (3).png" id="19_7mn8w"]
 [ext_resource type="Texture2D" uid="uid://cmaih8t4gn2ph" path="res://progress_bar/Иллюстрация_без_названия-10 (3).png" id="20_db66n"]
 [ext_resource type="Texture2D" uid="uid://dmw0fo845xxrb" path="res://progress_bar/Иллюстрация_без_названия-11 (2).png" id="21_vr38c"]
+
 
 [sub_resource type="Gradient" id="Gradient_8qtwp"]
 colors = PackedColorArray(0.8687681, 0.8357968, 0.72095555, 0.5882353, 1, 1, 1, 0)

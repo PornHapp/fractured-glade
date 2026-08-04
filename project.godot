@@ -33,12 +33,16 @@ window/size/viewport_height=1080
 [file_customization]
 
 folder_colors={
-"res://World/": "purple",
-"res://World/Biomes/DarkForest/": "blue",
-"res://World/Biomes/Forest/": "blue",
-"res://characters/": "red",
-"res://Музыка/": "green",
-"res://Шрифты/": "purple"
+"res://assets/": "red",
+"res://assets/fonts/": "red",
+"res://assets/textures/player/": "red",
+"res://docs/": "gray",
+"res://scenes/": "orange",
+"res://scripts/": "yellow",
+"res://world/": "purple",
+"res://world/Biomes/DarkForest/": "blue",
+"res://world/Biomes/Forest/": "blue",
+"res://Музыка/": "green"
 }
 
 [input]
@@ -121,7 +125,7 @@ use_item={
 
 [internationalization]
 
-locale/translations=PackedStringArray("res://translations.ru.translation", "res://translations.en.translation")
+locale/translations=PackedStringArray("res://assets/localization/translations.ru.translation", "res://assets/localization/translations.en.translation")
 
 [physics]
 
