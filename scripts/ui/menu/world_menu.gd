@@ -36,21 +36,21 @@ func _ready():
 	# Подключаем нажатия (сразу показываем описание, меняем картинку и ЗАПОМИНАЕМ выбор)
 	normal_diff.pressed.connect(func(): 
 		_show_description("desc_diff_normal")
-		# TODO(Polina): ИЗБАВИТЬСЯ ОТ ХАРДКОДА: `res://assets/textures/ui/menu/Ikon1.png`
+		## FIXME(Влад): избавиться от хардкода
 		_change_map_icon("res://assets/textures/ui/menu/Ikon1.png")
 		selected_difficulty = "diff_normal"
 	)
 	
 	hard_diff.pressed.connect(func(): 
 		_show_description("desc_diff_hard")
-		# TODO(Polina): ИЗБАВИТЬСЯ ОТ ХАРДКОДА: `res://assets/textures/ui/menu/Ikon2.png`
+		## FIXME(Влад): избавиться от хардкода
 		_change_map_icon("res://assets/textures/ui/menu/Ikon2.png")
 		selected_difficulty = "diff_hard"
 	)
 	
 	expert_diff.pressed.connect(func(): 
 		_show_description("desc_diff_expert")
-		# TODO(Polina): ИЗБАВИТЬСЯ ОТ ХАРДКОДА: `res://assets/textures/ui/menu/Ikon3.png`
+		## FIXME(Влад): избавиться от хардкода
 		_change_map_icon("res://assets/textures/ui/menu/Ikon3.png")
 		selected_difficulty = "diff_hardcore"
 	)
@@ -97,7 +97,7 @@ func _on_create_world_pressed():
 	}
 	
 	print("Данные переданы в Global! Запуск генерации...")
-	get_tree().change_scene_to_file("res://loading_screen.tscn")
+	get_tree().change_scene_to_file("res://scenes/ui/loading_screen.tscn")
 
 func _change_map_icon(path: String):
 	var new_texture = load(path)

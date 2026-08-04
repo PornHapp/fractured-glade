@@ -112,7 +112,7 @@ func _on_cancel_pressed():
 	status_text.text = tr("load_cancel")
 	
 	await get_tree().create_timer(0.5).timeout
-	get_tree().change_scene_to_file("res://start_menu.tscn")
+	get_tree().change_scene_to_file("res://scenes/ui/menu/start_menu.tscn")
 
 # --- ЕСЛИ ЗАГРУЗКА ДОШЛА ДО 100% ---
 func _finish_loading():
@@ -125,4 +125,4 @@ func _finish_loading():
 	
 	await get_tree().create_timer(1.0).timeout
 	Global.return_from_loading = true 
-	get_tree().change_scene_to_file("res://start_menu.tscn")
+	get_tree().change_scene_to_file("res://scenes/ui/menu/start_menu.tscn")

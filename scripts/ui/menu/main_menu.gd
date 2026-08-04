@@ -80,4 +80,4 @@ func _input(event):
 		tween.tween_property(fade_rect, "color:a", 1.0, 1.5)
 		await tween.finished
 		
-		get_tree().change_scene_to_file("res://start_menu.tscn") # Не забудь свой путь!
+		get_tree().change_scene_to_file("res://scenes/ui/menu/start_menu.tscn") # Не забудь свой путь!

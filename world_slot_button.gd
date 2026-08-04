@@ -53,10 +53,11 @@ func _load_world():
 	if Global.has_method("set_current_save"):
 		Global.set_current_save(save_file_path)
 	
-	var error = get_tree().change_scene_to_file("res://main_game.tscn")
+	## FIXME(Влад): избавиться от хардкода
+	var error = get_tree().change_scene_to_file("res://scenes/game_world/main_game.tscn")
 	
 	if error != OK:
-		print("ОШИБКА: Сцена не найдена! Проверь путь: res://main_game.tscn")
+		print("ОШИБКА: Сцена не найдена! Проверь путь: res://scenes/game_world/main_game.tscn")
 	else:
 		print("Смена сцены инициирована...")
 

@@ -47,6 +47,7 @@ func _ready():
 	add_child(collision_manager)
 	
 	# Генерируем мир новым генератором
+	## FIXME(Влад): избавиться от хардкода
 	var WorldGeneratorClass = load("res://scripts/generation/world_generator.gd")
 	world_gen = WorldGeneratorClass.new(world_width_tiles, world_height_tiles, Global.world_seed)
 	var result = world_gen.generate_world()
@@ -123,7 +124,8 @@ func switch_world():
 	_update_ui()
 
 func _create_player():
-	var ps = load("res://player.tscn")
+	## FIXME(Влад): избавиться от хардкода
+	var ps = load("res://scenes/player/player.tscn")
 	if not ps: print("ОШИБКА: player.tscn не найден!"); return
 	player = ps.instantiate(); player.name = "Player"; player.z_index = 10; add_child(player)
 	var sx = world_data[0].size() / 2; var sy = 0
@@ -146,7 +148,8 @@ func _update_ui():
 
 func _input(event):
 	if event.is_action_pressed("ui_cancel"): 
-		get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
+		## FIXME(Влад): избавиться от хардкода
+		get_tree().change_scene_to_file("res://scenes/ui/menu/main_menu.tscn")
 
 func _process(_delta):
 	if not player: return
@@ -175,6 +178,7 @@ func _process(_delta):
 
 func _get_mouse_tile() -> Vector2i:
 	if player:
+		## FIXME(Влад): договориться о нейминге `Camera`, а не `Camera2D`
 		var cam = player.get_node("Camera2D")
 		if cam:
 			var mp = cam.get_global_mouse_position()

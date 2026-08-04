@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://db7x678w4ll14"
-path="res://.godot/imported/Иллюстрация_без_названия-9 (3).png-4f9bcf3c118ab2b6abb5a4817e2f716d.ctex"
+uid="uid://cmaih8t4gn2ph"
+path="res://.godot/imported/Иллюстрация_без_названия-10 (3).png-0ddd6f25447319bf46261f371c8af0eb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://progress_bar/Иллюстрация_без_названия-9 (3).png"
-dest_files=["res://.godot/imported/Иллюстрация_без_названия-9 (3).png-4f9bcf3c118ab2b6abb5a4817e2f716d.ctex"]
+source_file="res://assets/textures/ui/loading/progress_bar/Иллюстрация_без_названия-10 (3).png"
+dest_files=["res://.godot/imported/Иллюстрация_без_названия-10 (3).png-0ddd6f25447319bf46261f371c8af0eb.ctex"]
 
 [params]
 
