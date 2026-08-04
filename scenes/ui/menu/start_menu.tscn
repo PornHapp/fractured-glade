@@ -7,6 +7,7 @@
 [ext_resource type="Shader" uid="uid://8aw6v2kx8er5" path="res://shaders/ui/start_menu.gdshader" id="5_ctwoq"]
 [ext_resource type="Script" uid="uid://chmpwdrbpydip" path="res://scripts/ui/menu/creepy_eyes.gd" id="6_anp0p"]
 [ext_resource type="FontFile" uid="uid://boa4mv17gvh6u" path="res://assets/fonts/izax_sha_0.otf" id="6_g3efl"]
+[ext_resource type="Shader" uid="uid://cu6s8stwsfq7a" path="res://scenes/ui/menu/creepy_eyes.gdshader" id="6_kp5rx"]
 [ext_resource type="Script" uid="uid://dlbygxe6wvwjk" path="res://scripts/ui/menu/firefly.gd" id="6_ppfnh"]
 [ext_resource type="Texture2D" uid="uid://cesu0ailqqccn" path="res://assets/textures/ui/menu/start_menu_main.png" id="6_w8w24"]
 [ext_resource type="Texture2D" uid="uid://dxb38uvk3hynr" path="res://assets/textures/ui/pre_menu_background/sun.png" id="7_7boi2"]
@@ -42,6 +43,10 @@
 [ext_resource type="Texture2D" uid="uid://b4xo5sqe1kw6s" path="res://assets/textures/ui/menu/TEST_world_player_choose_05.png" id="16_yddg6"]
 [ext_resource type="Texture2D" uid="uid://ci1fgclur7po7" path="res://assets/textures/ui/menu/TEST_world_player_choose_04.png" id="17_unehi"]
 [ext_resource type="PackedScene" uid="uid://cq1wlr61narvb" path="res://scenes/ui/menu/world_selection_menu.tscn" id="25_cl221"]
+[ext_resource type="Shader" uid="uid://b2kftrj1frfjg" path="res://shaders/ui/logo_main_menu.gdshader" id="43_lf73j"]
+[ext_resource type="Texture2D" uid="uid://cykedrcwno2k3" path="res://assets/textures/ui/menu/mini_logo.png" id="44_ko5c4"]
+[ext_resource type="Script" uid="uid://dpk6c72r1i0se" path="res://scripts/ui/menu/creepers.gd" id="45_xaqts"]
+[ext_resource type="Script" uid="uid://yk7uhr8x14cj" path="res://scripts/ui/menu/info_panel.gd" id="46_xaqts"]
 
 [sub_resource type="Theme" id="Theme_g3efl"]
 default_font = ExtResource("6_g3efl")
@@ -49,6 +54,10 @@ default_font = ExtResource("6_g3efl")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ppfnh"]
 shader = ExtResource("2_v2mkm")
 shader_parameter/dark_texture = ExtResource("1_vpdu5")
+shader_parameter/transition_progress = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xaqts"]
+shader = ExtResource("6_kp5rx")
 shader_parameter/transition_progress = 0.0
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_anp0p"]
@@ -192,11 +201,22 @@ _data = {
 &"transition": SubResource("Animation_v2mkm")
 }
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0k4wn"]
+shader = ExtResource("43_lf73j")
+shader_parameter/shine_color = Color(1, 1, 1, 0.43529412)
+shader_parameter/angle = 0.6
+shader_parameter/speed = 1.2
+shader_parameter/wait_time = 3.0
+shader_parameter/stripe1_width = 0.06
+shader_parameter/stripe2_width = 0.02
+shader_parameter/stripe_distance = 0.1
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xsckg"]
 shader = ExtResource("5_ctwoq")
 shader_parameter/glitch_intensity = 0.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pgi0o"]
+radius = 6.0
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_7boi2"]
 
@@ -457,6 +477,7 @@ grow_vertical = 2
 texture = ExtResource("3_ctwoq")
 
 [node name="CreepyEyes" type="Control" parent="LightBackground" unique_id=57903550]
+material = SubResource("ShaderMaterial_xaqts")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -468,6 +489,7 @@ script = ExtResource("6_anp0p")
 [node name="Eye1" type="TextureRect" parent="LightBackground/CreepyEyes" unique_id=1750878233]
 modulate = Color(18.892157, 0, 0, 1)
 material = SubResource("CanvasItemMaterial_anp0p")
+use_parent_material = true
 layout_mode = 0
 offset_left = 847.6476
 offset_top = 276.27097
@@ -479,6 +501,7 @@ texture = ExtResource("7_np4tr")
 [node name="Eye9" type="TextureRect" parent="LightBackground/CreepyEyes" unique_id=1975397349]
 modulate = Color(18.892157, 0, 0, 1)
 material = SubResource("CanvasItemMaterial_anp0p")
+use_parent_material = true
 layout_mode = 0
 offset_left = 1561.5017
 offset_top = 590.102
@@ -490,6 +513,7 @@ texture = ExtResource("7_np4tr")
 [node name="Eye8" type="TextureRect" parent="LightBackground/CreepyEyes" unique_id=1187978002]
 modulate = Color(18.892157, 0, 0, 1)
 material = SubResource("CanvasItemMaterial_anp0p")
+use_parent_material = true
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 0
 offset_left = 1048.5017
@@ -502,6 +526,7 @@ texture = ExtResource("7_np4tr")
 [node name="Eye10" type="TextureRect" parent="LightBackground/CreepyEyes" unique_id=155996839]
 modulate = Color(18.892157, 0, 0, 1)
 material = SubResource("CanvasItemMaterial_anp0p")
+use_parent_material = true
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 0
 offset_left = 536.5018
@@ -514,6 +539,7 @@ texture = ExtResource("7_np4tr")
 [node name="Eye2" type="TextureRect" parent="LightBackground/CreepyEyes" unique_id=1467246105]
 modulate = Color(18.892157, 0, 0, 1)
 material = SubResource("CanvasItemMaterial_anp0p")
+use_parent_material = true
 layout_mode = 0
 offset_left = 658.10175
 offset_top = 461.102
@@ -524,6 +550,7 @@ texture = ExtResource("8_407wv")
 [node name="Eye11" type="TextureRect" parent="LightBackground/CreepyEyes" unique_id=96003850]
 modulate = Color(18.892157, 0, 0, 1)
 material = SubResource("CanvasItemMaterial_anp0p")
+use_parent_material = true
 layout_mode = 0
 offset_left = 1308.5017
 offset_top = 281.102
@@ -534,6 +561,7 @@ texture = ExtResource("8_407wv")
 [node name="Eye7" type="TextureRect" parent="LightBackground/CreepyEyes" unique_id=1299327254]
 modulate = Color(18.892157, 0, 0, 1)
 material = SubResource("CanvasItemMaterial_anp0p")
+use_parent_material = true
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 0
 offset_left = 1411.5017
@@ -545,6 +573,7 @@ texture = ExtResource("8_407wv")
 [node name="Eye12" type="TextureRect" parent="LightBackground/CreepyEyes" unique_id=786643460]
 modulate = Color(18.892157, 0, 0, 1)
 material = SubResource("CanvasItemMaterial_anp0p")
+use_parent_material = true
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 0
 offset_left = 531.5018
@@ -556,6 +585,7 @@ texture = ExtResource("8_407wv")
 [node name="Eye3" type="TextureRect" parent="LightBackground/CreepyEyes" unique_id=2001862334]
 modulate = Color(18.892157, 0, 0, 1)
 material = SubResource("CanvasItemMaterial_anp0p")
+use_parent_material = true
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 0
 offset_left = 503.50177
@@ -568,6 +598,7 @@ texture = ExtResource("9_x32t5")
 [node name="Eye13" type="TextureRect" parent="LightBackground/CreepyEyes" unique_id=1110684320]
 modulate = Color(18.892157, 0, 0, 1)
 material = SubResource("CanvasItemMaterial_anp0p")
+use_parent_material = true
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 0
 offset_left = 1139.5017
@@ -580,6 +611,7 @@ texture = ExtResource("9_x32t5")
 [node name="Eye6" type="TextureRect" parent="LightBackground/CreepyEyes" unique_id=203107327]
 modulate = Color(18.892157, 0, 0, 1)
 material = SubResource("CanvasItemMaterial_anp0p")
+use_parent_material = true
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 0
 offset_left = 1395.5017
@@ -591,6 +623,7 @@ texture = ExtResource("9_x32t5")
 [node name="Eye14" type="TextureRect" parent="LightBackground/CreepyEyes" unique_id=1743845985]
 modulate = Color(18.892157, 0, 0, 1)
 material = SubResource("CanvasItemMaterial_anp0p")
+use_parent_material = true
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 0
 offset_left = 1090.5017
@@ -602,6 +635,7 @@ texture = ExtResource("9_x32t5")
 [node name="Eye4" type="TextureRect" parent="LightBackground/CreepyEyes" unique_id=1692186053]
 modulate = Color(18.892157, 0, 0, 1)
 material = SubResource("CanvasItemMaterial_anp0p")
+use_parent_material = true
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 0
 offset_left = 841.5018
@@ -614,6 +648,7 @@ texture = ExtResource("10_r7qev")
 [node name="Eye15" type="TextureRect" parent="LightBackground/CreepyEyes" unique_id=1283973999]
 modulate = Color(18.892157, 0, 0, 1)
 material = SubResource("CanvasItemMaterial_anp0p")
+use_parent_material = true
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 0
 offset_left = 772.5018
@@ -626,6 +661,7 @@ texture = ExtResource("10_r7qev")
 [node name="Eye5" type="TextureRect" parent="LightBackground/CreepyEyes" unique_id=608797350]
 modulate = Color(18.892157, 0, 0, 1)
 material = SubResource("CanvasItemMaterial_anp0p")
+use_parent_material = true
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 0
 offset_left = 1204.4006
@@ -638,6 +674,7 @@ texture = ExtResource("10_r7qev")
 [node name="Eye16" type="TextureRect" parent="LightBackground/CreepyEyes" unique_id=1200448330]
 modulate = Color(18.892157, 0, 0, 1)
 material = SubResource("CanvasItemMaterial_anp0p")
+use_parent_material = true
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 0
 offset_left = 978.5018
@@ -769,17 +806,153 @@ process_material = SubResource("ParticleProcessMaterial_pgi0o")
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=552360858]
 libraries/ = SubResource("AnimationLibrary_ctwoq")
 
+[node name="SettingsMenu" parent="." unique_id=2059058970 instance=ExtResource("8_pgi0o")]
+visible = false
+
+[node name="UISoundPlayer" type="AudioStreamPlayer" parent="." unique_id=583147064]
+
+[node name="HoverSound" type="AudioStreamPlayer" parent="." unique_id=1018802093]
+stream = ExtResource("9_jxkec")
+bus = &"SFX"
+
+[node name="ClickSound" type="AudioStreamPlayer" parent="." unique_id=260914517]
+stream = ExtResource("10_ld0yp")
+bus = &"SFX"
+
+[node name="DissolveSound" type="AudioStreamPlayer" parent="." unique_id=1333722288]
+stream = ExtResource("11_w8jvl")
+bus = &"SFX"
+
+[node name="DissolveSound2" type="AudioStreamPlayer" parent="." unique_id=1672139453]
+stream = ExtResource("12_8y6t8")
+bus = &"SFX"
+
+[node name="DissolveSound3" type="AudioStreamPlayer" parent="." unique_id=895197373]
+stream = ExtResource("13_4tuia")
+bus = &"SFX"
+
+[node name="NoiseSound" type="AudioStreamPlayer" parent="." unique_id=1374020829]
+stream = ExtResource("14_j1xkj")
+bus = &"SFX"
+
+[node name="NoiseSound2" type="AudioStreamPlayer" parent="." unique_id=403303408]
+stream = ExtResource("15_jqt8n")
+bus = &"SFX"
+
+[node name="WorldSelectionMenu" parent="." unique_id=584334806 instance=ExtResource("25_cl221")]
+visible = false
+z_index = 1
+layout_mode = 1
+
+[node name="MultiplayerMenu" type="VBoxContainer" parent="." unique_id=1784741744]
+visible = false
+custom_minimum_size = Vector2(600, 150)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HostButton" type="Button" parent="MultiplayerMenu" unique_id=274357525]
+custom_minimum_size = Vector2(500, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_g3efl")
+theme_override_font_sizes/font_size = 45
+text = "menu_host"
+
+[node name="Spacer" type="Control" parent="MultiplayerMenu" unique_id=522099026]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="JoinButton" type="Button" parent="MultiplayerMenu" unique_id=901684765]
+custom_minimum_size = Vector2(500, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_g3efl")
+theme_override_font_sizes/font_size = 45
+text = "menu_join"
+
+[node name="IPMenu" type="VBoxContainer" parent="." unique_id=656194785]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="IPLabel" type="Label" parent="IPMenu" unique_id=323054188]
+layout_mode = 2
+theme_override_font_sizes/font_size = 45
+text = "menu_enter_ip"
+
+[node name="IPInput" type="LineEdit" parent="IPMenu" unique_id=2062574269]
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+placeholder_text = "127.0.0.1"
+alignment = 1
+
+[node name="Control" type="Control" parent="IPMenu" unique_id=344060307]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="ConnectActionButton" type="Button" parent="IPMenu" unique_id=955193319]
+layout_mode = 2
+theme_override_font_sizes/font_size = 45
+text = "menu_join"
+
+[node name="BackToMultiplayerButton" type="Button" parent="IPMenu" unique_id=391463452]
+layout_mode = 2
+theme_override_font_sizes/font_size = 45
+text = "menu_exit"
+
+[node name="Logo" type="TextureRect" parent="." unique_id=651033142]
+texture_filter = 2
+material = SubResource("ShaderMaterial_0k4wn")
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -194.0
+offset_top = 25.0
+offset_right = 206.0
+offset_bottom = 420.0
+grow_horizontal = 2
+pivot_offset = Vector2(470, 200)
+texture = ExtResource("44_ko5c4")
+
+[node name="Creepers" type="Node2D" parent="." unique_id=1832285332]
+script = ExtResource("45_xaqts")
+
+[node name="Line2D" type="Line2D" parent="Creepers" unique_id=638861091]
+
+[node name="Line2D2" type="Line2D" parent="Creepers" unique_id=634496178]
+
+[node name="Sprite2D" type="Sprite2D" parent="Creepers" unique_id=131276959]
+
 [node name="Firefly" type="CharacterBody2D" parent="." unique_id=363833397]
 script = ExtResource("6_ppfnh")
 
 [node name="Sprite2D" type="Sprite2D" parent="Firefly" unique_id=1003475187]
 material = SubResource("ShaderMaterial_xsckg")
-position = Vector2(65, 53)
-scale = Vector2(0.28125, 0.28125)
+position = Vector2(62.500004, 50.5)
+scale = Vector2(0.20312503, 0.20312499)
 texture = ExtResource("7_7boi2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Firefly" unique_id=661267913]
-position = Vector2(65, 53)
+position = Vector2(62, 50)
 shape = SubResource("CircleShape2D_pgi0o")
 
 [node name="PointLight2D" type="PointLight2D" parent="Firefly" unique_id=1131301298]
@@ -793,8 +966,135 @@ material = SubResource("CanvasItemMaterial_ppfnh")
 position = Vector2(65, 53)
 process_material = SubResource("ParticleProcessMaterial_73a2t")
 
-[node name="SettingsMenu" parent="." unique_id=2059058970 instance=ExtResource("8_pgi0o")]
-visible = false
+[node name="Firefly6" type="CharacterBody2D" parent="." unique_id=119099733]
+position = Vector2(1839, 206)
+script = ExtResource("6_ppfnh")
+
+[node name="Sprite2D" type="Sprite2D" parent="Firefly6" unique_id=1418428339]
+material = SubResource("ShaderMaterial_xsckg")
+position = Vector2(62.500004, 50.5)
+scale = Vector2(0.20312503, 0.20312499)
+texture = ExtResource("7_7boi2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Firefly6" unique_id=1651305689]
+position = Vector2(62, 50)
+shape = SubResource("CircleShape2D_pgi0o")
+
+[node name="PointLight2D" type="PointLight2D" parent="Firefly6" unique_id=1822172352]
+material = SubResource("CanvasItemMaterial_7boi2")
+position = Vector2(65, 53)
+energy = 5.0
+texture = SubResource("GradientTexture2D_73a2t")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Firefly6" unique_id=108478061]
+material = SubResource("CanvasItemMaterial_ppfnh")
+position = Vector2(65, 53)
+process_material = SubResource("ParticleProcessMaterial_73a2t")
+
+[node name="Firefly2" type="CharacterBody2D" parent="." unique_id=96536536]
+position = Vector2(1720, 846)
+script = ExtResource("6_ppfnh")
+
+[node name="Sprite2D" type="Sprite2D" parent="Firefly2" unique_id=1255841261]
+material = SubResource("ShaderMaterial_xsckg")
+position = Vector2(60.000053, 48.000053)
+scale = Vector2(0.12500167, 0.12500167)
+texture = ExtResource("7_7boi2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Firefly2" unique_id=262150945]
+position = Vector2(60, 48)
+shape = SubResource("CircleShape2D_pgi0o")
+
+[node name="PointLight2D" type="PointLight2D" parent="Firefly2" unique_id=1358518136]
+material = SubResource("CanvasItemMaterial_7boi2")
+position = Vector2(60.00003, 48.000023)
+scale = Vector2(0.69999933, 0.73000044)
+energy = 5.0
+texture = SubResource("GradientTexture2D_73a2t")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Firefly2" unique_id=1934593293]
+material = SubResource("CanvasItemMaterial_ppfnh")
+position = Vector2(65, 53)
+process_material = SubResource("ParticleProcessMaterial_73a2t")
+
+[node name="Firefly4" type="CharacterBody2D" parent="." unique_id=844367291]
+position = Vector2(535, 906)
+script = ExtResource("6_ppfnh")
+
+[node name="Sprite2D" type="Sprite2D" parent="Firefly4" unique_id=2009046141]
+material = SubResource("ShaderMaterial_xsckg")
+position = Vector2(60.000053, 48.000053)
+scale = Vector2(0.12500167, 0.12500167)
+texture = ExtResource("7_7boi2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Firefly4" unique_id=1343666014]
+position = Vector2(60, 48)
+shape = SubResource("CircleShape2D_pgi0o")
+
+[node name="PointLight2D" type="PointLight2D" parent="Firefly4" unique_id=252269102]
+material = SubResource("CanvasItemMaterial_7boi2")
+position = Vector2(60.00003, 48.000023)
+scale = Vector2(0.69999933, 0.73000044)
+energy = 5.0
+texture = SubResource("GradientTexture2D_73a2t")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Firefly4" unique_id=1412222726]
+material = SubResource("CanvasItemMaterial_ppfnh")
+position = Vector2(65, 53)
+process_material = SubResource("ParticleProcessMaterial_73a2t")
+
+[node name="Firefly3" type="CharacterBody2D" parent="." unique_id=1407099679]
+position = Vector2(947, 287)
+script = ExtResource("6_ppfnh")
+
+[node name="Sprite2D" type="Sprite2D" parent="Firefly3" unique_id=281898309]
+material = SubResource("ShaderMaterial_xsckg")
+position = Vector2(65, 53)
+scale = Vector2(0.28125, 0.28125)
+texture = ExtResource("7_7boi2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Firefly3" unique_id=1546927619]
+position = Vector2(65, 53)
+shape = SubResource("CircleShape2D_pgi0o")
+
+[node name="PointLight2D" type="PointLight2D" parent="Firefly3" unique_id=1910487854]
+material = SubResource("CanvasItemMaterial_7boi2")
+position = Vector2(65, 53)
+energy = 5.0
+texture = SubResource("GradientTexture2D_73a2t")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Firefly3" unique_id=1228588512]
+material = SubResource("CanvasItemMaterial_ppfnh")
+position = Vector2(65, 53)
+process_material = SubResource("ParticleProcessMaterial_73a2t")
+
+[node name="Firefly5" type="CharacterBody2D" parent="." unique_id=1858464507]
+position = Vector2(99, 992)
+script = ExtResource("6_ppfnh")
+
+[node name="Sprite2D" type="Sprite2D" parent="Firefly5" unique_id=900104598]
+material = SubResource("ShaderMaterial_xsckg")
+position = Vector2(65, 53)
+scale = Vector2(0.28125, 0.28125)
+texture = ExtResource("7_7boi2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Firefly5" unique_id=1328742892]
+position = Vector2(65, 53)
+shape = SubResource("CircleShape2D_pgi0o")
+
+[node name="PointLight2D" type="PointLight2D" parent="Firefly5" unique_id=1994311810]
+material = SubResource("CanvasItemMaterial_7boi2")
+position = Vector2(65, 53)
+energy = 5.0
+texture = SubResource("GradientTexture2D_73a2t")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Firefly5" unique_id=717152530]
+material = SubResource("CanvasItemMaterial_ppfnh")
+position = Vector2(65, 53)
+process_material = SubResource("ParticleProcessMaterial_73a2t")
+
+[node name="InfoPanel" type="Node2D" parent="." unique_id=1789784222]
+script = ExtResource("46_xaqts")
 
 [node name="Character" type="CanvasLayer" parent="." unique_id=706377323]
 process_mode = 3
@@ -810,6 +1110,7 @@ color = Color(0, 0, 0, 0.39215687)
 
 [node name="CharacterMenu" type="Control" parent="Character" unique_id=416420471]
 visible = false
+z_index = 1
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -1045,6 +1346,7 @@ bbcode_enabled = true
 
 [node name="WorldMenu" type="Control" parent="Character" unique_id=967484056]
 visible = false
+z_index = 1
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -1464,114 +1766,6 @@ bus = &"SFX"
 [node name="SettingsClickSound" type="AudioStreamPlayer" parent="Character" unique_id=461776494]
 stream = ExtResource("10_ld0yp")
 bus = &"SFX"
-
-[node name="UISoundPlayer" type="AudioStreamPlayer" parent="." unique_id=583147064]
-
-[node name="HoverSound" type="AudioStreamPlayer" parent="." unique_id=1018802093]
-stream = ExtResource("9_jxkec")
-bus = &"SFX"
-
-[node name="ClickSound" type="AudioStreamPlayer" parent="." unique_id=260914517]
-stream = ExtResource("10_ld0yp")
-bus = &"SFX"
-
-[node name="DissolveSound" type="AudioStreamPlayer" parent="." unique_id=1333722288]
-stream = ExtResource("11_w8jvl")
-bus = &"SFX"
-
-[node name="DissolveSound2" type="AudioStreamPlayer" parent="." unique_id=1672139453]
-stream = ExtResource("12_8y6t8")
-bus = &"SFX"
-
-[node name="DissolveSound3" type="AudioStreamPlayer" parent="." unique_id=895197373]
-stream = ExtResource("13_4tuia")
-bus = &"SFX"
-
-[node name="NoiseSound" type="AudioStreamPlayer" parent="." unique_id=1374020829]
-stream = ExtResource("14_j1xkj")
-bus = &"SFX"
-
-[node name="NoiseSound2" type="AudioStreamPlayer" parent="." unique_id=403303408]
-stream = ExtResource("15_jqt8n")
-bus = &"SFX"
-
-[node name="WorldSelectionMenu" parent="." unique_id=584334806 instance=ExtResource("25_cl221")]
-visible = false
-layout_mode = 1
-
-[node name="MultiplayerMenu" type="VBoxContainer" parent="." unique_id=1784741744]
-visible = false
-custom_minimum_size = Vector2(600, 150)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="HostButton" type="Button" parent="MultiplayerMenu" unique_id=274357525]
-custom_minimum_size = Vector2(500, 50)
-layout_mode = 2
-theme_override_fonts/font = ExtResource("6_g3efl")
-theme_override_font_sizes/font_size = 45
-text = "menu_host"
-
-[node name="Spacer" type="Control" parent="MultiplayerMenu" unique_id=522099026]
-custom_minimum_size = Vector2(0, 40)
-layout_mode = 2
-
-[node name="JoinButton" type="Button" parent="MultiplayerMenu" unique_id=901684765]
-custom_minimum_size = Vector2(500, 50)
-layout_mode = 2
-theme_override_fonts/font = ExtResource("6_g3efl")
-theme_override_font_sizes/font_size = 45
-text = "menu_join"
-
-[node name="IPMenu" type="VBoxContainer" parent="." unique_id=656194785]
-visible = false
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="IPLabel" type="Label" parent="IPMenu" unique_id=323054188]
-layout_mode = 2
-theme_override_font_sizes/font_size = 45
-text = "menu_enter_ip"
-
-[node name="IPInput" type="LineEdit" parent="IPMenu" unique_id=2062574269]
-layout_mode = 2
-theme_override_font_sizes/font_size = 35
-placeholder_text = "127.0.0.1"
-alignment = 1
-
-[node name="Control" type="Control" parent="IPMenu" unique_id=344060307]
-custom_minimum_size = Vector2(0, 40)
-layout_mode = 2
-
-[node name="ConnectActionButton" type="Button" parent="IPMenu" unique_id=955193319]
-layout_mode = 2
-theme_override_font_sizes/font_size = 45
-text = "menu_join"
-
-[node name="BackToMultiplayerButton" type="Button" parent="IPMenu" unique_id=391463452]
-layout_mode = 2
-theme_override_font_sizes/font_size = 45
-text = "menu_exit"
 
 [connection signal="mouse_entered" from="MenuBox1/StartButton" to="." method="_on_start_button_mouse_entered"]
 [connection signal="mouse_exited" from="MenuBox1/StartButton" to="." method="_on_start_button_mouse_exited"]

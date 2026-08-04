@@ -1,5 +1,6 @@
 extends Control
 
+@onready var creepy_eyes = $LightBackground/CreepyEyes
 @onready var world_selection_menu = $WorldSelectionMenu
 
 var has_saved_worlds = false
@@ -89,8 +90,12 @@ func animate_buttons(target_value: float):
 	tween.tween_property(settings_button.material, "shader_parameter/dissolve_value", target_value, 1.5)
 	tween.tween_property(exit_button.material, "shader_parameter/dissolve_value", target_value, 1.5)
 	
-	# АНИМИРУЕМ РАСТВОРЕНИЕ КАРТИНКИ МЕНЮ (ШЕЙДЕР)
+	# Растворение картинки меню
 	tween.tween_property(menu_picture.material, "shader_parameter/transition_progress", target_value, 1.5)
+	
+	# === РАСТВОРЕНИЕ ГЛАЗ ЧЕРЕЗ ШЕЙДЕР ===
+	if creepy_eyes:
+		tween.tween_property(creepy_eyes.material, "shader_parameter/transition_progress", target_value, 1.5)
 	
 	return tween
 
