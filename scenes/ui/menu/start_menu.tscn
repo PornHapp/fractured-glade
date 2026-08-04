@@ -715,17 +715,17 @@ theme_override_styles/hover = SubResource("StyleBoxTexture_c0dwe")
 
 [node name="MenuBox1" type="VBoxContainer" parent="." unique_id=1289614574]
 material = SubResource("ShaderMaterial_7boi2")
-layout_mode = 0
-offset_left = 777.0
-offset_top = 899.0
-offset_right = 946.0
-offset_bottom = 1023.0
+layout_mode = 1
+offset_left = 725.0
+offset_top = 884.0
+offset_right = 952.6048
+offset_bottom = 1051.0
 
 [node name="Multiplayer" type="Button" parent="MenuBox1" unique_id=1553394025]
 material = SubResource("ShaderMaterial_g8l62")
-custom_minimum_size = Vector2(0, 48)
+custom_minimum_size = Vector2(0, 65)
 layout_mode = 2
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 30
 theme_override_styles/normal = SubResource("StyleBoxTexture_bhunq")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_bhunq")
 theme_override_styles/hover = SubResource("StyleBoxTexture_riqys")
@@ -743,10 +743,10 @@ layout_mode = 2
 
 [node name="StartButton" type="Button" parent="MenuBox1" unique_id=224807441]
 material = SubResource("ShaderMaterial_g8l62")
-custom_minimum_size = Vector2(0, 48)
+custom_minimum_size = Vector2(0, 65)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("6_g3efl")
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 30
 theme_override_styles/normal = SubResource("StyleBoxTexture_sn0t7")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_sn0t7")
 theme_override_styles/hover = SubResource("StyleBoxTexture_6f8o3")
@@ -760,17 +760,17 @@ process_material = SubResource("ParticleProcessMaterial_pgi0o")
 
 [node name="MenuBox2" type="VBoxContainer" parent="." unique_id=1274717140]
 layout_mode = 0
-offset_left = 1043.0
-offset_top = 899.0
-offset_right = 1212.0
-offset_bottom = 1023.0
+offset_left = 1034.0
+offset_top = 884.0
+offset_right = 1261.605
+offset_bottom = 1031.0
 
 [node name="SettingsButton" type="Button" parent="MenuBox2" unique_id=1300535835]
 material = SubResource("ShaderMaterial_g8l62")
-custom_minimum_size = Vector2(0, 48)
+custom_minimum_size = Vector2(0, 65)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("6_g3efl")
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 30
 theme_override_styles/normal = SubResource("StyleBoxTexture_qr0ht")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_qr0ht")
 theme_override_styles/hover = SubResource("StyleBoxTexture_1esiv")
@@ -788,10 +788,10 @@ layout_mode = 2
 
 [node name="ExitButton" type="Button" parent="MenuBox2" unique_id=695649850]
 material = SubResource("ShaderMaterial_g8l62")
-custom_minimum_size = Vector2(0, 48)
+custom_minimum_size = Vector2(0, 65)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("6_g3efl")
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 30
 theme_override_styles/normal = SubResource("StyleBoxTexture_2r0jt")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_2r0jt")
 theme_override_styles/hover = SubResource("StyleBoxTexture_xvofd")
