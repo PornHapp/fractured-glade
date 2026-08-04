@@ -12,9 +12,19 @@ var has_saved_worlds = false
 @onready var settings_menu = $SettingsMenu
 @onready var start_sparks = $MenuBox1/StartButton/HoverSparks
 
-# Заглушки для будущих окон (пока они могут быть не созданы, но код к ним готов)
+@onready var multiplayer_button = $MenuBox1/Multiplayer
+@onready var menu_picture = $MenuPicture
+@onready var multiplayer_menu = $MultiplayerMenu
+@onready var host_button = $MultiplayerMenu/HostButton
+@onready var join_button = $MultiplayerMenu/JoinButton
+
 @onready var character_menu = $Character/CharacterMenu
 @onready var world_menu = $Character/WorldMenu
+
+@onready var ip_menu = $IPMenu
+@onready var ip_input = $IPMenu/IPInput
+@onready var connect_action_button = $IPMenu/ConnectActionButton
+@onready var back_to_multiplayer_button = $IPMenu/BackToMultiplayerButton
 
 # --- ЗВУКОВЫЕ УЗЛЫ ---
 @onready var dissolve_sound_1 = $DissolveSound
@@ -29,32 +39,41 @@ var has_saved_worlds = false
 @onready var click_sound = $ClickSound
 
 func _ready():
+	multiplayer_menu.hide() # Прячем меню мультиплеера на старте
+	
 	if Global.return_from_loading:
-		# --- МЫ ВЕРНУЛИСЬ ИЗ ЗАГРУЗКИ ---
-		#$VBoxContainer.hide() 
-		
-		# Плавно показываем меню миров
 		world_selection_menu.modulate = Color(1, 1, 1, 0)
 		world_selection_menu.show()
 		var fade_tween = create_tween()
 		fade_tween.tween_property(world_selection_menu, "modulate", Color(1, 1, 1, 1), 1.5)
-		
 		Global.return_from_loading = false 
-		
-	else:
-		# --- ОБЫЧНЫЙ ЗАПУСК ИГРЫ ---
-		pass
-		
-	# === ЭТОТ БЛОК ДОЛЖЕН БЫТЬ БЕЗ ОТСТУПА ===
+	
 	character_menu.hide()
+	
+	multiplayer_menu.hide()
+	ip_menu.hide() # Прячем меню IP на старте
+	
+	# Подключаем новые кнопки для IP
+	connect_action_button.pressed.connect(_on_connect_action_pressed)
+	back_to_multiplayer_button.pressed.connect(_on_back_to_multiplayer_pressed)
+	
+	# Подключаем звуки наведения к новым кнопкам
+	connect_action_button.mouse_entered.connect(_on_button_hover)
+	back_to_multiplayer_button.mouse_entered.connect(_on_button_hover)
+	
+	# Подключаем все кнопки
 	start_button.pressed.connect(_on_start_pressed)
+	multiplayer_button.pressed.connect(_on_multiplayer_pressed)
+	host_button.pressed.connect(_on_host_pressed)
+	join_button.pressed.connect(_on_join_pressed)
 	settings_button.pressed.connect(_on_settings_pressed)
 	exit_button.pressed.connect(_on_exit_pressed)
 	
-	# Подключаем мышку для искр
+	# Звуки при наведении
 	start_button.mouse_entered.connect(_on_start_button_mouse_entered)
 	start_button.mouse_exited.connect(_on_start_button_mouse_exited)
 	start_button.mouse_entered.connect(_on_button_hover)
+	multiplayer_button.mouse_entered.connect(_on_button_hover)
 	settings_button.mouse_entered.connect(_on_button_hover)
 
 func _on_button_hover():
@@ -66,8 +85,12 @@ func animate_buttons(target_value: float):
 	tween.set_parallel(true)
 	
 	tween.tween_property(start_button.material, "shader_parameter/dissolve_value", target_value, 1.5)
+	tween.tween_property(multiplayer_button.material, "shader_parameter/dissolve_value", target_value, 1.5)
 	tween.tween_property(settings_button.material, "shader_parameter/dissolve_value", target_value, 1.5)
 	tween.tween_property(exit_button.material, "shader_parameter/dissolve_value", target_value, 1.5)
+	
+	# АНИМИРУЕМ РАСТВОРЕНИЕ КАРТИНКИ МЕНЮ (ШЕЙДЕР)
+	tween.tween_property(menu_picture.material, "shader_parameter/transition_progress", target_value, 1.5)
 	
 	return tween
 
@@ -184,8 +207,12 @@ func show_buttons_back():
 		var bg_tween = create_tween()
 		bg_tween.tween_property($LightBackground.material, "shader_parameter/transition_progress", 0.0, 1.5)
 		
-	# 5. Собираем осколки кнопок обратно!
+	# 5. Собираем осколки кнопок обратно! 
+	# (animate_buttons(0.0) автоматически вернет и кнопки, и прозрачность картинки в 0.0)
 	animate_buttons(0.0)
+	
+	multiplayer_menu.hide() 
+	ip_menu.hide() # <-- Добавь это, чтобы поле IP тоже исчезало при полном выходе
 
 # --- ИСКРЫ ПРИ НАВЕДЕНИИ ---
 func _on_start_button_mouse_entered():
@@ -213,6 +240,93 @@ func back_to_character_menu():
 	# Снова показываем окно персонажа
 	character_menu.show()
 
+# --- ЛОГИКА МУЛЬТИПЛЕЕРА ---
+
+func _on_multiplayer_pressed():
+	click_sound.play()
+	if has_node("/root/MusicManager"): MusicManager.get_child(0).stop()
+	play_dissolve_sequence()
+	play_noise_sequence()
+	
+	# Запускаем растворение кнопок и КАРТИНКИ МЕНЮ
+	var tween = animate_buttons(1.0)
+	
+	if has_node("LightBackground"):
+		var bg_tween = create_tween()
+		bg_tween.tween_property($LightBackground.material, "shader_parameter/transition_progress", 1.0, 1.5)
+	
+	await tween.finished
+	
+	# Плавно показываем выбор: Создать или Подключиться
+	multiplayer_menu.modulate = Color(1, 1, 1, 0)
+	multiplayer_menu.show()
+	var fade_tween = create_tween()
+	fade_tween.tween_property(multiplayer_menu, "modulate", Color(1, 1, 1, 1), 1.0)
+
+func _on_host_pressed():
+	click_sound.play()
+	multiplayer_menu.hide() # Прячем Создать/Подключиться
+	
+	# Здесь мы позже добавим Global.is_multiplayer_host = true
+	
+	# Сканируем миры точно так же, как в одиночной игре
+	var has_saved_worlds = false
+	var dir_path = "user://worlds"
+	if DirAccess.dir_exists_absolute(dir_path):
+		var files = DirAccess.get_files_at(dir_path)
+		for file in files:
+			if file.ends_with(".save"):
+				has_saved_worlds = true
+				break
+				
+	if has_saved_worlds:
+		world_selection_menu.modulate = Color(1, 1, 1, 0)
+		world_selection_menu.show()
+		var fade_tween = create_tween()
+		fade_tween.tween_property(world_selection_menu, "modulate", Color(1, 1, 1, 1), 1.5)
+	else:
+		var char_control = character_menu.get_child(0)
+		char_control.modulate = Color(1, 1, 1, 0)
+		character_menu.show()
+		char_control.show()
+		var fade_tween = create_tween()
+		fade_tween.tween_property(char_control, "modulate", Color(1, 1, 1, 1), 1.5)
+
+func _on_join_pressed():
+	click_sound.play()
+	multiplayer_menu.hide() # Прячем старое меню
+	
+	# Плавно показываем меню ввода IP
+	ip_menu.modulate = Color(1, 1, 1, 0)
+	ip_menu.show()
+	var fade_tween = create_tween()
+	fade_tween.tween_property(ip_menu, "modulate", Color(1, 1, 1, 1), 1.0)
+
+# Возврат к выбору "Создать / Подключиться"
+func _on_back_to_multiplayer_pressed():
+	click_sound.play()
+	ip_menu.hide()
+	
+	# Снова показываем меню мультиплеера
+	multiplayer_menu.modulate = Color(1, 1, 1, 0)
+	multiplayer_menu.show()
+	var fade_tween = create_tween()
+	fade_tween.tween_property(multiplayer_menu, "modulate", Color(1, 1, 1, 1), 1.0)
+
+# Логика самого подключения
+func _on_connect_action_pressed():
+	click_sound.play()
+	
+	# Читаем текст, который ввел игрок в поле
+	var ip_address = ip_input.text
+	
+	# Если игрок ничего не ввел и нажал кнопку, используем локальный IP для тестов
+	if ip_address == "":
+		ip_address = "127.0.0.1"
+		
+	print("=== ПОПЫТКА ПОДКЛЮЧЕНИЯ К СЕРВЕРУ: " + ip_address + " ===")
+	
+	# Позже мы вставим сюда код для Godot-мультиплеера (ENetMultiplayerPeer)
 
 func _on_small_size_pressed():
 	$ClickSound.play()

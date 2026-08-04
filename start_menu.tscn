@@ -46,8 +46,54 @@ shader = ExtResource("2_v2mkm")
 shader_parameter/dark_texture = ExtResource("1_vpdu5")
 shader_parameter/transition_progress = 0.0
 
+[sub_resource type="Shader" id="Shader_g8l62"]
+code = "shader_type canvas_item;
+
+// Оставляем только прогресс, вторая текстура нам больше не нужна
+uniform float transition_progress : hint_range(0.0, 1.0) = 0.0; 
+
+float random(vec2 uv) {
+    return fract(sin(dot(uv.xy, vec2(12.9898,78.233))) * 43758.5453123);
+}
+
+void fragment() {
+    vec2 uv = UV;
+
+    // Глитч искажает картинку только в середине перехода
+    float glitch_intensity = sin(transition_progress * 3.1415); 
+
+    if (glitch_intensity > 0.0) {
+        float block = floor(uv.y * 20.0);
+        float offset = (random(vec2(block, TIME)) - 0.5) * glitch_intensity * 0.5;
+        uv.x += offset;
+    }
+
+    // Берем оригинальный цвет меню/картинки
+    vec4 color = texture(TEXTURE, uv);
+
+    // Генерируем цифровой шум
+    float noise = random(uv * 100.0);
+    
+    // Математика растворения: 
+    // Чем выше прогресс, тем больше пикселей становятся прозрачными
+    float alpha_mask = smoothstep(transition_progress - 0.05, transition_progress + 0.05, noise);
+
+    // ЖЕЛЕЗНАЯ ЗАЩИТА ОТ ШУМА:
+    // Если прогресс на нуле, картинка 100% непрозрачная (без шума)
+    // Если прогресс на 100%, картинка полностью исчезает
+    if (transition_progress <= 0.01) {
+        alpha_mask = 1.0;
+    } else if (transition_progress >= 0.99) {
+        alpha_mask = 0.0;
+    }
+
+    COLOR = color;
+    // Умножаем прозрачность картинки на нашу маску растворения
+    COLOR.a *= alpha_mask;
+}"
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_g8l62"]
-shader = ExtResource("2_v2mkm")
+shader = SubResource("Shader_g8l62")
 shader_parameter/transition_progress = 0.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jyycw"]
@@ -383,7 +429,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_ctwoq")
 
-[node name="TextureRect" type="TextureRect" parent="." unique_id=405682722]
+[node name="MenuPicture" type="TextureRect" parent="." unique_id=405682722]
 material = SubResource("ShaderMaterial_g8l62")
 layout_mode = 1
 anchors_preset = 7
@@ -399,6 +445,7 @@ grow_vertical = 0
 texture = ExtResource("6_w8w24")
 
 [node name="Flower" type="Button" parent="." unique_id=189548907]
+material = SubResource("ShaderMaterial_g8l62")
 layout_mode = 0
 offset_left = 956.0
 offset_top = 871.0
@@ -417,6 +464,7 @@ offset_right = 946.0
 offset_bottom = 1023.0
 
 [node name="Multiplayer" type="Button" parent="MenuBox1" unique_id=1553394025]
+material = SubResource("ShaderMaterial_g8l62")
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
@@ -436,6 +484,7 @@ custom_minimum_size = Vector2(0, 9)
 layout_mode = 2
 
 [node name="StartButton" type="Button" parent="MenuBox1" unique_id=224807441]
+material = SubResource("ShaderMaterial_g8l62")
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("6_g3efl")
@@ -459,6 +508,7 @@ offset_right = 1212.0
 offset_bottom = 1023.0
 
 [node name="SettingsButton" type="Button" parent="MenuBox2" unique_id=1300535835]
+material = SubResource("ShaderMaterial_g8l62")
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("6_g3efl")
@@ -479,6 +529,7 @@ custom_minimum_size = Vector2(0, 9)
 layout_mode = 2
 
 [node name="ExitButton" type="Button" parent="MenuBox2" unique_id=695649850]
+material = SubResource("ShaderMaterial_g8l62")
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("6_g3efl")
@@ -1226,6 +1277,80 @@ bus = &"SFX"
 [node name="WorldSelectionMenu" parent="." unique_id=584334806 instance=ExtResource("25_cl221")]
 visible = false
 layout_mode = 1
+
+[node name="MultiplayerMenu" type="VBoxContainer" parent="." unique_id=1784741744]
+visible = false
+custom_minimum_size = Vector2(600, 150)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HostButton" type="Button" parent="MultiplayerMenu" unique_id=274357525]
+custom_minimum_size = Vector2(500, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_g3efl")
+theme_override_font_sizes/font_size = 45
+text = "menu_host"
+
+[node name="Spacer" type="Control" parent="MultiplayerMenu" unique_id=522099026]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="JoinButton" type="Button" parent="MultiplayerMenu" unique_id=901684765]
+custom_minimum_size = Vector2(500, 50)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_g3efl")
+theme_override_font_sizes/font_size = 45
+text = "menu_join"
+
+[node name="IPMenu" type="VBoxContainer" parent="." unique_id=656194785]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="IPLabel" type="Label" parent="IPMenu" unique_id=323054188]
+layout_mode = 2
+theme_override_font_sizes/font_size = 45
+text = "menu_enter_ip"
+
+[node name="IPInput" type="LineEdit" parent="IPMenu" unique_id=2062574269]
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+placeholder_text = "127.0.0.1"
+alignment = 1
+
+[node name="Control" type="Control" parent="IPMenu" unique_id=344060307]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="ConnectActionButton" type="Button" parent="IPMenu" unique_id=955193319]
+layout_mode = 2
+theme_override_font_sizes/font_size = 45
+text = "menu_join"
+
+[node name="BackToMultiplayerButton" type="Button" parent="IPMenu" unique_id=391463452]
+layout_mode = 2
+theme_override_font_sizes/font_size = 45
+text = "menu_exit"
 
 [connection signal="mouse_entered" from="MenuBox1/StartButton" to="." method="_on_start_button_mouse_entered"]
 [connection signal="mouse_exited" from="MenuBox1/StartButton" to="." method="_on_start_button_mouse_exited"]
