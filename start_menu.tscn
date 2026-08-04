@@ -9,7 +9,7 @@
 [ext_resource type="FontFile" uid="uid://boa4mv17gvh6u" path="res://assets/fonts/Izax SHA_0.otf" id="6_g3efl"]
 [ext_resource type="Script" uid="uid://dlbygxe6wvwjk" path="res://firefly.gd" id="6_ppfnh"]
 [ext_resource type="Texture2D" uid="uid://cesu0ailqqccn" path="res://assets/textures/ui/menu/Иллюстрация_без_названия-2 (18).png" id="6_w8w24"]
-[ext_resource type="Texture2D" uid="uid://dxb38uvk3hynr" path="res://фон/IMG_6159-2.png" id="7_7boi2"]
+[ext_resource type="Texture2D" uid="uid://dxb38uvk3hynr" path="res://assets/textures/ui/pre_menu_background/IMG_6159-2.png" id="7_7boi2"]
 [ext_resource type="Texture2D" uid="uid://dig3wxqomupqr" path="res://assets/textures/ui/menu/Иллюстрация_без_названия-1 (22).png" id="7_g8l62"]
 [ext_resource type="Texture2D" uid="uid://c0fyapxuj7gu8" path="res://assets/textures/ui/menu/Иллюстрация_без_названия-1 (25).png" id="7_np4tr"]
 [ext_resource type="Texture2D" uid="uid://5dqr236hrv4p" path="res://assets/textures/ui/menu/Иллюстрация_без_названия-3 (15).png" id="8_8w6hp"]

@@ -1,5 +1,7 @@
 extends Node2D
 
+## TODO(Влад): необходим рефакторинг скрипта
+
 const TILE_SIZE = 8
 
 # Оставил твои названия узлов, чтобы не пришлось их менять в Godot!
@@ -29,23 +31,23 @@ func _ready():
 	mirror_offset_x = world_width_tiles + 10
 	
 	# Подключаем новые системы
-	terrain_renderer = load("res://scripts/terrain_renderer.gd").new()
+	terrain_renderer = load("res://scripts/core/terrain_renderer.gd").new()
 	terrain_renderer.name = "TerrainRenderer"
 	terrain_renderer.setup(grass_tile_map, mirror_grass_tile_map, mirror_offset_x)
 	add_child(terrain_renderer)
 	
-	chunk_manager = load("res://scripts/chunk_manager.gd").new()
+	chunk_manager = load("res://scripts/core/chunk_manager.gd").new()
 	chunk_manager.name = "ChunkManager"
 	chunk_manager.setup([], [], mirror_offset_x, terrain_renderer)
 	add_child(chunk_manager)
 	
-	collision_manager = load("res://scripts/collision_manager.gd").new()
+	collision_manager = load("res://scripts/core/collision_manager.gd").new()
 	collision_manager.name = "CollisionManager"
 	collision_manager.setup([], [], mirror_offset_x)
 	add_child(collision_manager)
 	
 	# Генерируем мир новым генератором
-	var WorldGeneratorClass = load("res://scripts/world_generator.gd")
+	var WorldGeneratorClass = load("res://scripts/generation/world_generator.gd")
 	world_gen = WorldGeneratorClass.new(world_width_tiles, world_height_tiles, Global.world_seed)
 	var result = world_gen.generate_world()
 	world_data = result["blocks"]

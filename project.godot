@@ -36,12 +36,12 @@ folder_colors={
 "res://assets/": "red",
 "res://assets/fonts/": "red",
 "res://assets/textures/player/": "red",
+"res://assets/textures/tiles/": "red",
+"res://assets/textures/tiles/biomes/forest/": "blue",
 "res://docs/": "gray",
 "res://scenes/": "orange",
 "res://scripts/": "yellow",
-"res://world/": "purple",
-"res://world/Biomes/DarkForest/": "blue",
-"res://world/Biomes/Forest/": "blue"
+"res://world/Biomes/DarkForest/": "blue"
 }
 
 [input]

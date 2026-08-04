@@ -129,10 +129,11 @@ fractured-glade/
 │   ├── player/                   # Логика игрока
 │   │   ├── player.gd
 │   │   └── player_inventory.gd
-│   ├── world/                    # Генерация, тайлы, биомы
+│   ├── generation/               # Генерация мира, тайлы
 │   │   ├── world_generator.gd
 │   │   ├── biome_data.gd         # Ресурс-класс для биома
-│   │   ├── tile_data.gd
+│   │   └── tile_data.gd
+│   ├── world/                    # Биомы, мировые ивенты
 │   │   └── rifts/                # Логика разломов
 │   ├── items/                    # Предметы и инвентарь
 │   │   ├── item_base.gd          # Базовый класс предмета
