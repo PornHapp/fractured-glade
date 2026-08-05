@@ -47,6 +47,18 @@
 [ext_resource type="Texture2D" uid="uid://cykedrcwno2k3" path="res://assets/textures/ui/menu/mini_logo.png" id="44_ko5c4"]
 [ext_resource type="Script" uid="uid://dpk6c72r1i0se" path="res://scripts/ui/menu/creepers.gd" id="45_xaqts"]
 [ext_resource type="Script" uid="uid://yk7uhr8x14cj" path="res://scripts/ui/menu/info_panel.gd" id="46_xaqts"]
+[ext_resource type="Texture2D" uid="uid://dwx85c0wvmwhp" path="res://assets/textures/ui/menu/IMG_6263-1.png" id="48_xvvey"]
+[ext_resource type="Texture2D" uid="uid://bhysxjhj37h2r" path="res://assets/textures/ui/menu/IMG_6263-1 (1).png" id="49_bo5q8"]
+[ext_resource type="Shader" uid="uid://b4fj0yqjtmv3r" path="res://shaders/ui/button_g.gdshader" id="49_ulhl8"]
+[ext_resource type="Shader" uid="uid://616s3ydfg3yr" path="res://shaders/ui/time.gdshader" id="50_bo5q8"]
+[ext_resource type="Texture2D" uid="uid://8ej1bmka5xun" path="res://assets/textures/ui/menu/IMG_6263-2 (1).png" id="50_ulhl8"]
+[ext_resource type="Texture2D" uid="uid://cjisf7pa15a3p" path="res://assets/textures/ui/menu/IMG_6263-3 (1).png" id="51_lx27x"]
+[ext_resource type="Texture2D" uid="uid://dpeywuvu5rnkp" path="res://assets/textures/ui/menu/IMG_6263-2.png" id="52_6it8c"]
+[ext_resource type="Texture2D" uid="uid://5v6uo4wlor1e" path="res://assets/textures/ui/menu/IMG_6263 нажатие.png" id="53_6it8c"]
+[ext_resource type="Texture2D" uid="uid://dsmnq6mbme1qa" path="res://assets/textures/ui/menu/IMG_6263-4 (1).png" id="53_dcxes"]
+[ext_resource type="Texture2D" uid="uid://c4xtm3ysmxlp8" path="res://assets/textures/ui/menu/IMG_6263-5 (1).png" id="54_nlitt"]
+[ext_resource type="Texture2D" uid="uid://b4ikty0cd17wp" path="res://assets/textures/ui/menu/IMG_6263-6 (1).png" id="55_aqgok"]
+[ext_resource type="Texture2D" uid="uid://b4dcttlktpqgh" path="res://assets/textures/ui/menu/IMG_6263-2 нажатие.png" id="55_dcxes"]
 
 [sub_resource type="Theme" id="Theme_g3efl"]
 default_font = ExtResource("6_g3efl")
@@ -451,6 +463,64 @@ expand_margin_bottom = 5.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vdj8r"]
 bg_color = Color(0.047058824, 0.047058824, 0.047058824, 0.39215687)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fy7bu"]
+shader = ExtResource("49_ulhl8")
+shader_parameter/break_progress = 0.2850000135375
+shader_parameter/impact_point = Vector2(0.5, 0.5)
+shader_parameter/use_glass_mask = true
+shader_parameter/glass_mask_circle = true
+shader_parameter/glass_mask_scale = Vector2(0.35, 0.35)
+shader_parameter/glass_mask_position = Vector2(0.5, 0.5)
+shader_parameter/glass_mask_rotation = 0.0
+shader_parameter/glass_mask_softness = 0.5
+shader_parameter/use_circle_impact = true
+shader_parameter/impact_shape_scale = Vector2(1, 1)
+shader_parameter/impact_rotation = 0.0
+shader_parameter/pieces_x = 12
+shader_parameter/pieces_y = 8
+shader_parameter/point_jitter = 0.34
+shader_parameter/shard_scatter = 0.1470000069825
+shader_parameter/gravity = 2.4
+shader_parameter/rotation_amount = 8.0
+shader_parameter/delay_variation = 0.35
+shader_parameter/crack_width = 0.002
+shader_parameter/crack_brightness = 1.5
+shader_parameter/crack_density = 1.0
+shader_parameter/crack_color = Color(1, 1, 1, 1)
+shader_parameter/glass_tint = Color(0.75, 0.9, 1, 0.15)
+shader_parameter/transparency = 0.2010000095475
+shader_parameter/center_hole_size = 0.08
+shader_parameter/hole_irregularity = 0.4
+shader_parameter/refraction = 0.10000000149012
+shader_parameter/chromatic = 0.0
+shader_parameter/shake = 0.008
+shader_parameter/pixelated = false
+shader_parameter/pixel_size = 4.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bhunq"]
+shader = ExtResource("50_bo5q8")
+shader_parameter/fov = 69.8350032696625
+shader_parameter/rotation_y = -30.38399716824
+shader_parameter/italic_skew = 0.38700011338249984
+shader_parameter/offset_x = 4.686009722584998
+shader_parameter/offset_y = 18.750010390624993
+
+[sub_resource type="LabelSettings" id="LabelSettings_riqys"]
+line_spacing = -15.0
+font_size = 60
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_aqgok"]
+texture = ExtResource("50_ulhl8")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lx27x"]
+texture = ExtResource("53_6it8c")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dcxes"]
+texture = ExtResource("51_lx27x")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6it8c"]
+texture = ExtResource("55_dcxes")
 
 [node name="StartMenu" type="Control" unique_id=802204838]
 layout_mode = 3
@@ -1766,6 +1836,142 @@ bus = &"SFX"
 [node name="SettingsClickSound" type="AudioStreamPlayer" parent="Character" unique_id=461776494]
 stream = ExtResource("10_ld0yp")
 bus = &"SFX"
+
+[node name="Control" type="Control" parent="." unique_id=773445455]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextureRect" type="TextureRect" parent="Control" unique_id=825455152]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = 345.35394
+offset_right = 332.0
+offset_bottom = 1040.0
+grow_vertical = 0
+texture = ExtResource("48_xvvey")
+
+[node name="Button" type="Button" parent="Control/TextureRect" unique_id=1821034824]
+material = SubResource("ShaderMaterial_fy7bu")
+layout_mode = 0
+offset_left = 6.0
+offset_top = 7.646057
+offset_right = 214.0
+offset_bottom = 215.64606
+mouse_filter = 2
+icon = ExtResource("49_bo5q8")
+flat = true
+icon_alignment = 1
+
+[node name="Label" type="Label" parent="Control/TextureRect/Button" unique_id=41478750]
+material = SubResource("ShaderMaterial_bhunq")
+layout_mode = 0
+offset_left = 60.0
+offset_top = 7.0
+offset_right = 151.0
+offset_bottom = 169.0
+theme_override_font_sizes/font_size = 35
+text = "30
+30
+30"
+label_settings = SubResource("LabelSettings_riqys")
+
+[node name="Button2" type="Button" parent="Control/TextureRect" unique_id=1395679900]
+layout_mode = 0
+offset_left = 101.0
+offset_top = 186.64606
+offset_right = 206.0
+offset_bottom = 291.64606
+theme_override_styles/normal = SubResource("StyleBoxTexture_aqgok")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_lx27x")
+theme_override_styles/hover = SubResource("StyleBoxTexture_aqgok")
+icon_alignment = 1
+
+[node name="Button3" type="Button" parent="Control/TextureRect" unique_id=14517553]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 319.64606
+offset_right = 217.0
+offset_bottom = 527.64606
+theme_override_styles/normal = SubResource("StyleBoxTexture_dcxes")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_dcxes")
+theme_override_styles/hover = SubResource("StyleBoxTexture_6it8c")
+icon = ExtResource("51_lx27x")
+flat = true
+icon_alignment = 1
+
+[node name="Control2" type="Control" parent="." unique_id=163209261]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextureRect2" type="TextureRect" parent="Control2" unique_id=1354415634]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1608.0
+offset_top = 345.35394
+offset_right = 1940.0
+offset_bottom = 1040.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = ExtResource("52_6it8c")
+
+[node name="Button4" type="Button" parent="Control2/TextureRect2" unique_id=962265330]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -220.0
+offset_top = -343.67697
+offset_right = -12.0
+offset_bottom = -135.67694
+grow_horizontal = 0
+grow_vertical = 2
+icon = ExtResource("53_dcxes")
+flat = true
+icon_alignment = 1
+
+[node name="Button5" type="Button" parent="Control2/TextureRect2" unique_id=1036145089]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -266.0
+offset_top = -200.67697
+offset_right = -58.0
+offset_bottom = 7.3230896
+grow_horizontal = 0
+grow_vertical = 2
+icon = ExtResource("54_nlitt")
+flat = true
+icon_alignment = 1
+
+[node name="Button6" type="Button" parent="Control2/TextureRect2" unique_id=940965524]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -222.0
+offset_top = -26.677002
+offset_right = -14.0
+offset_bottom = 181.32297
+grow_horizontal = 0
+grow_vertical = 2
+icon = ExtResource("55_aqgok")
+flat = true
+icon_alignment = 1
 
 [connection signal="mouse_entered" from="MenuBox1/StartButton" to="." method="_on_start_button_mouse_entered"]
 [connection signal="mouse_exited" from="MenuBox1/StartButton" to="." method="_on_start_button_mouse_exited"]
