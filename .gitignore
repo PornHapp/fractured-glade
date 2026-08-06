@@ -10,10 +10,6 @@ export_credentials.cfg
 # IMPORTED TRANSLATIONS
 *.translation
 
-# MONO-SPECIFIC IGNORES
-.mono/
-data_*/
-mono_crash.*.json
-
 # IDE
 .vscode/
+.mcp.json
