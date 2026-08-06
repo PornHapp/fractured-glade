@@ -1,0 +1,72 @@
+# .claudeignore - Fractured Glade
+# Файлы и директории, которые Claude Code НЕ должен анализировать/читать.
+# Основан на .gitignore + спецификах Godot 4.x / GDScript проекта.
+
+# Godot 4.x - внутренние директории (кэш, бинарники, импорты)
+.godot/
+.import/
+
+# Бинарные / скомпилированные ресурсы
+*.translation
+*.res
+*.scn
+*.ctex
+*.cbor
+*.ttf.import
+*.otf.import
+*.fontdata-folding-*
+
+# Godot Editor - служебные .cfg (состояния окон, folding)
+.godot/editor/*.cfg
+
+# Аудио и графика
+*.mp3
+*.ogg
+*.wav
+*.png
+*.jpg
+*.jpeg
+*.webp
+*.svg
+*.svg.import
+*.ico
+*.blend
+*.blend.import
+
+# IDE
+.vscode/
+.idea/
+
+# Экспортные / конфиденциальные файлы
+export.cfg
+export_credentials.cfg
+*.pck
+*.zip
+*.exe
+*.apk
+*.app
+*.dmg
+
+# Логи и временные файлы
+*.log
+*.tmp
+*.bak
+*.orig
+
+# Тестовые / промежуточные ресурсы (TEST_*)
+# Файлы с префиксом TEST_ или POLUTEST_ - это промежуточные ассеты,
+# которые не являются финальным контентом и не влияют на архитектуру.
+*_test.*
+*_test_*
+TEST_*
+# POLUTEST_*
+
+# Директории сохранений пользователей (user://)
+# Если Claude будет анализировать путь сохранений - пропускать.
+# Физически находятся в %APPDATA%, но на всякий случай:
+# saves/
+# worlds/
+
+# Файлы сгенерированных UID (Godot 4 использует uid://)
+# Не влияют на логику, генерируются автоматически.
+*.uid
