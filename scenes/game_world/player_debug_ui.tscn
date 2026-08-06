@@ -1,0 +1,7 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/game_world/player_debug_ui.gd" id="1_pdui"]
+
+[node name="PlayerDebugUI" type="CanvasLayer"]
+layer = 2
+script = ExtResource("1_pdui")

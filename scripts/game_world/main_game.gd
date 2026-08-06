@@ -60,6 +60,10 @@ func _ready():
 	
 	_copy_tilesets_to_mirror()
 	_create_player()
+	# Дебаг-панель игрока (клавиши 8/9/0 меняют HP для проверки состояний)
+	if player:
+		$PlayerDebug.setup(player)
+		$PlayerDebugUI.setup(player)
 	
 	# Загружаем только то, что вокруг игрока (Чанки)
 	chunk_manager.update(player.position, in_mirror_world)
@@ -94,6 +98,9 @@ func place_block(x: int, y: int, block_type: int):
 	mirror_world_data[y][mx] = block_type
 	terrain_renderer.update_surroundings(mx, y, true, mirror_world_data)
 	collision_manager.update_around(mx, y, true)
+	# Проигрываем анимацию «Взаимодействовать» (установка блока)
+	if player:
+		player.play_interact()
 
 func remove_block(x: int, y: int):
 	if x < 0 or x >= world_data[0].size() or y < 0 or y >= world_data.size(): return
@@ -107,6 +114,9 @@ func remove_block(x: int, y: int):
 	mirror_world_data[y][mx] = -1
 	terrain_renderer.update_surroundings(mx, y, true, mirror_world_data)
 	collision_manager.update_around(mx, y, true)
+	# Проигрываем анимацию «Взаимодействовать» (добыча блока)
+	if player:
+		player.play_interact()
 
 func switch_world():
 	in_mirror_world = !in_mirror_world
