@@ -88,13 +88,13 @@ func get_movement_target() -> StringName:
 
 
 ## Пытается начать атаку. Возвращает false, если игрок занят действием
-## (атака/урон/смерть) — поведение совпадает с гвардом из старого скрипта.
-## @param tool - инструмент атаки (SWORD, PICKAXE, AXE)
-func try_attack(tool: Player.ToolType) -> bool:
+## (атака/урон/смерть).
+## @param tool_name - имя инструмента (любое StringName)
+func try_attack(tool_name: StringName) -> bool:
 	if current_state.name in [STATE_ATTACK, STATE_HURT, STATE_DEAD]:
 		return false
 	var attack_state := _states[STATE_ATTACK] as AttackState
-	attack_state.tool = tool
+	attack_state.tool_name = tool_name
 	transition_to(STATE_ATTACK)
 	return true
 

@@ -1,9 +1,17 @@
 class_name State extends Node
 ## Базовый класс состояния игрока.
 ##
-## Каждое состояние — узел-ребёнок StateMachine. Ссылки на компоненты игрока
-## выдаются через StateMachine.setup(). Поведение задаётся переопределением
-## enter() / exit() / physics_update().
+## Каждое состояние - узел-ребенок StateMachine. Ссылки на компоненты
+## игрока выдаются через StateMachine.setup(). Поведение задается
+## переопределением enter() / exit() / physics_update().
+##
+## Доступные ссылки (заполняются автоматически):
+##   player      	- корневой узел Player (сигналы, публичный API)
+##   state_machine 	- машина состояний (переходы через transition_to)
+##   input       	- ввод (direction, jump_pressed/released/attack_pressed)
+##   movement    	- физика (velocity, facing, is_on_floor, jump/released)
+##   animation   	- анимации (play_interact, play_hurt, play_dead, play)
+##   health      	- здоровье (health, is_dead, is_invulnerable)
 
 var player: Player
 var state_machine: StateMachine

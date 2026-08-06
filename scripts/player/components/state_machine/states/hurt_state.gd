@@ -1,5 +1,5 @@
 class_name HurtState extends State
-## Состояние получения урона: краткая HURT-анимация, затем возврат к движению.
+## Состояние получения урона: краткая анимация hurt, затем возврат к движению.
 ## Окно неуязвимости (длится дольше) управляется HealthComponent, мигание
 ## спрайта — AnimationController по сигналу invulnerability_changed.
 
@@ -11,7 +11,7 @@ var _timer: float = 0.0
 
 func enter() -> void:
 	_timer = HURT_DURATION
-	animation.play(animation.ANIM_HURT)
+	animation.play_hurt()
 
 
 func physics_update(delta: float) -> void:

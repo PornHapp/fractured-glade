@@ -1,35 +1,30 @@
 class_name Player extends CharacterBody2D
 
-## Главный скрипт Игрока — составной корень (facade).
+## Главный скрипт игрока — составной корень (facade).
 ##
 ## Собирает компоненты-узлы, связывает их сигналами и делегирует задачи.
-## Вся логика вынесена в модули: InputHandler (ввод), MovementController
-## (физика движения), StateMachine с узлами-состояниями, AnimationController
-## (анимации) и HealthComponent (здоровье). Здесь остаются публичный контракт
-## для внешних систем (сигналы, методы) и порядок вызова компонентов.
+## Вся логика вынесена в модули:
+##   - InputHandler (ввод)
+##   - MovementController (физика движения)
+##   - StateMachine с узлами-состояниями
+##   - AnimationController (анимации)
+##   - HealthComponent (здоровье)
+## Здесь остаются публичный контракт для внешних систем
+## (сигналы, методы) и порядок вызова компонентов.
 
 
 # --- СИГНАЛЫ (публичный контракт для внешних систем: HUD, бой, хотбар) ---
-## Атака началась (проигрывается свайп инструмента).
-signal attack_started(tool: ToolType)
+## Атака началась (проигрывается анимация взаимодействия).
+## @param tool_name - имя инструмента (передаётся наружу как есть, без привязки к enum)
+signal attack_started(tool_name: StringName)
 ## Атака закончилась (анимация отыграна, можно атаковать снова).
-signal attack_finished(tool: ToolType)
+signal attack_finished(tool_name: StringName)
 ## Здоровье изменилось.
 signal health_changed(new_value: int, old_value: int)
 ## Игрок получил урон.
 signal damaged(amount: int, new_health: int)
 ## Игрок умер.
 signal died
-
-
-# --- ПЕРЕЧИСЛЕНИЯ ---
-## Тип инструмента для анимации удара.
-enum ToolType { SWORD, PICKAXE, AXE }
-
-
-# --- НАСТРОЙКИ ---
-## Текущий инструмент. Пока всегда меч — хотбар подключит свой инструмент позже.
-@export var current_tool: ToolType = ToolType.SWORD
 
 
 # --- ССЫЛКИ НА КОМПОНЕНТЫ ---
@@ -42,7 +37,7 @@ enum ToolType { SWORD, PICKAXE, AXE }
 
 
 func _ready() -> void:
-	# Выдаём компонентам ссылки друг на друга
+	# Выдаем компонентам ссылки друг на друга
 	animation_controller.setup(anim_sprite)
 	movement_controller.setup(self, input_handler)
 	state_machine.setup(self, input_handler, movement_controller, animation_controller, health_component)
@@ -77,21 +72,27 @@ func _physics_process(delta: float) -> void:
 
 
 ## Обработчик нажатия атаки: пытаемся начать атаку текущим инструментом.
+## Внешние системы (хотбар) устанавливают current_tool перед вызовом.
 func _on_attack_pressed() -> void:
 	state_machine.try_attack(current_tool)
 
 
 # --- ПУБЛИЧНЫЙ API ---
 
+## Текущий инструмент. Устанавливается внешней системой (хотбар).
+## Используется при нажатии кнопки атаки и для вызова play_interact().
+var current_tool: StringName = &"default"
+
+
 ## Начинает атаку выбранным инструментом. Удар и любая атака проигрывают
-## единую анимацию «Взаимодействовать».
-## @param tool - тип инструмента (SWORD, PICKAXE, AXE)
-## @emits attack_started(tool), attack_finished(tool)
-func play_attack(tool: ToolType) -> void:
-	state_machine.try_attack(tool)
+## единую анимацию "Взаимодействовать".
+## @param tool_name - имя инструмента (любое StringName, без привязки к enum)
+## @emits attack_started(tool_name), attack_finished(tool_name)
+func play_attack(tool_name: StringName = current_tool) -> void:
+	state_machine.try_attack(tool_name)
 
 
-## Проигрывает анимацию «Взаимодействовать»: добыча блока, установка
+## Проигрывает анимацию "Взаимодействовать": добыча блока, установка
 ## блока/предмета и любая атака используют одну и ту же анимацию.
 ## Вызывается внешними системами (главная сцена при изменении блоков).
 func play_interact() -> void:
