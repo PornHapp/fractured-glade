@@ -1,6 +1,18 @@
 [gd_scene format=3 uid="uid://44fo3ep3cfc"]
 
 [ext_resource type="Script" uid="uid://dmk827skpa775" path="res://scripts/player/player.gd" id="1_onrkg"]
+[ext_resource type="Texture2D" uid="uid://b5gh8cvx4e1ei" path="res://assets/textures/player/astral_f/interact_left.png" id="2_gx1jg"]
+[ext_resource type="Texture2D" uid="uid://ddivwkmsmg4xk" path="res://assets/textures/player/astral_f/interact_right.png" id="3_ugbui"]
+[ext_resource type="Texture2D" uid="uid://cdsadrsfhv2w" path="res://assets/textures/player/astral_f/death_left.png" id="4_fcs02"]
+[ext_resource type="Texture2D" uid="uid://dxpurk1hnhbg0" path="res://assets/textures/player/astral_f/death_right.png" id="5_myrg7"]
+[ext_resource type="Texture2D" uid="uid://baaviwddc70ah" path="res://assets/textures/player/astral_f/fall_left.png" id="6_kvlxm"]
+[ext_resource type="Texture2D" uid="uid://br1heowehsqsw" path="res://assets/textures/player/astral_f/fall_right.png" id="7_uf5tr"]
+[ext_resource type="Texture2D" uid="uid://bwci1k8boximv" path="res://assets/textures/player/astral_f/idle_left.png" id="8_lgqa7"]
+[ext_resource type="Texture2D" uid="uid://dwgp6403er7e5" path="res://assets/textures/player/astral_f/idle_right.png" id="9_8ydkj"]
+[ext_resource type="Texture2D" uid="uid://de2muunnd5vr1" path="res://assets/textures/player/astral_f/jump_left.png" id="10_3j4b4"]
+[ext_resource type="Texture2D" uid="uid://c1fybg1ejw2l" path="res://assets/textures/player/astral_f/jump_right.png" id="11_yj68g"]
+[ext_resource type="Texture2D" uid="uid://dyv1jiarblncb" path="res://assets/textures/player/astral_f/run_left.png" id="12_ioxgp"]
+[ext_resource type="Texture2D" uid="uid://b6s6ynjldny8n" path="res://assets/textures/player/astral_f/run_right.png" id="13_cnsyf"]
 [ext_resource type="Script" path="res://scripts/player/components/input_handler.gd" id="2_inph"]
 [ext_resource type="Script" path="res://scripts/player/components/movement_controller.gd" id="2_movem"]
 [ext_resource type="Script" path="res://scripts/player/components/animation_controller.gd" id="2_animc"]
@@ -386,7 +398,7 @@ region = Rect2(0, 0, 17, 35)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_onrkg")
+"texture": SubResource("AtlasTexture_7072n")
 }],
 "loop": 0,
 "name": &"default",
@@ -411,7 +423,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_onrkg")
+"texture": SubResource("AtlasTexture_7072n")
 }],
 "loop": 0,
 "name": &"fall",
@@ -505,7 +517,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_onrkg")
+"texture": SubResource("AtlasTexture_7072n")
 }],
 "loop": 0,
 "name": &"jump",
@@ -536,7 +548,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_onrkg")
+"texture": SubResource("AtlasTexture_7072n")
 }],
 "loop": 1,
 "name": &"walk",
