@@ -2,6 +2,18 @@
 
 [ext_resource type="Texture2D" uid="uid://ghpk35a34m0d" path="res://assets/textures/player/astral_f.png" id="1_4flbx"]
 [ext_resource type="Script" uid="uid://dmk827skpa775" path="res://scripts/player/player.gd" id="1_onrkg"]
+[ext_resource type="Script" path="res://scripts/player/components/input_handler.gd" id="2_inph"]
+[ext_resource type="Script" path="res://scripts/player/components/movement_controller.gd" id="2_movem"]
+[ext_resource type="Script" path="res://scripts/player/components/animation_controller.gd" id="2_animc"]
+[ext_resource type="Script" path="res://scripts/player/components/health_component.gd" id="2_heal"]
+[ext_resource type="Script" path="res://scripts/player/components/state_machine/state_machine.gd" id="2_stmch"]
+[ext_resource type="Script" path="res://scripts/player/components/state_machine/states/idle_state.gd" id="3_idle"]
+[ext_resource type="Script" path="res://scripts/player/components/state_machine/states/run_state.gd" id="3_run"]
+[ext_resource type="Script" path="res://scripts/player/components/state_machine/states/jump_state.gd" id="3_jump"]
+[ext_resource type="Script" path="res://scripts/player/components/state_machine/states/fall_state.gd" id="3_fall"]
+[ext_resource type="Script" path="res://scripts/player/components/state_machine/states/attack_state.gd" id="3_attack"]
+[ext_resource type="Script" path="res://scripts/player/components/state_machine/states/hurt_state.gd" id="3_hurt"]
+[ext_resource type="Script" path="res://scripts/player/components/state_machine/states/dead_state.gd" id="3_dead"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_onrkg"]
 atlas = ExtResource("1_4flbx")
@@ -14,32 +26,16 @@ animations = [{
 "texture": SubResource("AtlasTexture_onrkg")
 }],
 "loop": 0,
-"name": &"attack_axe",
-"speed": 15.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_onrkg")
-}],
-"loop": 0,
-"name": &"attack_pickaxe",
-"speed": 15.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_onrkg")
-}],
-"loop": 0,
-"name": &"attack_sword",
-"speed": 15.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_onrkg")
-}],
-"loop": 1,
 "name": &"default",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_onrkg")
+}],
+"loop": 0,
+"name": &"die",
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -70,8 +66,24 @@ animations = [{
 "texture": SubResource("AtlasTexture_onrkg")
 }],
 "loop": 0,
+"name": &"interact",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_onrkg")
+}],
+"loop": 0,
 "name": &"jump",
 "speed": 14.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_onrkg")
+}],
+"loop": 1,
+"name": &"run",
+"speed": 12.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -92,7 +104,6 @@ length = 21.0
 floor_max_angle = 1.0471976
 floor_snap_length = 8.0
 script = ExtResource("1_onrkg")
-run_speed = 211.055
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=737105502]
 scale = Vector2(1.0945946, 1.0945946)
@@ -108,3 +119,39 @@ zoom = Vector2(3, 3)
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="." unique_id=1575651233]
 position = Vector2(0, 1)
 shape = SubResource("SeparationRayShape2D_onrkg")
+
+[node name="InputHandler" type="Node" parent="."]
+script = ExtResource("2_inph")
+
+[node name="MovementController" type="Node" parent="."]
+script = ExtResource("2_movem")
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("2_heal")
+
+[node name="AnimationController" type="Node" parent="."]
+script = ExtResource("2_animc")
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("2_stmch")
+
+[node name="IdleState" type="Node" parent="StateMachine"]
+script = ExtResource("3_idle")
+
+[node name="RunState" type="Node" parent="StateMachine"]
+script = ExtResource("3_run")
+
+[node name="JumpState" type="Node" parent="StateMachine"]
+script = ExtResource("3_jump")
+
+[node name="FallState" type="Node" parent="StateMachine"]
+script = ExtResource("3_fall")
+
+[node name="AttackState" type="Node" parent="StateMachine"]
+script = ExtResource("3_attack")
+
+[node name="HurtState" type="Node" parent="StateMachine"]
+script = ExtResource("3_hurt")
+
+[node name="DeadState" type="Node" parent="StateMachine"]
+script = ExtResource("3_dead")
