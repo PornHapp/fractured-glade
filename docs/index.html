@@ -18,6 +18,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/thin/style.css" />
     <link rel="stylesheet" href="css/landing.css" />
 
     <!-- Favicon -->
@@ -128,7 +129,7 @@
                 <h3>Что общее, а что различается</h3>
                 <div class="sync-table__grid">
                     <div class="sync-table__col sync-table__col--sync">
-                        <div class="sync-table__header">🔗 Синхронизируется</div>
+                        <div class="sync-table__header section-heading"><i class="ph ph-link"></i> Синхронизируется</div>
                         <ul>
                             <li>Геометрия мира</li>
                             <li>Разрушение блоков</li>
@@ -138,7 +139,7 @@
                         </ul>
                     </div>
                     <div class="sync-table__col sync-table__col--diff">
-                        <div class="sync-table__header">⚡ Различается</div>
+                        <div class="sync-table__header"><i class="ph ph-lightning"></i> Различается</div>
                         <ul>
                             <li>Визуальное оформление</li>
                             <li>Ресурсы и руды</li>
@@ -160,37 +161,37 @@
 
             <div class="features-grid">
                 <div class="feature-card reveal">
-                    <div class="feature-card__icon">🌓</div>
+                    <div class="feature-card__icon"><i class="ph ph-moon-stars"></i></div>
                     <h3 class="feature-card__title">Макробиомы</h3>
                     <p>Свет и Тьма — два состояния одного мира. Разный визуал, ресурсы, враги и атмосфера. Полноценное развитие невозможно без использования обоих.</p>
                 </div>
 
                 <div class="feature-card reveal">
-                    <div class="feature-card__icon">🌀</div>
+                    <div class="feature-card__icon"><i class="ph ph-spiral"></i></div>
                     <h3 class="feature-card__title">Разломы</h3>
                     <p>Объекты-порталы для перехода между Макробиомами. Координаты сохраняются — ты в том же месте, но мир вокруг тебя изменился.</p>
                 </div>
 
                 <div class="feature-card reveal">
-                    <div class="feature-card__icon">🔨</div>
+                    <div class="feature-card__icon"><i class="ph ph-hammer"></i></div>
                     <h3 class="feature-card__title">Крафт</h3>
                     <p>Верстак, деревянные и каменные инструменты, базовые строительные блоки. Ресурсы могут отличаться в зависимости от активного Макробиома.</p>
                 </div>
 
                 <div class="feature-card reveal">
-                    <div class="feature-card__icon">🧱</div>
+                    <div class="feature-card__icon"><i class="ph ph-wall"></i></div>
                     <h3 class="feature-card__title">Строительство</h3>
                     <p>Свободная установка и разрушение блоков. Геометрия синхронизируется между Светом и Тьмой — постройки видны в обоих состояниях.</p>
                 </div>
 
                 <div class="feature-card reveal">
-                    <div class="feature-card__icon">⚔️</div>
+                    <div class="feature-card__icon"><i class="ph ph-sword"></i></div>
                     <h3 class="feature-card__title">Боевая система</h3>
                     <p>Меч, кирка, топор. Здоровье, урон, смерть противников. Минимальный, но рабочий набор для прохождения MVP-цикла.</p>
                 </div>
 
                 <div class="feature-card reveal">
-                    <div class="feature-card__icon">🎒</div>
+                    <div class="feature-card__icon"><i class="ph ph-backpack"></i></div>
                     <h3 class="feature-card__title">Инвентарь</h3>
                     <p>Хотбар + основная сетка 10×6. Стакование, перенос, мусорка. Система, аналогичная Terraria — привычна и понятна.</p>
                 </div>
@@ -198,7 +199,7 @@
 
             <!-- Цикл прохождения -->
             <div class="progress-loop reveal">
-                <h3>Игровой цикл MVP</h3>
+                <h3 class="section-heading">Игровой цикл MVP</h3>
                 <ol class="progress-loop__list">
                     <li>Создать новый мир</li>
                     <li>Поговорить с NPC</li>
@@ -223,7 +224,7 @@
             <div class="specs-grid">
                 <a href="https://github.com/PornHapp/fractured-glade/blob/main/docs/mvp-preview.md"
                    target="_blank" rel="noopener" class="spec-card reveal">
-                    <div class="spec-card__icon">📋</div>
+                    <div class="spec-card__icon"><i class="ph ph-file-text"></i></div>
                     <h3 class="spec-card__title">Концепция MVP</h3>
                     <p>Обзор проекта, цели, основные механики, критерий успешного MVP.</p>
                     <span class="spec-card__link">mvp-preview.md ↗</span>
@@ -231,7 +232,7 @@
 
                 <a href="https://github.com/PornHapp/fractured-glade/blob/main/docs/mvp-vision-and-scope.md"
                    target="_blank" rel="noopener" class="spec-card reveal">
-                    <div class="spec-card__icon">🎯</div>
+                    <div class="spec-card__icon"><i class="ph ph-target"></i></div>
                     <h3 class="spec-card__title">Видение и объём</h3>
                     <p>Границы MVP, подробное описание всех механик и систем.</p>
                     <span class="spec-card__link">mvp-vision-and-scope.md ↗</span>
@@ -239,7 +240,7 @@
 
                 <a href="https://github.com/PornHapp/fractured-glade/blob/main/docs/mvp-items-spec.md"
                    target="_blank" rel="noopener" class="spec-card reveal">
-                    <div class="spec-card__icon">🪙</div>
+                    <div class="spec-card__icon"><i class="ph ph-coins"></i></div>
                     <h3 class="spec-card__title">Система предметов</h3>
                     <p>ItemBase, ItemType enum, архитектура данных, композиция через компоненты.</p>
                     <span class="spec-card__link">mvp-items-spec.md ↗</span>
@@ -247,7 +248,7 @@
 
                 <a href="https://github.com/PornHapp/fractured-glade/blob/main/docs/mvp-inventory-spec.md"
                    target="_blank" rel="noopener" class="spec-card reveal">
-                    <div class="spec-card__icon">📦</div>
+                    <div class="spec-card__icon"><i class="ph ph-package"></i></div>
                     <h3 class="spec-card__title">Система инвентаря</h3>
                     <p>ItemStack, InventoryData, API менеджера, хотбар, мусорка.</p>
                     <span class="spec-card__link">mvp-inventory-spec.md ↗</span>
@@ -255,7 +256,7 @@
 
                 <a href="https://github.com/PornHapp/fractured-glade/blob/main/docs/style-guide.md"
                    target="_blank" rel="noopener" class="spec-card reveal">
-                    <div class="spec-card__icon">🎨</div>
+                    <div class="spec-card__icon"><i class="ph ph-palette"></i></div>
                     <h3 class="spec-card__title">Руководство стиля</h3>
                     <p>Конвенции кода, SOLID, структура проекта, Git-формат коммитов.</p>
                     <span class="spec-card__link">style-guide.md ↗</span>
@@ -267,7 +268,7 @@
     <!-- ===== ГАЛЕРЕЯ ===== -->
     <section class="section section--gallery" id="gallery">
         <div class="container">
-            <h2 class="section__title reveal">Скриншоты</h2>
+            <h2 class="section__title reveal">Референсы</h2>
             <div class="gallery reveal">
                 <div class="gallery__track">
                     <img src="screenshots/terraria_inventory_example_v1.png" alt="Пример инвентаря (референс)" class="gallery__item" loading="lazy" />
@@ -298,19 +299,19 @@
             <!-- Архитектурные принципы -->
             <div class="arch-principles reveal">
                 <div class="arch-principle">
-                    <h4>🏗️ Service Locator</h4>
+                    <h4><i class="ph ph-buildings"></i> Service Locator</h4>
                     <p>Глобальные менеджеры через Autoload — GameManager, WorldManager, InventoryManager</p>
                 </div>
                 <div class="arch-principle">
-                    <h4>🧩 Композиция &gt; Наследование</h4>
+                    <h4><i class="ph ph-puzzle-piece"></i> Композиция</h4>
                     <p>HealthComponent, MovementComponent — расширяем через узлы, не через иерархию</p>
                 </div>
                 <div class="arch-principle">
-                    <h4>📡 Слабая связанность</h4>
+                    <h4><i class="ph ph-radio"></i> Слабая связанность</h4>
                     <p>Коммуникация через сигналы. Данные в Resource, логика в скриптах.</p>
                 </div>
                 <div class="arch-principle">
-                    <h4>🔒 SOLID</h4>
+                    <h4><i class="ph ph-lock-key"></i> SOLID</h4>
                     <p>Каждая система — одна задача. Новые биомы и предметы добавляются через ресурсы.</p>
                 </div>
             </div>
@@ -342,7 +343,7 @@
                     <span class="footer__sep">·</span>
                     <span class="footer__heart">❤</span>
                 </div>
-                <div class="footer__copy">Fractured Glade © 2026 · сделано для людей</div>
+                <div class="footer__copy">Fractured Glade © 2026</div>
             </div>
         </div>
     </footer>

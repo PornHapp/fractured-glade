@@ -349,10 +349,10 @@ img {
 }
 
 .hero__logo {
-    width: 180px;
+    width: 340px;
     height: auto;
     margin: 0 auto 1rem;
-    filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.25));
+    filter: drop-shadow(0 8px 32px rgba(0, 0, 0, 0.4)) drop-shadow(0 16px 64px rgba(144, 112, 176, 0.3));
 }
 
 .hero__title {
@@ -556,12 +556,53 @@ img {
 }
 
 .section__subtitle {
+    font-family: var(--font-display);
     text-align: center;
     font-size: 1rem;
     color: var(--text-sub);
     margin-top: 0.5rem;
     margin-bottom: 3rem;
     letter-spacing: 0.02em;
+}
+
+/* Выделенные подзаголовки секций — крупнее, Izax, с тенью */
+.section-heading {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: var(--text-heading);
+    text-shadow: 2px 2px 0 rgba(200, 180, 170, 0.3);
+    letter-spacing: 0.01em;
+}
+
+/* --- Phosphor Icons: стилизация под палитру сайта --- */
+.feature-card__icon i,
+.spec-card__icon i,
+.sync-table__header i,
+.arch-principle h4 i {
+    color: var(--rift-color);
+    vertical-align: middle;
+}
+
+.feature-card__icon i {
+    font-size: 2rem;
+    display: inline-block;
+    margin-bottom: 0.3rem;
+}
+
+.spec-card__icon i {
+    font-size: 1.8rem;
+    display: inline-block;
+    margin-bottom: 0.2rem;
+}
+
+.sync-table__header i {
+    font-size: 1.1rem;
+}
+
+.arch-principle h4 i {
+    font-size: 1.4rem;
+    margin-right: 0.3rem;
 }
 
 /* Разделитель-точка вместо черты */
@@ -637,7 +678,7 @@ img {
 
 .sync-table h3 {
     font-family: var(--font-display);
-    font-size: 1.35rem;
+    font-size: 2.5rem;
     font-weight: 800;
     color: var(--text-heading);
     text-align: center;
@@ -696,10 +737,12 @@ img {
 }
 
 .sync-table__col--diff li::before {
-    content: "⚡";
+    content: "≠";
     position: absolute;
     left: 0;
-    font-size: 0.85rem;
+    font-size: 0.95rem;
+    color: var(--accent-blue-shadow);
+    font-weight: 700;
 }
 
 /* ============================================================
@@ -782,14 +825,14 @@ img {
 .feature-card:nth-child(6):hover { border-color: var(--accent-green-border); }
 
 .feature-card__icon {
-    font-size: 1.8rem;
     margin-bottom: 0.6rem;
-    display: inline-block;
+    display: block;
+    line-height: 1;
 }
 
 .feature-card__title {
     font-family: var(--font-display);
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     font-weight: 800;
     color: var(--text-heading);
     margin-bottom: 0.35rem;
@@ -916,13 +959,13 @@ img {
 }
 
 .spec-card__icon {
-    font-size: 1.6rem;
     margin-bottom: 0.4rem;
+    line-height: 1;
 }
 
 .spec-card__title {
     font-family: var(--font-display);
-    font-size: 1.15rem;
+    font-size: 1.3rem;
     font-weight: 800;
     color: var(--text-heading);
     margin-bottom: 0.3rem;
@@ -981,12 +1024,14 @@ img {
 
 .gallery__item {
     flex: 0 0 auto;
-    width: 300px;
+    width: 320px;
     height: auto;
+    max-height: 400px;
     border-radius: 14px;
     border: 2px solid var(--border-main);
     scroll-snap-align: start;
-    object-fit: cover;
+    object-fit: contain;
+    background: var(--bg-warm);
     transition: transform 0.3s, box-shadow 0.3s;
 }
 
@@ -997,7 +1042,7 @@ img {
 
 @media (max-width: 600px) {
     .gallery__item {
-        width: 240px;
+        width: 260px;
     }
 }
 
@@ -1093,7 +1138,7 @@ img {
 
 .arch-principle h4 {
     font-family: var(--font-display);
-    font-size: 1rem;
+    font-size: 2rem;
     font-weight: 800;
     color: var(--text-heading);
     margin-bottom: 0.3rem;
@@ -1115,6 +1160,7 @@ img {
     min-height: 280px;
     display: flex;
     align-items: center;
+    background: var(--dark-bg);
 }
 
 /* Слой с изображениями — лес + луна, затемнённые */
@@ -1132,21 +1178,21 @@ img {
 }
 
 .footer__bg-layer--forest {
-    opacity: 0.25;
+    opacity: 0.35;
 }
 
 .footer__bg-layer--moon {
-    opacity: 0.2;
+    opacity: 0.3;
 }
 
-/* Тёмный оверлей */
+/* Тёмный оверлей — полупрозрачный, чтобы текстуры читались */
 .footer__overlay {
     position: absolute;
     inset: 0;
     background:
         linear-gradient(180deg,
-            rgba(30, 24, 40, 0.85) 0%,
-            rgba(30, 24, 40, 0.95) 100%
+            rgba(30, 24, 40, 0.55) 0%,
+            rgba(30, 24, 40, 0.75) 100%
         );
     z-index: 1;
 }
@@ -1296,6 +1342,10 @@ img {
         font-size: 2.2rem;
     }
 
+    .section-heading {
+        font-size: 1.4rem;
+    }
+
     .section {
         padding: 5rem 1.5rem;
     }
@@ -1308,6 +1358,10 @@ img {
 
     .hero__title {
         font-size: 2.4rem;
+    }
+
+    .hero__logo {
+        width: 220px;
     }
 
     .hero__tagline {
@@ -1329,6 +1383,10 @@ img {
 
     .section__title {
         font-size: 1.8rem;
+    }
+
+    .section-heading {
+        font-size: 1.2rem;
     }
 
     .section {
