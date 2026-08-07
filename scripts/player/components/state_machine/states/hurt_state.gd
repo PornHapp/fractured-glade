@@ -1,16 +1,22 @@
 class_name HurtState extends State
 ## Состояние получения урона: краткая анимация hurt, затем возврат к движению.
-## Окно неуязвимости (длится дольше) управляется HealthComponent, мигание
-## спрайта — AnimationController по сигналу invulnerability_changed.
+##
+## Окно неуязвимости (длится дольше) управляется HealthComponent,
+## мигание спрайта - AnimationController по сигналу invulnerability_changed.
+##
+## Визуал: AnimationController.play_hurt() -> анимация hurt.
+## Переход: таймер истек -> IdleState / RunState / JumpState / FallState.
 
+
+@export_category("Hurt")
 ## Длительность анимации получения урона, сек.
-const HURT_DURATION: float = 0.25
+@export var hurt_duration: float = 0.25
 
 var _timer: float = 0.0
 
 
 func enter() -> void:
-	_timer = HURT_DURATION
+	_timer = hurt_duration
 	animation.cancel_interact()
 	animation.play_hurt()
 

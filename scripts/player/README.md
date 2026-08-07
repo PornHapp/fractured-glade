@@ -22,8 +22,8 @@ scripts/player/
         ├── state_machine.gd           # Менеджер состояний
         └── states/
             ├── idle_state.gd          # Покой (стоит на полу)
-            ├── run_state.gd           # Движение (идёт/бежит)
-            ├── jump_state.gd          # Подъём (в воздухе, Y < 0)
+            ├── run_state.gd           # Движение (идет/бежит)
+            ├── jump_state.gd          # Подъем (в воздухе, Y < 0)
             ├── fall_state.gd          # Падение (в воздухе, Y ≥ 0)
             ├── attack_state.gd        # Атака (взаимодействие)
             ├── hurt_state.gd          # Получение урона
@@ -37,23 +37,49 @@ scripts/player/
 ### Цикл физического такта (`_physics_process`)
 
 ```
-InputHandler.poll()          →  читаем ввод
-HealthComponent.update()     →  таймер неуязвимости
-StateMachine.update()        →  текущее состояние → physics_update()
-MovementController.update()  →  физика: гравитация, движение, прыжок
-AnimationController.update() →  выбираем анимацию по состоянию и facing
+InputHandler.poll()          ->  читаем ввод
+HealthComponent.update()     ->  таймер неуязвимости
+StateMachine.update()        ->  текущее состояние -> physics_update()
+MovementController.update()  ->  физика: гравитация, движение, прыжок
+AnimationController.update() ->  выбираем анимацию по состоянию и facing
 ```
 
 ### Поток данных
 
 ```
-Ввод (клавиши) → InputHandler → MovementController (физика)
-                              → StateMachine (переходы)
-                              → AnimationController (визуал)
+Ввод (клавиши) -> InputHandler -> MovementController (физика)
+                              -> StateMachine (переходы)
+                              -> AnimationController (визуал)
 
-Здоровье → HealthComponent    → StateMachine (урон/смерть)
-                              → AnimationController (мигание)
+Здоровье -> HealthComponent    -> StateMachine (урон/смерть)
+                              -> AnimationController (мигание)
 ```
+
+---
+
+## Конфигурация
+
+Все настройки игрока настраиваются из **инспектора Godot** через `@export` переменные, сгруппированные по категориям (`@export_category`). Гейм-дизайнер может менять параметры, не заглядывая в код.
+
+### Категории настроек
+
+| Компонент | Категория | Параметры |
+|---|---|---|
+| **MovementController** | Movement | `move_speed`, `speed_multiplier`, `ground_acceleration`, `ground_friction`, `air_acceleration`, `air_friction`, `max_fall_speed` |
+| **MovementController** | Jump | `jump_velocity`, `jump_cut_multiplier`, `coyote_time`, `jump_buffer_time` |
+| **HealthComponent** | Combat | `max_health`, `invulnerability_time` |
+| **AnimationController** | Animation | `run_speed_threshold`, `interact_duration` |
+| **AttackState** | Attack | `attack_duration` |
+| **HurtState** | Hurt | `hurt_duration` |
+| **DeadState** | Dead | `pre_death_hurt_duration` |
+
+### Как настраивать
+
+1. Выберите узел `Player` в сцене
+2. В инспекторе разверните нужный компонент (MovementController, HealthComponent и т.д.)
+3. Параметры сгруппированы по категориям - меняйте прямо в инспекторе
+
+> **Важно:** `pre_death_hurt_duration` в DeadState должна совпадать с `hurt_duration` в HurtState для визуальной согласованности.
 
 ---
 
@@ -62,7 +88,7 @@ AnimationController.update() →  выбираем анимацию по сос�
 ### Player (`player.gd`)
 
 Корневой узел `CharacterBody2D`. Фасад: собирает компоненты, связывает
-сигналами, выдаёт публичный API для внешних систем.
+сигналами, выдает публичный API для внешних систем.
 
 **Сигналы** (публичный контракт):
 
@@ -84,6 +110,7 @@ AnimationController.update() →  выбираем анимацию по сос�
 
 - `current_tool: StringName` - текущий инструмент (устанавливается хотбаром)
 - `health: int` - текущее здоровье (только чтение)
+- `is_dead: bool` - мертв ли игрок (только чтение)
 
 ---
 
@@ -104,11 +131,20 @@ AnimationController.update() →  выбираем анимацию по сос�
 
 Не читает Input - получает данные из InputHandler через setup().
 
-**Ключевые настройки:**
+**Категория Movement:**
 
 - `move_speed` - базовая скорость (150 px/с)
 - `speed_multiplier` - множитель от внешних факторов
+- `ground_acceleration` - ускорение на земле (1600 px/с²)
+- `ground_friction` - трение на земле (1600 px/с²)
+- `air_acceleration` - ускорение в воздухе (1200 px/с²)
+- `air_friction` - трение в воздухе (300 px/с²)
+- `max_fall_speed` - терминальная скорость падения (420 px/с)
+
+**Категория Jump:**
+
 - `jump_velocity` - скорость прыжка (-320)
+- `jump_cut_multiplier` - переменная высота (0.5)
 - `coyote_time` - койот-таймер (0.1 сек)
 - `jump_buffer_time` - буфер прыжка (0.12 сек)
 
@@ -122,6 +158,11 @@ AnimationController.update() →  выбираем анимацию по сос�
 **Принцип зеркалирования:** исходник спрайта смотрит влево. При
 `facing > 0` (вправо) ставится `flip_h = true`. Все анимации единые
 на оба направления.
+
+**Категория Animation:**
+
+- `run_speed_threshold` - порог скорости для анимации run (170 px/с)
+- `interact_duration` - длительность анимации взаимодействия (0.4 сек)
 
 **Методы:**
 
@@ -138,7 +179,11 @@ AnimationController.update() →  выбираем анимацию по сос�
 Здоровье, окно неуязвимости и смерть. Чистая логика без визуала.
 
 **Сигналы:** `health_changed`, `damaged`, `died`, `invulnerability_changed`
-**Настройки:** `max_health` (100), `invulnerability_time` (1.0 сек)
+
+**Категория Combat:**
+
+- `max_health` - максимальное здоровье (100)
+- `invulnerability_time` - время неуязвимости (1.0 сек)
 
 ---
 
@@ -147,7 +192,7 @@ AnimationController.update() →  выбираем анимацию по сос�
 Управляет переходами между состояниями. Состояния - узлы-дети.
 Текущее состояние делегирует физику в `physics_update()`.
 
-**Константы имён состояний:** `IdleState`, `RunState`, `JumpState`,
+**Константы имен состояний:** `IdleState`, `RunState`, `JumpState`,
 `FallState`, `AttackState`, `HurtState`, `DeadState`
 
 **Ключевой метод:** `get_movement_target()` - возвращает целевое
@@ -157,7 +202,7 @@ AnimationController.update() →  выбираем анимацию по сос�
 
 ### State (`state.gd`)
 
-Базовый класс. Каждое состояние - узел-ребёнок StateMachine.
+Базовый класс. Каждое состояние - узел-ребенок StateMachine.
 
 **Доступные ссылки** (заполняются автоматически):
 `player`, `state_machine`, `input`, `movement`, `animation`, `health`
@@ -168,15 +213,15 @@ AnimationController.update() →  выбираем анимацию по сос�
 
 ## Состояния
 
-| Состояние | Описание | Визуал | Переход |
-|---|---|---|---|
-| **IdleState** | Стоит на полу, нет ввода | idle | Ввод → RunState |
-| **RunState** | Двигается по полу | idle / run | Ввод прекратился → IdleState |
-| **JumpState** | В воздухе, Y < 0 | jump | Y ≥ 0 → FallState |
-| **FallState** | В воздухе, Y ≥ 0 | fall | Приземлился → IdleState / RunState |
-| **AttackState** | Атака/взаимодействие | interact | Таймер истёк → IdleState / RunState |
-| **HurtState** | Получение урона | hurt | Таймер истёк → IdleState / RunState |
-| **DeadState** | Смерть: hurt → die | hurt → die | (пока ничего) |
+| Состояние | Описание | Визуал | Переход | Настройки |
+|---|---|---|---|---|
+| **IdleState** | Стоит на полу, нет ввода | idle | Ввод -> RunState | - |
+| **RunState** | Двигается по полу | idle / run | Ввод прекратился -> IdleState | - |
+| **JumpState** | В воздухе, Y < 0 | jump | Y ≥ 0 -> FallState | - |
+| **FallState** | В воздухе, Y ≥ 0 | fall | Приземлился -> IdleState / RunState | - |
+| **AttackState** | Атака/взаимодействие | interact | Таймер истек -> IdleState / RunState | `attack_duration` (0.4 сек) |
+| **HurtState** | Получение урона | hurt | Таймер истек -> IdleState / RunState | `hurt_duration` (0.25 сек) |
+| **DeadState** | Смерть: hurt -> die | hurt -> die | (пока ничего) | `pre_death_hurt_duration` (0.25 сек) |
 
 ---
 
@@ -202,5 +247,5 @@ AnimationController.update() →  выбираем анимацию по сос�
 
 1. Создать скрипт в `states/`, наследовать `State`
 2. Переопределить `enter()`, `exit()`, `physics_update()`
-3. Добавить узел-ребёнок в `StateMachine` в сцене `player.tscn`
+3. Добавить узел-ребенок в `StateMachine` в сцене `player.tscn`
 4. При необходимости - добавить имя в `StateMachine` как константу `STATE_*`

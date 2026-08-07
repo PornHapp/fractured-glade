@@ -1,11 +1,10 @@
 class_name JumpState extends State
-## Состояние подъёма (jump): игрок в воздухе, скорость по Y
-## отрицательная (движется вверх). Физика в MovementController.
+## Состояние подъема: игрок в воздухе, скорость по Y отрицательная (вверх).
 ##
+## Физика в MovementController. Горизонтальное движение продолжается
+## (полный контроль в воздухе).
 ## Визуал: AnimationController показывает анимацию jump.
-## Переход: скорость по Y стала ≥ 0 → FallState.
-## Примечание: горизонтальное движение продолжается (полный контроль
-## в воздухе — Terraria-стиль).
+## Переход: скорость по Y стала ≥ 0 -> FallState.
 
 func physics_update(_delta: float) -> void:
 	var target: StringName = state_machine.get_movement_target()

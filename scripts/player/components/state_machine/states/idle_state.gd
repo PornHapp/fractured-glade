@@ -1,10 +1,9 @@
 class_name IdleState extends State
-## Состояние покоя (idle): игрок стоит на полу, горизонтальный ввод
-## отсутствует. Физика движения целиком в MovementController — здесь
-## только отслеживание перехода в RunState / JumpState / FallState.
+## Состояние покоя: игрок стоит на полу, горизонтальный ввод отсутствует.
 ##
-## Визуал: AnimationController показывает анимацию idle (покой).
-## Переход: если появился ввод → RunState, если прыжок → JumpState.
+## Физика движения целиком в MovementController - здесь только
+## отслеживание перехода в RunState / JumpState / FallState.
+## Визуал: AnimationController показывает анимацию idle.
 
 func physics_update(_delta: float) -> void:
 	var target: StringName = state_machine.get_movement_target()

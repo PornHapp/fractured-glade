@@ -1,29 +1,41 @@
 class_name AnimationController extends Node
-## Управляет анимациями игрока: выбор анимации по текущему состоянию,
+## Управляет анимациями игрока: выбор анимации по состоянию,
 ## зеркалирование спрайта по направлению взгляда и мигание при
 ## неуязвимости.
 ##
-## Принцип: все анимации в SpriteFrames — одни на оба направления
+## Принцип: все анимации в SpriteFrames - одни на оба направления
 ## (левый исходник). Направление задаётся через flip_h у AnimatedSprite2D.
-## Контроллер сам ставит flip_h = true при взгляде вправо.
+##
+## Параметры настраиваются из инспектора:
+##   Animation - порог скорости для анимации бега, длительность взаимодействия
 
 
-# --- ИМЕНА АНИМАЦИЙ (совпадают с именами в SpriteFrames) ---
+# --- Имена анимаций (совпадают с именами в SpriteFrames) ---
+
 const ANIM_IDLE: StringName = &"idle"
 const ANIM_RUN: StringName = &"run"
 const ANIM_JUMP: StringName = &"jump"
 const ANIM_FALL: StringName = &"fall"
 const ANIM_DIE: StringName = &"die"
 const ANIM_HURT: StringName = &"hurt"
-## Единая анимация «Взаимодействовать»: добыча блоков, установка блоков/
-## предметов и любая атака — всё одну анимацию.
+## Единая анимация "Взаимодействовать": добыча блоков, установка блоков/
+## предметов и любая атака - всё одну анимацию.
 const ANIM_INTERACT: StringName = &"interact"
 
 
-# --- НАСТРОЙКИ ---
+# --- Настройки ---
 
+@export_category("Animation")
+## Порог горизонтальной скорости (px/с), выше которого показывается
+## анимация run вместо idle. Базовая move_speed = 150, поэтому
+## при стандартных настройках всегда idle. Run включается при
+## ускорении внешними факторами (артефакты, дебаффы через speed_multiplier).
+@export var run_speed_threshold: float = 170.0
 ## Длительность анимации взаимодействия, сек.
-const INTERACT_DURATION: float = 0.4
+@export var interact_duration: float = 0.4
+
+
+# --- Внутреннее состояние ---
 
 ## Активна ли анимация взаимодействия.
 var _interact_active: bool = false
@@ -31,16 +43,12 @@ var _interact_active: bool = false
 var _interact_timer: float = 0.0
 ## Флаг: взаимодействие только что завершилось (для сброса facing).
 var _interact_just_ended: bool = false
-@export_category("Animation")
-## Модуль горизонтальной скорости, выше которой показывается анимация бега
-## (run) вместо покоя (idle), px/с. Базовая move_speed = 150, поэтому
-## при стандартных настройках всегда idle. Run включается при ускорении
-## внешними факторами (артефакты, дебаффы через speed_multiplier).
-@export var run_speed_threshold: float = 170.0
 
 ## Спрайт игрока (задаётся через setup()).
 var _sprite: AnimatedSprite2D
 
+
+# --- Инициализация ---
 
 ## Привязывает спрайт игрока. Вызывается игроком в _ready().
 ## @param sprite - AnimatedSprite2D из сцены игрока
@@ -48,10 +56,12 @@ func setup(sprite: AnimatedSprite2D) -> void:
 	_sprite = sprite
 
 
+# --- Обновление ---
+
 ## Главный метод обновления. Вызывается каждым физическим тактом из Player.
 ## Определяет анимацию по имени текущего состояния и ставит flip_h
 ## по направлению взгляда. Не перебивает анимации действий (атака,
-## урон, смерть) — они запускаются самими состояниями.
+## урон, смерть) - они запускаются самими состояниями.
 ##
 ## @param state_name - имя узла состояния (IdleState, RunState и т.д.)
 ## @param facing - направление взгляда: 1 = вправо, -1 = влево
@@ -73,12 +83,32 @@ func update(state_name: StringName, facing: int, horizontal_speed: float) -> voi
 			_play_with_flip(ANIM_FALL, facing)
 
 
+## Обновляет таймер анимации взаимодействия.
+## Вызывается каждым физическим тактом из Player._physics_process().
+func update_timer(delta: float) -> void:
+	if _interact_active:
+		_interact_timer -= delta
+		if _interact_timer <= 0.0:
+			_interact_active = false
+			_interact_just_ended = true
+
+
+## Возвращает true, если взаимодействие только что завершилось.
+## Сбрасывает флаг после чтения (одноразовое потребление).
+func did_interact_just_end() -> bool:
+	var result := _interact_just_ended
+	_interact_just_ended = false
+	return result
+
+
+# --- Управление анимациями действий ---
+
 ## Проигрывает анимацию взаимодействия (атака, добыча, установка блока).
-## Запускает таймер INTERACT_DURATION. Пока таймер активен, update()
-## не перебивает анимацию. При завершении устанавливает _interact_just_ended.
+## Запускает таймер interact_duration. Пока таймер активен,
+## update() не перебивает анимацию.
 func play_interact() -> void:
 	_interact_active = true
-	_interact_timer = INTERACT_DURATION
+	_interact_timer = interact_duration
 	_interact_just_ended = false
 	_play_with_flip(ANIM_INTERACT, _get_facing())
 
@@ -113,26 +143,8 @@ func set_invulnerable_visual(is_invulnerable: bool) -> void:
 	_sprite.modulate.a = 0.5 if is_invulnerable else 1.0
 
 
-## Обновляет таймер анимации взаимодействия. Вызывается каждым физическим
-## тактом из Player._physics_process().
-func update_timer(delta: float) -> void:
-	if _interact_active:
-		_interact_timer -= delta
-		if _interact_timer <= 0.0:
-			_interact_active = false
-			_interact_just_ended = true
-
-
-## Возвращает true, если взаимодействие только что завершилось.
-## Сбрасывает флаг после чтения (одноразовое消费).
-func did_interact_just_end() -> bool:
-	var result := _interact_just_ended
-	_interact_just_ended = false
-	return result
-
-
 ## Принудительно отменяет активное взаимодействие. Вызывается HurtState
-## и DeadState — прерывает анимацию взаимодействия и сигнализирует
+## и DeadState - прерывает анимацию взаимодействия и сигнализирует
 ## о завершении для сброса facing.
 func cancel_interact() -> void:
 	if _interact_active:
@@ -141,10 +153,10 @@ func cancel_interact() -> void:
 		_interact_just_ended = true
 
 
-# --- ВНУТРЕННИЕ МЕТОДЫ ---
+# --- Внутренние методы ---
 
 ## Проигрывает анимацию и ставит flip_h по направлению взгляда.
-## Исходник спрайта смотрит влево → при facing > 0 (вправо) flip_h = true.
+## Исходник спрайта смотрит влево -> при facing > 0 (вправо) flip_h = true.
 ##
 ## @param anim - имя анимации
 ## @param facing - направление: 1 = вправо, -1 = влево

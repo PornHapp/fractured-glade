@@ -1,33 +1,35 @@
 class_name Player extends CharacterBody2D
-
-## Главный скрипт игрока — составной корень (facade).
+## Главный скрипт игрока - составной корень (facade).
 ##
 ## Собирает компоненты-узлы, связывает их сигналами и делегирует задачи.
 ## Вся логика вынесена в модули:
-##   - InputHandler (ввод)
-##   - MovementController (физика движения)
-##   - StateMachine с узлами-состояниями
-##   - AnimationController (анимации)
-##   - HealthComponent (здоровье)
+##   InputHandler       - ввод
+##   MovementController - физика движения
+##   StateMachine       - состояния (Idle, Run, Jump, Fall, Attack, Hurt, Dead)
+##   AnimationController - анимации
+##   HealthComponent    - здоровье
+##
 ## Здесь остаются публичный контракт для внешних систем
 ## (сигналы, методы) и порядок вызова компонентов.
 
 
-# --- СИГНАЛЫ (публичный контракт для внешних систем: HUD, бой, хотбар) ---
+# --- Сигналы (публичный контракт для HUD, боя, хотбара) ---
+
 ## Атака началась (проигрывается анимация взаимодействия).
-## @param tool_name - имя инструмента (передаётся наружу как есть, без привязки к enum)
+## @param tool_name - имя инструмента (передается наружу как есть)
 signal attack_started(tool_name: StringName)
 ## Атака закончилась (анимация отыграна, можно атаковать снова).
 signal attack_finished(tool_name: StringName)
-## Здоровье изменилось.
+## Здоровье изменилось (новое, старое).
 signal health_changed(new_value: int, old_value: int)
-## Игрок получил урон.
+## Игрок получил урон (урон, здоровье после).
 signal damaged(amount: int, new_health: int)
 ## Игрок умер.
 signal died
 
 
-# --- ССЫЛКИ НА КОМПОНЕНТЫ ---
+# --- Ссылки на компоненты ---
+
 @onready var anim_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var input_handler: InputHandler = $InputHandler
 @onready var movement_controller: MovementController = $MovementController
@@ -35,6 +37,8 @@ signal died
 @onready var health_component: HealthComponent = $HealthComponent
 @onready var state_machine: StateMachine = $StateMachine
 
+
+# --- Инициализация ---
 
 func _ready() -> void:
 	# Выдаем компонентам ссылки друг на друга
@@ -59,8 +63,10 @@ func _ready() -> void:
 	health_component.died.connect(died.emit)
 
 
+# --- Физический такт ---
+
 func _physics_process(delta: float) -> void:
-	# Мёртвый игрок не обрабатывает ввод — только физика (гравитация),
+	# Мертвый игрок не обрабатывает ввод - только физика (гравитация),
 	# таймер анимации смерти и визуал.
 	if health_component.is_dead:
 		state_machine.update(delta)
@@ -89,30 +95,38 @@ func _physics_process(delta: float) -> void:
 
 
 ## Обработчик нажатия атаки: пытаемся начать атаку текущим инструментом.
-## Внешние системы (хотбар) устанавливают current_tool перед вызовом.
 func _on_attack_pressed() -> void:
 	state_machine.try_attack(current_tool)
 
 
-# --- ПУБЛИЧНЫЙ API ---
+# --- Публичный API ---
 
 ## Текущий инструмент. Устанавливается внешней системой (хотбар).
 ## Используется при нажатии кнопки атаки и для вызова play_interact().
 var current_tool: StringName = &"default"
 
 
-## Начинает атаку выбранным инструментом. Удар и любая атака проигрывают
-## единую анимацию "Взаимодействовать".
-## @param tool_name - имя инструмента (любое StringName, без привязки к enum)
+## Текущее здоровье (для HUD и внешних систем).
+var health: int:
+	get:
+		return health_component.health
+
+
+## Мертв ли игрок (для внешних систем: main_game, UI).
+var is_dead: bool:
+	get:
+		return health_component.is_dead
+
+
+## Начинает атаку выбранным инструментом.
+## @param tool_name - имя инструмента (любое StringName)
 ## @emits attack_started(tool_name), attack_finished(tool_name)
 func play_attack(tool_name: StringName = current_tool) -> void:
 	state_machine.try_attack(tool_name)
 
 
 ## Проигрывает анимацию "Взаимодействовать": добыча блока, установка
-## блока/предмета. Работает параллельно с любым состоянием движения
-## (бег, прыжок, падение) — анимация взаимодействия не прерывает
-## движение и не использует стейт-машину.
+## блока/предмета. Работает параллельно с любым состоянием движения.
 func play_interact() -> void:
 	animation_controller.play_interact()
 
@@ -130,29 +144,16 @@ func die() -> void:
 	health_component.die()
 
 
-## Полностью восстанавливает игрока и возвращает его из состояния смерти
-## к движению. Используется возрождением и отладкой (PlayerDebug).
+## Восстанавливает игрока и возвращает из состояния смерти к движению.
+## Используется возрождением и отладкой (PlayerDebug).
 ## @emits health_changed(max, old)
 func revive() -> void:
 	health_component.reset()
 	state_machine.revive()
 
 
-## Текущее здоровье (для HUD и внешних систем).
-var health: int:
-	get:
-		return health_component.health
-
-
-## Мёртв ли игрок (для внешних систем: main_game, UI).
-var is_dead: bool:
-	get:
-		return health_component.is_dead
-
-
 ## Поворачивает спрайт игрока в сторону мировой точки.
-## Используется внешними системами перед play_interact(), чтобы
-## анимация взаимодействия была направлена к объекту.
+## Используется внешними системами перед play_interact().
 ## @param target_position - мировые координаты цели
 func face_toward(target_position: Vector2) -> void:
 	movement_controller.facing_toward(target_position)

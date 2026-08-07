@@ -1,37 +1,50 @@
 class_name MovementController extends Node
-## Управляет физикой движения игрока: горизонталь, гравитация и прыжок
-## (койот-таймер, буфер нажатия, переменная высота). Работает с velocity
-## тела игрока (родителя) и вызывает move_and_slide(). Здесь нет чтения
-## Input - состояние ввода приходит из InputHandler.
+## Физика движения игрока: горизонталь, гравитация и прыжок.
+##
+## Работает с velocity тела игрока (родителя) и вызывает move_and_slide().
+## Не читает Input - состояние ввода приходит из InputHandler.
+##
+## Параметры настраиваются из инспектора по категориям:
+##   Movement - скорость, ускорение, трение, гравитация
+##   Jump - прыжок, койот-таймер, буфер нажатия, переменная высота
 
-# --- НАСТРОЙКИ ДВИЖЕНИЯ ---
+
+# --- Движение ---
+
 @export_category("Movement")
-## Базовая скорость движения. Соответствует анимации ходьбы (walk) - дефолтная.
+## Базовая скорость движения, px/с. Соответствует анимации idle.
+## Увеличивается speed_multiplier'ом от внешних факторов (артефакты, баффы).
 @export var move_speed: float = 150.0
-## Множитель скорости от внешних факторов (артефакты, дебаффы). Изменение
-## скорости влияет на выбор анимации walk/run в AnimationController.
+## Множитель скорости от внешних факторов (артефакты, дебаффы).
+## Влияет на выбор анимации idle/run в AnimationController.
 @export var speed_multiplier: float = 1.0
-## Ускорение на земле.
+## Ускорение на земле, px/с².
 @export var ground_acceleration: float = 1600.0
-## Трение на земле (когда ввод не зажат).
+## Трение на земле (когда ввод не зажат), px/с².
 @export var ground_friction: float = 1600.0
-## Ускорение в воздухе (Terraria: полный контроль горизонтали).
+## Ускорение в воздухе, px/с² (Terraria: полный контроль горизонтали).
 @export var air_acceleration: float = 1200.0
-## Торможение в воздухе (минимальное, скорость сохраняется).
+## Торможение в воздухе, px/с² (минимальное, скорость сохраняется).
 @export var air_friction: float = 300.0
-## Терминальная скорость падения.
+## Терминальная скорость падения, px/с.
 @export var max_fall_speed: float = 420.0
 
-# --- НАСТРОЙКИ ПРЫЖКА ---
+
+# --- Прыжок ---
+
 @export_category("Jump")
-## Скорость прыжка (минус = вверх).
+## Скорость прыжка, px/с (минус = вверх).
 @export var jump_velocity: float = -320.0
-## Доля подъема при резком отпускании прыжка (переменная высота).
+## Доля подъёма при резком отпускании кнопки прыжка (переменная высота).
+## 0.5 = при отпускании вертикальная скорость умножается на 0.5.
 @export var jump_cut_multiplier: float = 0.5
-## Койот-таймер: время после схода с края, когда прыжок еще возможен, сек.
+## Койот-таймер: время (сек) после схода с края, когда прыжок ещё возможен.
 @export var coyote_time: float = 0.1
-## Буфер прыжка: время, в течение которого нажатие прыжка запоминается, сек.
+## Буфер прыжка: время (сек), в течение которого нажатие прыжка запоминается.
 @export var jump_buffer_time: float = 0.12
+
+
+# --- Внутреннее состояние ---
 
 ## Направление взгляда: 1 = вправо, -1 = влево.
 var facing: int = 1
@@ -50,15 +63,17 @@ var body: CharacterBody2D
 ## Ввод игрока.
 var input: InputHandler
 
-## Сила гравитации из настроек движка.
+## Гравитация из настроек проекта (physics/2d/default_gravity).
 var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity", 980.0)
 
 
-## Скорость тела игрока (для чтения состояниями).
+## Скорость тела (для чтения состояниями и анимацией).
 var velocity: Vector2:
 	get:
 		return body.velocity
 
+
+# --- Инициализация ---
 
 ## Привязывает ссылки на тело и ввод. Вызывается игроком в _ready().
 func setup(player_body: CharacterBody2D, input_handler: InputHandler) -> void:
@@ -66,9 +81,11 @@ func setup(player_body: CharacterBody2D, input_handler: InputHandler) -> void:
 	input = input_handler
 
 
+# --- Обновление ---
+
 ## Обновляет физику движения. Вызывается каждый физический такт.
 ## @param delta - время такта, сек
-## @param can_move - false при смерти: игрок только падает и не реагирует на ввод
+## @param can_move - false при смерти: только гравитация, без ввода
 func update(delta: float, can_move: bool) -> void:
 	if can_move:
 		_update_jump(delta)
@@ -77,12 +94,14 @@ func update(delta: float, can_move: bool) -> void:
 	body.move_and_slide()
 
 
-## Обработчик сигнала jump_pressed: запоминает нажатие для буфера.
+# --- Обработчики сигналов ввода ---
+
+## Запоминает нажатие прыжка для буфера.
 func on_jump_pressed() -> void:
 	jump_buffer_timer = jump_buffer_time
 
 
-## Обработчик сигнала jump_released: обрезает подъем (переменная высота).
+## Обрезает подём при отпускании кнопки (переменная высота).
 func on_jump_released() -> void:
 	if body.velocity.y < 0.0:
 		body.velocity.y *= jump_cut_multiplier
@@ -98,12 +117,12 @@ func stop_horizontal() -> void:
 	body.velocity.x = 0.0
 
 
-## Устанавливает направление взгляда в сторону мировой точки.
-## Используется при взаимодействии (добыча, установка блока), чтобы
-## спрайт был развёрнут к объекту взаимодействия.
-## Активирует _external_facing_active - ввод не перезаписывает facing,
-## пока взаимодействие активно.
-## @param target_position - мировые координаты цели взаимодействия
+# --- Управление направлением взгляда ---
+
+## Поворачивает спрайт в сторону мировой точки.
+## Используется при взаимодействии (добыча, установка блока).
+## Активирует _external_facing_active - ввод не перезаписывает facing.
+## @param target_position - мировые координаты цели
 func facing_toward(target_position: Vector2) -> void:
 	if target_position.x < body.global_position.x:
 		facing = -1
@@ -112,12 +131,13 @@ func facing_toward(target_position: Vector2) -> void:
 	_external_facing_active = true
 
 
-## Сбрасывает флаг внешнего facing. Вызывается при завершении
-## или отмене взаимодействия - следующий такт facing снова
-## управляется вводом.
+## Сбрасывает флаг внешнего facing.
+## Вызывается при завершении или отмене взаимодействия.
 func reset_external_facing() -> void:
 	_external_facing_active = false
 
+
+# --- Внутренняя физика ---
 
 ## Прыжок с буфером нажатия и койот-таймером.
 func _update_jump(delta: float) -> void:
@@ -130,7 +150,7 @@ func _update_jump(delta: float) -> void:
 	else:
 		coyote_timer = maxf(coyote_timer - delta, 0.0)
 
-	# Прыжок: буфер нажат и стоим (или еще в койот-окне)
+	# Прыжок: буфер нажат и стоим (или ещё в койот-окне)
 	if jump_buffer_timer > 0.0 and (body.is_on_floor() or coyote_timer > 0.0):
 		body.velocity.y = jump_velocity
 		jump_buffer_timer = 0.0
@@ -146,7 +166,7 @@ func _update_horizontal_movement(delta: float) -> void:
 	if input.direction != 0.0:
 		body.velocity.x = move_toward(body.velocity.x, input.direction * current_speed, acceleration * delta)
 		if not _external_facing_active:
-			facing = signi(input.direction)
+			facing = int(sign(input.direction))
 	else:
 		body.velocity.x = move_toward(body.velocity.x, 0.0, friction * delta)
 

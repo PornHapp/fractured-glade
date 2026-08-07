@@ -6,12 +6,13 @@ class_name State extends Node
 ## переопределением enter() / exit() / physics_update().
 ##
 ## Доступные ссылки (заполняются автоматически):
-##   player      	- корневой узел Player (сигналы, публичный API)
-##   state_machine 	- машина состояний (переходы через transition_to)
-##   input       	- ввод (direction, jump_pressed/released/attack_pressed)
-##   movement    	- физика (velocity, facing, is_on_floor, jump/released)
-##   animation   	- анимации (play_interact, play_hurt, play_dead, play)
-##   health      	- здоровье (health, is_dead, is_invulnerable)
+##   player       - корневой узел Player (сигналы, публичный API)
+##   state_machine - машина состояний (переходы через transition_to)
+##   input        - ввод (direction, jump_pressed/released/attack_pressed)
+##   movement     - физика (velocity, facing, is_on_floor, jump/released)
+##   animation    - анимации (play_interact, play_hurt, play_dead, play)
+##   health       - здоровье (health, is_dead, is_invulnerable)
+
 
 var player: Player
 var state_machine: StateMachine
