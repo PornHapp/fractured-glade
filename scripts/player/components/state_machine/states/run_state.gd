@@ -3,7 +3,7 @@ class_name RunState extends State
 ##
 ## Физика целиком в MovementController - здесь только отслеживание
 ## перехода в IdleState / JumpState / FallState.
-## Визуал: idle (при обычной скорости) или run (при превышении
+## Визуал: walk (при обычной скорости) или run (при превышении
 ## run_speed_threshold).
 
 func physics_update(_delta: float) -> void:

@@ -159,9 +159,13 @@ AnimationController.update() ->  выбираем анимацию по сост
 `facing > 0` (вправо) ставится `flip_h = true`. Все анимации единые
 на оба направления.
 
+**Принцип переключения walk/run:** при движении по полу всегда
+проигрывается `walk` (6 FPS). При превышении `run_speed_threshold`
+анимация переключается на `run` (10 FPS) - те же кадры, но быстрее.
+
 **Категория Animation:**
 
-- `run_speed_threshold` - порог скорости для анимации run (170 px/с)
+- `run_speed_threshold` - порог скорости для переключения walk -> run (170 px/с)
 - `interact_duration` - длительность анимации взаимодействия (0.4 сек)
 
 **Методы:**
@@ -216,7 +220,7 @@ AnimationController.update() ->  выбираем анимацию по сост
 | Состояние | Описание | Визуал | Переход | Настройки |
 |---|---|---|---|---|
 | **IdleState** | Стоит на полу, нет ввода | idle | Ввод -> RunState | - |
-| **RunState** | Двигается по полу | idle / run | Ввод прекратился -> IdleState | - |
+| **RunState** | Двигается по полу | walk / run | Ввод прекратился -> IdleState | - |
 | **JumpState** | В воздухе, Y < 0 | jump | Y ≥ 0 -> FallState | - |
 | **FallState** | В воздухе, Y ≥ 0 | fall | Приземлился -> IdleState / RunState | - |
 | **AttackState** | Атака/взаимодействие | interact | Таймер истек -> IdleState / RunState | `attack_duration` (0.4 сек) |
@@ -232,7 +236,8 @@ AnimationController.update() ->  выбираем анимацию по сост
 | Имя | Кол-во кадров | Loop | Источник |
 |---|---|---|---|
 | `idle` | 6 | да | idle_left.png |
-| `run` | 6 | да | run_left.png |
+| `walk` | 6 | да | run_left.png (6 FPS) |
+| `run` | 6 | да | run_left.png (10 FPS) |
 | `jump` | 4 | нет | jump_left.png |
 | `fall` | 5 | нет | fall_left.png |
 | `die` | 9 | нет | death_left.png |

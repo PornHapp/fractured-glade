@@ -13,6 +13,7 @@ class_name AnimationController extends Node
 # --- Имена анимаций (совпадают с именами в SpriteFrames) ---
 
 const ANIM_IDLE: StringName = &"idle"
+const ANIM_WALK: StringName = &"walk"
 const ANIM_RUN: StringName = &"run"
 const ANIM_JUMP: StringName = &"jump"
 const ANIM_FALL: StringName = &"fall"
@@ -26,9 +27,9 @@ const ANIM_INTERACT: StringName = &"interact"
 # --- Настройки ---
 
 @export_category("Animation")
-## Порог горизонтальной скорости (px/с), выше которого показывается
-## анимация run вместо idle. Базовая move_speed = 150, поэтому
-## при стандартных настройках всегда idle. Run включается при
+## Порог горизонтальной скорости (px/с), выше которого анимация
+## переключается с walk на run (ускоренную). Базовая move_speed = 150,
+## поэтому при стандартных настройках всегда walk. Run включается при
 ## ускорении внешними факторами (артефакты, дебаффы через speed_multiplier).
 @export var run_speed_threshold: float = 170.0
 ## Длительность анимации взаимодействия, сек.
@@ -76,7 +77,7 @@ func update(state_name: StringName, facing: int, horizontal_speed: float) -> voi
 			if horizontal_speed >= run_speed_threshold:
 				_play_with_flip(ANIM_RUN, facing)
 			else:
-				_play_with_flip(ANIM_IDLE, facing)
+				_play_with_flip(ANIM_WALK, facing)
 		&"JumpState":
 			_play_with_flip(ANIM_JUMP, facing)
 		&"FallState":
