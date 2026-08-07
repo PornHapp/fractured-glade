@@ -601,7 +601,7 @@ img {
 .section__subtitle {
     font-family: var(--font-display);
     text-align: center;
-    font-size: 1.25rem;
+    font-size: 1.4rem;
     color: var(--text-sub);
     margin-top: 0.5rem;
     margin-bottom: 3rem;
@@ -1262,7 +1262,7 @@ img {
     background: linear-gradient(135deg, rgba(224, 240, 220, 0.3), rgba(221, 232, 245, 0.3));
     border: 2px solid var(--border-main);
     border-radius: 12px;
-    margin-bottom: 0.6rem;
+    margin-bottom: 0.2rem;
     transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.3s;
     transform: rotate(0deg);
 }
@@ -1496,9 +1496,9 @@ img {
 }
 
 .footer__brand-logo {
-    width: 44px;
-    height: 44px;
-    border-radius: 10px;
+    width: 64px;
+    height: 64px;
+    border-radius: 12px;
     object-fit: contain;
     filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.3));
 }
