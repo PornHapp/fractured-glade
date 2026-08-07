@@ -8,7 +8,7 @@ class_name HurtState extends State
 ## Переход: таймер истек -> IdleState / RunState / JumpState / FallState.
 
 
-@export_category("Hurt")
+@export_category("Урон")
 ## Длительность анимации получения урона, сек.
 @export var hurt_duration: float = 0.25
 

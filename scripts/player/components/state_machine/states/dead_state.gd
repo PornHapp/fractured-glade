@@ -12,7 +12,7 @@ class_name DeadState extends State
 ## Переход: (пока ничего - экран возрождения будет позже).
 
 
-@export_category("Dead")
+@export_category("Смерть")
 ## Длительность фазы "боль" перед анимацией смерти, сек.
 ## Должна совпадать с HurtState.hurt_duration для визуальной согласованности.
 @export var pre_death_hurt_duration: float = 0.25

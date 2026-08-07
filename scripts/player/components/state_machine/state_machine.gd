@@ -31,6 +31,10 @@ var _states: Dictionary = {}  # StringName -> State
 var _input: InputHandler
 var _movement: MovementController
 
+## Кулдаун между атаками, сек. Задаётся use_time текущего инструмента
+## при входе в AttackState. Блокирует try_attack() до истечения.
+var _attack_cooldown: float = 0.0
+
 
 # --- Инициализация ---
 
@@ -61,11 +65,13 @@ func start() -> void:
 
 # --- Обновление ---
 
-## Делегирует физический такт текущему состоянию.
+## Делегирует физический такт текущему состоянию и обновляет кулдаун атаки.
 ## @param delta - время такта, сек
 func update(delta: float) -> void:
 	if current_state:
 		current_state.physics_update(delta)
+	if _attack_cooldown > 0.0:
+		_attack_cooldown -= delta
 
 
 # --- Переходы ---
@@ -100,9 +106,11 @@ func get_movement_target() -> StringName:
 # --- Выход из действий ---
 
 ## Пытается начать атаку. Возвращает false, если игрок занят
-## (атака/урон/смерть).
+## (атака/урон/смерть) или кулдаун атаки еще активен.
 ## @param tool_name - имя инструмента (любое StringName)
 func try_attack(tool_name: StringName) -> bool:
+	if _attack_cooldown > 0.0:
+		return false
 	if current_state.name in [STATE_ATTACK, STATE_HURT, STATE_DEAD]:
 		return false
 	var attack_state := _states[STATE_ATTACK] as AttackState

@@ -7,7 +7,8 @@ class_name AnimationController extends Node
 ## (левый исходник). Направление задаётся через flip_h у AnimatedSprite2D.
 ##
 ## Параметры настраиваются из инспектора:
-##   Animation - порог скорости для анимации бега, длительность взаимодействия
+##   Анимация - порог скорости для анимации бега, длительность и задержка
+##              взаимодействия
 
 
 # --- Имена анимаций (совпадают с именами в SpriteFrames) ---
@@ -26,7 +27,7 @@ const ANIM_INTERACT: StringName = &"interact"
 
 # --- Настройки ---
 
-@export_category("Animation")
+@export_category("Анимация")
 ## Порог горизонтальной скорости (px/с), выше которого анимация
 ## переключается с walk на run (ускоренную). Базовая move_speed = 150,
 ## поэтому при стандартных настройках всегда walk. Run включается при
@@ -34,6 +35,10 @@ const ANIM_INTERACT: StringName = &"interact"
 @export var run_speed_threshold: float = 170.0
 ## Длительность анимации взаимодействия, сек.
 @export var interact_duration: float = 0.4
+## Минимальная задержка между повторами взаимодействия, сек.
+## Определяет скорость установки блоков и использования расходников
+## при зажатой кнопке (как в Terraria).
+@export var interact_use_time: float = 0.5
 
 
 # --- Внутреннее состояние ---
@@ -44,6 +49,8 @@ var _interact_active: bool = false
 var _interact_timer: float = 0.0
 ## Флаг: взаимодействие только что завершилось (для сброса facing).
 var _interact_just_ended: bool = false
+## Кулдаун между повторами взаимодействия, сек.
+var _interact_cooldown: float = 0.0
 
 ## Спрайт игрока (задаётся через setup()).
 var _sprite: AnimatedSprite2D
@@ -84,7 +91,7 @@ func update(state_name: StringName, facing: int, horizontal_speed: float) -> voi
 			_play_with_flip(ANIM_FALL, facing)
 
 
-## Обновляет таймер анимации взаимодействия.
+## Обновляет таймер анимации взаимодействия и кулдаун.
 ## Вызывается каждым физическим тактом из Player._physics_process().
 func update_timer(delta: float) -> void:
 	if _interact_active:
@@ -92,6 +99,8 @@ func update_timer(delta: float) -> void:
 		if _interact_timer <= 0.0:
 			_interact_active = false
 			_interact_just_ended = true
+	if _interact_cooldown > 0.0:
+		_interact_cooldown -= delta
 
 
 ## Возвращает true, если взаимодействие только что завершилось.
@@ -104,10 +113,23 @@ func did_interact_just_end() -> bool:
 
 # --- Управление анимациями действий ---
 
-## Проигрывает анимацию взаимодействия (атака, добыча, установка блока).
-## Запускает таймер interact_duration. Пока таймер активен,
-## update() не перебивает анимацию.
+## Проигрывает анимацию взаимодействия (установка блока, расходник).
+## Блокируется кулдауном interact_use_time - повторный вызов до истечения
+## кулдауна игнорируется. Используется внешними системами (main_game).
 func play_interact() -> void:
+	if _interact_cooldown > 0.0:
+		return
+	_interact_active = true
+	_interact_timer = interact_duration
+	_interact_cooldown = interact_use_time
+	_interact_just_ended = false
+	_play_with_flip(ANIM_INTERACT, _get_facing())
+
+
+## Проигрывает анимацию взаимодействия без кулдауна.
+## Используется AttackState - атака управляется собственным таймером
+## use_time, кулдаун анимации не нужен.
+func play_interact_force() -> void:
 	_interact_active = true
 	_interact_timer = interact_duration
 	_interact_just_ended = false

@@ -6,6 +6,14 @@ class_name InputHandler extends Node
 ## прямых опросов клавиатуры). Источник правды по действиям - InputMap.
 
 
+# --- Имена действий (совпадают с проектом в project.godot) ---
+
+const ACTION_MOVE_LEFT: StringName = &"move_left"
+const ACTION_MOVE_RIGHT: StringName = &"move_right"
+const ACTION_JUMP: StringName = &"jump"
+const ACTION_ATTACK: StringName = &"attack"
+
+
 # --- Сигналы ---
 
 ## Прыжок нажат (just_pressed).
@@ -26,15 +34,17 @@ var direction: float = 0.0
 
 ## Опрашивает Input каждый физический такт (вызывается игроком).
 func poll() -> void:
-	## FIXME(Влад): избавиться от хардкода
-	direction = Input.get_axis("move_left", "move_right")
+	direction = Input.get_axis(ACTION_MOVE_LEFT, ACTION_MOVE_RIGHT)
 
-	## FIXME(Влад): избавиться от хардкода
-	if Input.is_action_just_pressed("jump"):
+	if Input.is_action_just_pressed(ACTION_JUMP):
 		jump_pressed.emit()
-	## FIXME(Влад): избавиться от хардкода
-	if Input.is_action_just_released("jump"):
+	if Input.is_action_just_released(ACTION_JUMP):
 		jump_released.emit()
-	## FIXME(Влад): избавиться от хардкода
-	if Input.is_action_just_pressed("attack"):
+	if Input.is_action_just_pressed(ACTION_ATTACK):
 		attack_pressed.emit()
+
+
+## Возвращает true, если кнопка атаки зажата (уровневая проверка).
+## Используется AttackState для повтора атаки при удержании.
+func is_attack_held() -> bool:
+	return Input.is_action_pressed(ACTION_ATTACK)

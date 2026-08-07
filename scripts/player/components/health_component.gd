@@ -22,7 +22,7 @@ signal invulnerability_changed(is_invulnerable: bool)
 
 # --- Настройки ---
 
-@export_category("Combat")
+@export_category("Бой")
 ## Максимальное здоровье.
 @export var max_health: int = 100
 ## Время неуязвимости после получения урона, сек.

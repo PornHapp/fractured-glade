@@ -28,6 +28,10 @@ scripts/player/
             ├── attack_state.gd        # Атака (взаимодействие)
             ├── hurt_state.gd          # Получение урона
             └── dead_state.gd          # Смерть
+
+scripts/items/
+├── tool_item.gd                       # Ресурс инструмента (ToolItem)
+└── tool_item_registry.gd              # Реестр инструментов (Autoload)
 ```
 
 ---
@@ -39,20 +43,22 @@ scripts/player/
 ```
 InputHandler.poll()          ->  читаем ввод
 HealthComponent.update()     ->  таймер неуязвимости
-StateMachine.update()        ->  текущее состояние -> physics_update()
+StateMachine.update()        ->  текущее состояние -> physics_update() + кулдаун атаки
 MovementController.update()  ->  физика: гравитация, движение, прыжок
-AnimationController.update() ->  выбираем анимацию по состоянию и facing
+AnimationController.update() ->  выбираем анимацию по состоянию и facing + кулдаун interact
 ```
 
 ### Поток данных
 
 ```
 Ввод (клавиши) -> InputHandler -> MovementController (физика)
-                              -> StateMachine (переходы)
-                              -> AnimationController (визуал)
+                               -> StateMachine (переходы)
+                               -> AnimationController (визуал)
 
 Здоровье -> HealthComponent    -> StateMachine (урон/смерть)
-                              -> AnimationController (мигание)
+                               -> AnimationController (мигание)
+
+Инструмент -> ToolItemRegistry -> AttackState (use_time)
 ```
 
 ---
@@ -65,13 +71,13 @@ AnimationController.update() ->  выбираем анимацию по сост
 
 | Компонент | Категория | Параметры |
 |---|---|---|
-| **MovementController** | Movement | `move_speed`, `speed_multiplier`, `ground_acceleration`, `ground_friction`, `air_acceleration`, `air_friction`, `max_fall_speed` |
-| **MovementController** | Jump | `jump_velocity`, `jump_cut_multiplier`, `coyote_time`, `jump_buffer_time` |
-| **HealthComponent** | Combat | `max_health`, `invulnerability_time` |
-| **AnimationController** | Animation | `run_speed_threshold`, `interact_duration` |
-| **AttackState** | Attack | `attack_duration` |
-| **HurtState** | Hurt | `hurt_duration` |
-| **DeadState** | Dead | `pre_death_hurt_duration` |
+| **MovementController** | Движение | `move_speed`, `speed_multiplier`, `ground_acceleration`, `ground_friction`, `air_acceleration`, `air_friction`, `max_fall_speed` |
+| **MovementController** | Прыжок | `jump_velocity`, `jump_cut_multiplier`, `coyote_time`, `jump_buffer_time` |
+| **HealthComponent** | Бой | `max_health`, `invulnerability_time` |
+| **AnimationController** | Анимация | `run_speed_threshold`, `interact_duration`, `interact_use_time` |
+| **AttackState** | Атака | `fallback_use_time` |
+| **HurtState** | Урон | `hurt_duration` |
+| **DeadState** | Смерть | `pre_death_hurt_duration` |
 
 ### Как настраивать
 
@@ -101,7 +107,7 @@ AnimationController.update() ->  выбираем анимацию по сост
 **Публичные методы:**
 
 - `play_attack(tool_name)` - начать атаку
-- `play_interact()` - проиграть анимацию взаимодействия
+- `play_interact()` - проиграть анимацию взаимодействия (с кулдауном)
 - `take_damage(amount)` - нанести урон
 - `die()` - убить игрока
 - `revive()` - восстановить игрока
@@ -112,26 +118,32 @@ AnimationController.update() ->  выбираем анимацию по сост
 - `health: int` - текущее здоровье (только чтение)
 - `is_dead: bool` - мертв ли игрок (только чтение)
 
----
-
 ### InputHandler (`input_handler.gd`)
 
-Единственный модуль, который работает с `Input`. Опрашивает действия
-каждый такт и публикует состояние через переменные и сигналы.
+Единственный модуль, который работает с `Input`. Опрашивает действия каждый такт и публикует состояние через переменные и сигналы.
+
+**Имена действий** (константы, совпадают с project.godot):
+
+- `ACTION_MOVE_LEFT` = `"move_left"`
+- `ACTION_MOVE_RIGHT` = `"move_right"`
+- `ACTION_JUMP` = `"jump"`
+- `ACTION_ATTACK` = `"attack"`
 
 **Сигналы:** `jump_pressed`, `jump_released`, `attack_pressed`
 **Переменная:** `direction: float` (-1, 0, 1)
 
----
+**Методы:**
+
+- `poll()` - опрос ввода каждый такт
+- `is_attack_held() -> bool` - кнопка атаки зажата (уровневая проверка)
 
 ### MovementController (`movement_controller.gd`)
 
-Физика движения: горизонталь (с ускорением/трением), гравитация,
-прыжок (койот-таймер + буфер нажатия + переменная высота).
+Физика движения: горизонталь (с ускорением/трением), гравитация, прыжок (койот-таймер + буфер нажатия + переменная высота).
 
 Не читает Input - получает данные из InputHandler через setup().
 
-**Категория Movement:**
+**Категория "Движение":**
 
 - `move_speed` - базовая скорость (150 px/с)
 - `speed_multiplier` - множитель от внешних факторов
@@ -141,42 +153,40 @@ AnimationController.update() ->  выбираем анимацию по сост
 - `air_friction` - трение в воздухе (300 px/с²)
 - `max_fall_speed` - терминальная скорость падения (420 px/с)
 
-**Категория Jump:**
+**Категория "Прыжок":**
 
 - `jump_velocity` - скорость прыжка (-320)
 - `jump_cut_multiplier` - переменная высота (0.5)
 - `coyote_time` - койот-таймер (0.1 сек)
 - `jump_buffer_time` - буфер прыжка (0.12 сек)
 
----
-
 ### AnimationController (`animation_controller.gd`)
 
-Выбирает анимацию по имени состояния и ставит `flip_h` по направлению
-взгляда. Единственный модуль, который знает имена анимаций из SpriteFrames.
+Выбирает анимацию по имени состояния и ставит `flip_h` по направлению взгляда. Единственный модуль, который знает имена анимаций из SpriteFrames.
 
-**Принцип зеркалирования:** исходник спрайта смотрит влево. При
-`facing > 0` (вправо) ставится `flip_h = true`. Все анимации единые
-на оба направления.
+**Принцип зеркалирования:** исходник спрайта смотрит влево. При `facing > 0` (вправо) ставится `flip_h = true`. Все анимации единые на оба направления.
 
-**Принцип переключения walk/run:** при движении по полу всегда
-проигрывается `walk` (6 FPS). При превышении `run_speed_threshold`
-анимация переключается на `run` (10 FPS) - те же кадры, но быстрее.
+**Принцип переключения walk/run:** при движении по полу всегда проигрывается `walk` (6 FPS). При превышении `run_speed_threshold` анимация переключается на `run` (10 FPS) - те же кадры, но быстрее.
 
-**Категория Animation:**
+**Принцип кулдауна interact:** метод `play_interact()` блокируется кулдауном `interact_use_time` - повторный вызов до истечения кулдауна игнорируется. Это предотвращает перезапуск анимации каждый кадр при зажатой кнопке.
+Метод `play_interact_force()` вызывается AttackState и работает без кулдауна (атака управляется собственным таймером use_time).
+
+**Категория "Анимация":**
 
 - `run_speed_threshold` - порог скорости для переключения walk -> run (170 px/с)
 - `interact_duration` - длительность анимации взаимодействия (0.4 сек)
+- `interact_use_time` - задержка между повторами взаимодействия (0.5 сек)
 
 **Методы:**
 
 - `update(state_name, facing, horizontal_speed)` - обновление каждым тактом
-- `play_interact()` - анимация взаимодействия
+- `update_timer(delta)` - обновление таймеров анимации и кулдауна
+- `play_interact()` - анимация взаимодействия (с кулдауном)
+- `play_interact_force()` - анимация взаимодействия (без кулдауна, для атаки)
 - `play_hurt()` - анимация получения урона
 - `play_dead()` - анимация смерти
 - `play(anim)` - универсальный проигрыватель с фолбэком
-
----
+- `cancel_interact()` - принудительная отмена взаимодействия
 
 ### HealthComponent (`health_component.gd`)
 
@@ -184,12 +194,10 @@ AnimationController.update() ->  выбираем анимацию по сост
 
 **Сигналы:** `health_changed`, `damaged`, `died`, `invulnerability_changed`
 
-**Категория Combat:**
+**Категория Бой:**
 
 - `max_health` - максимальное здоровье (100)
 - `invulnerability_time` - время неуязвимости (1.0 сек)
-
----
 
 ### StateMachine (`state_machine.gd`)
 
@@ -199,10 +207,14 @@ AnimationController.update() ->  выбираем анимацию по сост
 **Константы имен состояний:** `IdleState`, `RunState`, `JumpState`,
 `FallState`, `AttackState`, `HurtState`, `DeadState`
 
-**Ключевой метод:** `get_movement_target()` - возвращает целевое
-состояние движения на основе пола, скорости по Y и ввода.
+**Ключевые методы:**
 
----
+- `get_movement_target()` - возвращает целевое состояние движения
+- `try_attack(tool_name)` - пытается начать атаку (с кулдауном)
+- `try_hurt(amount, new_health)` - перевод в состояние урона
+- `on_dead()` - перевод в состояние смерти
+
+**Кулдаун атаки:** после входа в AttackState устанавливается `_attack_cooldown = use_time`. Блокирует `try_attack()` до истечения.
 
 ### State (`state.gd`)
 
@@ -223,7 +235,7 @@ AnimationController.update() ->  выбираем анимацию по сост
 | **RunState** | Двигается по полу | walk / run | Ввод прекратился -> IdleState | - |
 | **JumpState** | В воздухе, Y < 0 | jump | Y ≥ 0 -> FallState | - |
 | **FallState** | В воздухе, Y ≥ 0 | fall | Приземлился -> IdleState / RunState | - |
-| **AttackState** | Атака/взаимодействие | interact | Таймер истек -> IdleState / RunState | `attack_duration` (0.4 сек) |
+| **AttackState** | Атака/взаимодействие | interact | Таймер истек ИЛИ кнопка отпущена -> IdleState / RunState | `fallback_use_time` (0.5 сек), `use_time` из ToolItem |
 | **HurtState** | Получение урона | hurt | Таймер истек -> IdleState / RunState | `hurt_duration` (0.25 сек) |
 | **DeadState** | Смерть: hurt -> die | hurt -> die | (пока ничего) | `pre_death_hurt_duration` (0.25 сек) |
 
@@ -245,6 +257,28 @@ AnimationController.update() ->  выбираем анимацию по сост
 | `interact` | 5 | нет | interact_left.png |
 
 Спрайты находятся в `assets/textures/player/astral_f/`.
+
+---
+
+## Система инструментов
+
+### ToolItem (`scripts/items/tool_item.gd`)
+
+Ресурс инструмента. Хранит параметры, специффичные для конкретного типа инструмента. Создаётся как `.tres` файл в `resources/items/tools/`.
+
+**Поля:**
+
+- `id: StringName` - уникальный ключ (например, `"item.stone_pickaxe"`)
+- `display_name: String` - отображаемое имя
+- `use_time: float` - время между ударами, сек (определяет скорость повтора атаки)
+
+### ToolItemRegistry (`scripts/items/tool_item_registry.gd`)
+
+Autoload-реестр. Загружает все `.tres` из `resources/items/tools/` и предоставляет доступ по ID.
+
+**API:**
+
+- `get_tool(tool_name: StringName) -> ToolItem` - получить инструмент по имени
 
 ---
 

@@ -5,13 +5,13 @@ class_name MovementController extends Node
 ## Не читает Input - состояние ввода приходит из InputHandler.
 ##
 ## Параметры настраиваются из инспектора по категориям:
-##   Movement - скорость, ускорение, трение, гравитация
-##   Jump - прыжок, койот-таймер, буфер нажатия, переменная высота
+##   Движение - скорость, ускорение, трение, гравитация
+##   Прыжок - прыжок, койот-таймер, буфер нажатия, переменная высота
 
 
 # --- Движение ---
 
-@export_category("Movement")
+@export_category("Движение")
 ## Базовая скорость движения, px/с. Соответствует анимации idle.
 ## Увеличивается speed_multiplier'ом от внешних факторов (артефакты, баффы).
 @export var move_speed: float = 150.0
@@ -32,13 +32,13 @@ class_name MovementController extends Node
 
 # --- Прыжок ---
 
-@export_category("Jump")
+@export_category("Прыжок")
 ## Скорость прыжка, px/с (минус = вверх).
 @export var jump_velocity: float = -320.0
-## Доля подъёма при резком отпускании кнопки прыжка (переменная высота).
+## Доля подъема при резком отпускании кнопки прыжка (переменная высота).
 ## 0.5 = при отпускании вертикальная скорость умножается на 0.5.
 @export var jump_cut_multiplier: float = 0.5
-## Койот-таймер: время (сек) после схода с края, когда прыжок ещё возможен.
+## Койот-таймер: время (сек) после схода с края, когда прыжок еще возможен.
 @export var coyote_time: float = 0.1
 ## Буфер прыжка: время (сек), в течение которого нажатие прыжка запоминается.
 @export var jump_buffer_time: float = 0.12
@@ -101,7 +101,7 @@ func on_jump_pressed() -> void:
 	jump_buffer_timer = jump_buffer_time
 
 
-## Обрезает подём при отпускании кнопки (переменная высота).
+## Обрезает подъем при отпускании кнопки (переменная высота).
 func on_jump_released() -> void:
 	if body.velocity.y < 0.0:
 		body.velocity.y *= jump_cut_multiplier
@@ -150,7 +150,7 @@ func _update_jump(delta: float) -> void:
 	else:
 		coyote_timer = maxf(coyote_timer - delta, 0.0)
 
-	# Прыжок: буфер нажат и стоим (или ещё в койот-окне)
+	# Прыжок: буфер нажат и стоим (или еще в койот-окне)
 	if jump_buffer_timer > 0.0 and (body.is_on_floor() or coyote_timer > 0.0):
 		body.velocity.y = jump_velocity
 		jump_buffer_timer = 0.0

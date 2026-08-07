@@ -24,6 +24,7 @@ buses/default_bus_layout="uid://b62dvg5qav1a0"
 MusicManager="*uid://cdyggf3wxdphf"
 SettingsManager="*uid://d27yp4kdingb4"
 Global="*uid://2w3ocpbhj281"
+ToolItemRegistry="*res://scripts/items/tool_item_registry.gd"
 
 [display]
 
