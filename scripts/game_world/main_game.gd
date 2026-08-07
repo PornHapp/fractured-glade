@@ -84,39 +84,44 @@ func _copy_tilesets_to_mirror():
 		mirror_grass_tile_map.tile_set = grass_tile_map.tile_set.duplicate()
 
 func place_block(x: int, y: int, block_type: int):
+	if not player or player.is_dead: return
 	if x < 0 or x >= world_data[0].size() or y < 0 or y >= world_data.size(): return
 	if world_data[y][x] != -1: return
-	if player:
-		var pr = Rect2(player.position.x - 8, player.position.y - 24, 16, 24)
-		if pr.intersects(Rect2(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE)): return
-	
+	var pr = Rect2(player.position.x - 8, player.position.y - 24, 16, 24)
+	if pr.intersects(Rect2(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE)): return
+
+	# Поворачиваем игрока к цели и запускаем анимацию ДО изменения мира
+	player.face_toward(Vector2(x * TILE_SIZE, y * TILE_SIZE))
+	player.play_interact()
+
+	# Модифицируем мир
 	world_data[y][x] = block_type
 	terrain_renderer.update_surroundings(x, y, false, world_data)
 	collision_manager.update_around(x, y, false)
-	
+
 	var mx = world_data[y].size() - 1 - x
 	mirror_world_data[y][mx] = block_type
 	terrain_renderer.update_surroundings(mx, y, true, mirror_world_data)
 	collision_manager.update_around(mx, y, true)
-	# Проигрываем анимацию «Взаимодействовать» (установка блока)
-	if player:
-		player.play_interact()
 
 func remove_block(x: int, y: int):
+	if not player or player.is_dead: return
 	if x < 0 or x >= world_data[0].size() or y < 0 or y >= world_data.size(): return
 	if world_data[y][x] == -1: return
-	
+
+	# Поворачиваем игрока к цели и запускаем анимацию ДО изменения мира
+	player.face_toward(Vector2(x * TILE_SIZE, y * TILE_SIZE))
+	player.play_interact()
+
+	# Модифицируем мир
 	world_data[y][x] = -1
 	terrain_renderer.update_surroundings(x, y, false, world_data)
 	collision_manager.update_around(x, y, false)
-	
+
 	var mx = world_data[y].size() - 1 - x
 	mirror_world_data[y][mx] = -1
 	terrain_renderer.update_surroundings(mx, y, true, mirror_world_data)
 	collision_manager.update_around(mx, y, true)
-	# Проигрываем анимацию «Взаимодействовать» (добыча блока)
-	if player:
-		player.play_interact()
 
 func switch_world():
 	in_mirror_world = !in_mirror_world

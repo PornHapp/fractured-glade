@@ -21,6 +21,16 @@ const ANIM_INTERACT: StringName = &"interact"
 
 
 # --- НАСТРОЙКИ ---
+
+## Длительность анимации взаимодействия, сек.
+const INTERACT_DURATION: float = 0.4
+
+## Активна ли анимация взаимодействия.
+var _interact_active: bool = false
+## Таймер анимации взаимодействия, сек.
+var _interact_timer: float = 0.0
+## Флаг: взаимодействие только что завершилось (для сброса facing).
+var _interact_just_ended: bool = false
 @export_category("Animation")
 ## Модуль горизонтальной скорости, выше которой показывается анимация бега
 ## (run) вместо покоя (idle), px/с. Базовая move_speed = 150, поэтому
@@ -47,6 +57,8 @@ func setup(sprite: AnimatedSprite2D) -> void:
 ## @param facing - направление взгляда: 1 = вправо, -1 = влево
 ## @param horizontal_speed - модуль горизонтальной скорости, px/с
 func update(state_name: StringName, facing: int, horizontal_speed: float) -> void:
+	if _interact_active:
+		return  # Не перебиваем анимацию взаимодействия
 	match state_name:
 		&"IdleState":
 			_play_with_flip(ANIM_IDLE, facing)
@@ -62,7 +74,12 @@ func update(state_name: StringName, facing: int, horizontal_speed: float) -> voi
 
 
 ## Проигрывает анимацию взаимодействия (атака, добыча, установка блока).
+## Запускает таймер INTERACT_DURATION. Пока таймер активен, update()
+## не перебивает анимацию. При завершении устанавливает _interact_just_ended.
 func play_interact() -> void:
+	_interact_active = true
+	_interact_timer = INTERACT_DURATION
+	_interact_just_ended = false
 	_play_with_flip(ANIM_INTERACT, _get_facing())
 
 
@@ -94,6 +111,34 @@ func play(anim: StringName) -> void:
 ## @param is_invulnerable - активно ли окно неуязвимости
 func set_invulnerable_visual(is_invulnerable: bool) -> void:
 	_sprite.modulate.a = 0.5 if is_invulnerable else 1.0
+
+
+## Обновляет таймер анимации взаимодействия. Вызывается каждым физическим
+## тактом из Player._physics_process().
+func update_timer(delta: float) -> void:
+	if _interact_active:
+		_interact_timer -= delta
+		if _interact_timer <= 0.0:
+			_interact_active = false
+			_interact_just_ended = true
+
+
+## Возвращает true, если взаимодействие только что завершилось.
+## Сбрасывает флаг после чтения (одноразовое消费).
+func did_interact_just_end() -> bool:
+	var result := _interact_just_ended
+	_interact_just_ended = false
+	return result
+
+
+## Принудительно отменяет активное взаимодействие. Вызывается HurtState
+## и DeadState — прерывает анимацию взаимодействия и сигнализирует
+## о завершении для сброса facing.
+func cancel_interact() -> void:
+	if _interact_active:
+		_interact_active = false
+		_interact_timer = 0.0
+		_interact_just_ended = true
 
 
 # --- ВНУТРЕННИЕ МЕТОДЫ ---

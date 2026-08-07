@@ -2,11 +2,11 @@ class_name MovementController extends Node
 ## Управляет физикой движения игрока: горизонталь, гравитация и прыжок
 ## (койот-таймер, буфер нажатия, переменная высота). Работает с velocity
 ## тела игрока (родителя) и вызывает move_and_slide(). Здесь нет чтения
-## Input — состояние ввода приходит из InputHandler.
+## Input - состояние ввода приходит из InputHandler.
 
 # --- НАСТРОЙКИ ДВИЖЕНИЯ ---
 @export_category("Movement")
-## Базовая скорость движения. Соответствует анимации ходьбы (walk) — дефолтная.
+## Базовая скорость движения. Соответствует анимации ходьбы (walk) - дефолтная.
 @export var move_speed: float = 150.0
 ## Множитель скорости от внешних факторов (артефакты, дебаффы). Изменение
 ## скорости влияет на выбор анимации walk/run в AnimationController.
@@ -40,6 +40,10 @@ var facing: int = 1
 var coyote_timer: float = 0.0
 ## Оставшееся время буфера прыжка, сек.
 var jump_buffer_timer: float = 0.0
+
+## Флаг: внешний facing активен (face_toward). Пока активен,
+## _update_horizontal_movement() не перезаписывает facing вводом.
+var _external_facing_active: bool = false
 
 ## Тело игрока (родитель).
 var body: CharacterBody2D
@@ -94,12 +98,33 @@ func stop_horizontal() -> void:
 	body.velocity.x = 0.0
 
 
+## Устанавливает направление взгляда в сторону мировой точки.
+## Используется при взаимодействии (добыча, установка блока), чтобы
+## спрайт был развёрнут к объекту взаимодействия.
+## Активирует _external_facing_active - ввод не перезаписывает facing,
+## пока взаимодействие активно.
+## @param target_position - мировые координаты цели взаимодействия
+func facing_toward(target_position: Vector2) -> void:
+	if target_position.x < body.global_position.x:
+		facing = -1
+	elif target_position.x > body.global_position.x:
+		facing = 1
+	_external_facing_active = true
+
+
+## Сбрасывает флаг внешнего facing. Вызывается при завершении
+## или отмене взаимодействия - следующий такт facing снова
+## управляется вводом.
+func reset_external_facing() -> void:
+	_external_facing_active = false
+
+
 ## Прыжок с буфером нажатия и койот-таймером.
 func _update_jump(delta: float) -> void:
 	# Буфер: нажатие (из on_jump_pressed) убывает со временем
 	jump_buffer_timer = maxf(jump_buffer_timer - delta, 0.0)
 
-	# Койот-таймер: стоим на полу — окно полноценное, иначе убывает
+	# Койот-таймер: стоим на полу - окно полноценное, иначе убывает
 	if body.is_on_floor():
 		coyote_timer = coyote_time
 	else:
@@ -120,7 +145,8 @@ func _update_horizontal_movement(delta: float) -> void:
 
 	if input.direction != 0.0:
 		body.velocity.x = move_toward(body.velocity.x, input.direction * current_speed, acceleration * delta)
-		facing = signi(input.direction)
+		if not _external_facing_active:
+			facing = signi(input.direction)
 	else:
 		body.velocity.x = move_toward(body.velocity.x, 0.0, friction * delta)
 

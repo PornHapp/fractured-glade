@@ -60,10 +60,27 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	# Мёртвый игрок не обрабатывает ввод — только физика (гравитация),
+	# таймер анимации смерти и визуал.
+	if health_component.is_dead:
+		state_machine.update(delta)
+		movement_controller.update(delta, false)
+		animation_controller.update_timer(delta)
+		if animation_controller.did_interact_just_end():
+			movement_controller.reset_external_facing()
+		animation_controller.update(
+			state_machine.current_state.name,
+			movement_controller.facing,
+			absf(movement_controller.velocity.x)
+		)
+		return
 	input_handler.poll()
 	health_component.update(delta)
 	state_machine.update(delta)
-	movement_controller.update(delta, not health_component.is_dead)
+	movement_controller.update(delta, true)
+	animation_controller.update_timer(delta)
+	if animation_controller.did_interact_just_end():
+		movement_controller.reset_external_facing()
 	animation_controller.update(
 		state_machine.current_state.name,
 		movement_controller.facing,
@@ -93,10 +110,11 @@ func play_attack(tool_name: StringName = current_tool) -> void:
 
 
 ## Проигрывает анимацию "Взаимодействовать": добыча блока, установка
-## блока/предмета и любая атака используют одну и ту же анимацию.
-## Вызывается внешними системами (главная сцена при изменении блоков).
+## блока/предмета. Работает параллельно с любым состоянием движения
+## (бег, прыжок, падение) — анимация взаимодействия не прерывает
+## движение и не использует стейт-машину.
 func play_interact() -> void:
-	state_machine.try_attack(current_tool)
+	animation_controller.play_interact()
 
 
 ## Наносит игроку урон с учетом окна неуязвимости.
@@ -124,3 +142,17 @@ func revive() -> void:
 var health: int:
 	get:
 		return health_component.health
+
+
+## Мёртв ли игрок (для внешних систем: main_game, UI).
+var is_dead: bool:
+	get:
+		return health_component.is_dead
+
+
+## Поворачивает спрайт игрока в сторону мировой точки.
+## Используется внешними системами перед play_interact(), чтобы
+## анимация взаимодействия была направлена к объекту.
+## @param target_position - мировые координаты цели
+func face_toward(target_position: Vector2) -> void:
+	movement_controller.facing_toward(target_position)

@@ -20,6 +20,7 @@ func enter() -> void:
 	movement.stop_horizontal()
 	_hurt_timer = HURT_DURATION
 	_death_played = false
+	animation.cancel_interact()
 	animation.play_hurt()
 
 
@@ -30,4 +31,4 @@ func physics_update(delta: float) -> void:
 	if _hurt_timer <= 0.0:
 		_death_played = true
 		animation.play_dead()
-		# TODO(Полина): [ЗДЕСЬ ПОТОМ БУДЕТ ЭКРАН ВОЗРОЖДЕНИЯ]
+		## TODO(Полина): [ЗДЕСЬ ПОТОМ БУДЕТ ЭКРАН ВОЗРОЖДЕНИЯ]

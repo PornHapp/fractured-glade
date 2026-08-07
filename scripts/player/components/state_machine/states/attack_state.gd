@@ -28,6 +28,10 @@ func enter() -> void:
 	player.attack_started.emit(tool_name)
 
 
+func exit() -> void:
+	movement.reset_external_facing()
+
+
 func physics_update(delta: float) -> void:
 	_timer -= delta
 	if _timer <= 0.0:

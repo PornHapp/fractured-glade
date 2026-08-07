@@ -17,11 +17,15 @@ var direction: float = 0.0
 
 ## Опрашивает Input каждый физический такт (вызывается игроком).
 func poll() -> void:
+	## FIXME(Влад): избавиться от хардкода
 	direction = Input.get_axis("move_left", "move_right")
 
+	## FIXME(Влад): избавиться от хардкода
 	if Input.is_action_just_pressed("jump"):
 		jump_pressed.emit()
+	## FIXME(Влад): избавиться от хардкода
 	if Input.is_action_just_released("jump"):
 		jump_released.emit()
+	## FIXME(Влад): избавиться от хардкода
 	if Input.is_action_just_pressed("attack"):
 		attack_pressed.emit()

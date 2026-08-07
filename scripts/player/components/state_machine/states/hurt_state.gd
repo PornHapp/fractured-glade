@@ -11,6 +11,7 @@ var _timer: float = 0.0
 
 func enter() -> void:
 	_timer = HURT_DURATION
+	animation.cancel_interact()
 	animation.play_hurt()
 
 
