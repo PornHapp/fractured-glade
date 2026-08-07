@@ -615,7 +615,7 @@ img {
    SECTIONS (общие)
    ============================================================ */
 .section {
-    padding: 7rem 2rem;
+    padding: 5rem 2rem;
     position: relative;
 }
 
@@ -677,8 +677,8 @@ img {
     font-size: 1.5rem;
     letter-spacing: 0.8em;
     padding-bottom: 0;
-    margin-top: -3.5rem;
-    margin-bottom: 3.5rem;
+    margin-top: -2.5rem;
+    margin-bottom: 2.5rem;
 }
 
 /* ============================================================
@@ -860,7 +860,7 @@ img {
 /* Заголовок стороны */
 .vs-reveal__heading {
     font-family: var(--font-display);
-    font-size: 1.3rem;
+    font-size: 1.6rem;
     font-weight: 800;
     color: var(--text-heading);
     margin-bottom: 1rem;
@@ -1163,10 +1163,11 @@ img {
 }
 
 .game-loop__subtitle {
-    font-family: var(--font-body);
+    font-family: var(--font-display);
     text-align: center;
-    font-size: 0.95rem;
+    font-size: 1.4rem;
     color: var(--text-sub);
+    margin-top: 0.5rem;
     margin-bottom: 3rem;
     letter-spacing: 0.02em;
 }
@@ -1752,7 +1753,7 @@ img {
     }
 
     .section {
-        padding: 5rem 1.5rem;
+        padding: 4rem 1.5rem;
     }
 
     .section--features {
@@ -1804,7 +1805,7 @@ img {
     }
 
     .section {
-        padding: 4rem 1rem;
+        padding: 3.5rem 1rem;
     }
 
     .section--features {
