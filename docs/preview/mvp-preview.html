@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fractured Glade · MVP</title>
+
+    <!-- ====== FONT: Izax SHA (Bold support) ====== -->
+    <link href="https://db.onlinewebfonts.com/c/4e0e467c623042b0bd94d73ac8fe9ebd?family=Izax" rel="stylesheet" />
+
+    <style>
+        /* ----- RESET & BASE (УВЕЛИЧЕННЫЙ ШРИФТ) ----- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 20px;
+            /* база для всего */
+        }
+
+        body {
+            background: #f7f2eb;
+            background-image:
+                radial-gradient(circle at 20% 30%, rgba(255, 228, 210, 0.5) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(210, 230, 255, 0.5) 0%, transparent 45%),
+                radial-gradient(circle at 40% 90%, rgba(230, 240, 200, 0.4) 0%, transparent 35%);
+            min-height: 100vh;
+            font-family: 'Izax', 'Izax SHA', 'Segoe UI', system-ui, sans-serif;
+            font-weight: 400;
+            color: #3d3a4b;
+            line-height: 1.6;
+            padding: 2rem 1.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            position: relative;
+            overflow-x: hidden;
+            font-size: 1.2rem;
+            /* увеличенный базовый размер */
+        }
+
+        /* ----- FLOATING ANIMATIONS (cute) ----- */
+        .float-heart,
+        .float-star {
+            position: fixed;
+            pointer-events: none;
+            font-size: 2.2rem;
+            opacity: 0.4;
+            animation: floatUp 14s infinite ease-in-out;
+            z-index: 0;
+        }
+
+        .float-heart {
+            color: #f5a0b0;
+            animation-duration: 15s;
+        }
+        .float-star {
+            color: #d4c8a0;
+            animation-duration: 19s;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) scale(0.6) rotate(0deg);
+                opacity: 0.2;
+            }
+            30% {
+                opacity: 0.8;
+            }
+            70% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-10vh) scale(1.3) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* ----- MAIN CONTAINER ----- */
+        .container {
+            max-width: 1150px;
+            width: 100%;
+            background: rgba(255, 250, 245, 0.80);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            border: 6px solid #d6c9bc;
+            border-radius: 40px 40px 32px 32px;
+            padding: 3rem 3.5rem 3.5rem;
+            box-shadow:
+                0 16px 40px rgba(140, 120, 100, 0.15),
+                inset 0 0 0 2px #fefcf8,
+                inset 0 0 0 8px #e6ddd2;
+            transition: box-shadow 0.3s ease, transform 0.25s ease;
+            animation: floatIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+            position: relative;
+            z-index: 1;
+        }
+
+        .container:hover {
+            box-shadow:
+                0 20px 48px rgba(130, 110, 90, 0.25),
+                inset 0 0 0 2px #fefcf8,
+                inset 0 0 0 8px #e6ddd2;
+            transform: translateY(-3px);
+        }
+
+        @keyframes floatIn {
+            0% {
+                opacity: 0;
+                transform: translateY(32px) scale(0.96);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* ----- ТИПОГРАФИКА: ОЧЕНЬ БОЛЬШИЕ И ЖИРНЫЕ ЗАГОЛОВКИ ----- */
+        h1,
+        h2,
+        h3,
+        h4,
+        .badge,
+        .tag,
+        .stat-label,
+        .feature-title {
+            font-family: 'Izax', 'Izax SHA', 'Segoe UI', system-ui, sans-serif;
+            letter-spacing: 0.03em;
+        }
+
+        h1 {
+            font-size: 3.8rem;
+            /* огромный */
+            font-weight: 900;
+            color: #4a3f50;
+            text-shadow: 3px 3px 0 #e6ddd2, 6px 6px 0 rgba(180, 160, 140, 0.25);
+            margin-bottom: 0.3rem;
+            line-height: 1.1;
+        }
+
+        h1 small {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #8f7e8b;
+            text-shadow: none;
+            display: inline-block;
+            margin-left: 1rem;
+            background: rgba(220, 205, 195, 0.4);
+            padding: 0.2rem 1.4rem;
+            border-radius: 60px;
+            border: 2px solid #d6c9bc;
+            vertical-align: middle;
+        }
+
+        h2 {
+            font-size: 2.8rem;
+            font-weight: 900;
+            color: #4f4357;
+            margin-top: 2.6rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.4rem;
+            border-bottom: 4px dashed #d6c9bc;
+            display: inline-block;
+            text-shadow: 2px 2px 0 rgba(200, 180, 170, 0.3);
+        }
+
+        h3 {
+            font-size: 2.0rem;
+            font-weight: 800;
+            color: #5a4d5f;
+            margin-top: 2.2rem;
+            margin-bottom: 0.7rem;
+            text-shadow: 1px 1px 0 rgba(200, 180, 170, 0.2);
+        }
+
+        h4 {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #6a5b6e;
+            margin: 1.4rem 0 0.4rem;
+        }
+
+        /* ----- ТЕКСТ (тоже крупный) ----- */
+        p,
+        li,
+        .text-block {
+            font-size: 1.25rem;
+            color: #3d3846;
+            line-height: 1.7;
+        }
+
+        p {
+            margin-bottom: 0.8rem;
+        }
+
+        a {
+            color: #7b6b82;
+            text-decoration: none;
+            border-bottom: 2px dotted #b8aab8;
+            transition: color 0.2s, border-color 0.2s;
+            font-weight: 500;
+        }
+
+        a:hover {
+            color: #4f3f57;
+            border-bottom-color: #8a7a8a;
+        }
+
+        /* ----- БЭЙДЖИ (тоже крупнее) ----- */
+        .badge {
+            display: inline-block;
+            background: #e6ddd2;
+            padding: 0.3rem 1.6rem;
+            border-radius: 60px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border: 3px solid #d6c9bc;
+            box-shadow: inset 0 -3px 0 #b8a8a0;
+            color: #4f4357;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            transition: all 0.15s;
+        }
+
+        .badge:hover {
+            background: #dccfc4;
+            transform: scale(1.04) rotate(-1deg);
+        }
+
+        .badge-pink {
+            background: #f5dde6;
+            border-color: #e6c0d0;
+            box-shadow: inset 0 -3px 0 #d4a8ba;
+        }
+
+        .badge-blue {
+            background: #dde8f5;
+            border-color: #c0d0e6;
+            box-shadow: inset 0 -3px 0 #a8bad4;
+        }
+
+        .badge-green {
+            background: #e0f0dc;
+            border-color: #c0dbb8;
+            box-shadow: inset 0 -3px 0 #a8c89e;
+        }
+
+        /* ----- CARDS ----- */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.8rem;
+            margin: 1.5rem 0 0.8rem;
+        }
+
+        .feature-card {
+            background: rgba(255, 250, 245, 0.6);
+            border: 4px solid #d6c9bc;
+            border-radius: 28px;
+            padding: 1.6rem 1.8rem 1.4rem;
+            box-shadow: inset 0 0 0 1px #fefcf8, 0 6px 12px rgba(140, 120, 100, 0.10);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+            backdrop-filter: blur(2px);
+            animation: cardPulse 5s infinite ease-in-out;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            background: rgba(255, 250, 245, 0.90);
+            box-shadow: 0 12px 32px rgba(140, 120, 100, 0.20);
+            animation-play-state: paused;
+        }
+
+        @keyframes cardPulse {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-4px);
+            }
+        }
+
+        .feature-card .icon {
+            font-size: 2.4rem;
+            display: block;
+            margin-bottom: 0.3rem;
+            animation: iconWiggle 3.5s infinite ease-in-out;
+        }
+
+        @keyframes iconWiggle {
+            0%,
+            100% {
+                transform: rotate(0deg);
+            }
+            25% {
+                transform: rotate(8deg);
+            }
+            75% {
+                transform: rotate(-8deg);
+            }
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #4f4357;
+            margin-bottom: 0.2rem;
+        }
+
+        .feature-card ul {
+            font-size: 1.15rem;
+        }
+
+        /* ----- MECHANICS LIST ----- */
+        .mechanics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem 2rem;
+            margin: 1rem 0 0.6rem;
+            padding-left: 0.2rem;
+        }
+
+        .mechanics-grid li {
+            list-style: none;
+            padding: 0.3rem 0 0.3rem 2.2rem;
+            position: relative;
+            font-size: 1.2rem;
+        }
+
+        .mechanics-grid li::before {
+            content: "✦";
+            position: absolute;
+            left: 0;
+            color: #b8a0b0;
+            font-size: 1.4rem;
+            top: 0.2rem;
+            animation: sparkle 2.5s infinite;
+        }
+
+        @keyframes sparkle {
+            0%,
+            100% {
+                opacity: 0.5;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.4);
+            }
+        }
+
+        /* ----- TABLES ----- */
+        .table-wrap {
+            overflow-x: auto;
+            margin: 1.2rem 0 1.8rem;
+            border-radius: 24px;
+            border: 4px solid #d6c9bc;
+            background: rgba(255, 250, 245, 0.5);
+            padding: 0.2rem;
+            box-shadow: inset 0 0 0 1px #fefcf8;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 1.1rem;
+            background: transparent;
+        }
+
+        th,
+        td {
+            padding: 0.9rem 1.4rem;
+            text-align: left;
+            border-bottom: 3px solid #d6c9bc;
+        }
+
+        th {
+            background: #e6ddd2;
+            color: #3d3846;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            border-bottom: 5px solid #c8b8aa;
+            font-size: 1.2rem;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background: rgba(230, 220, 210, 0.25);
+        }
+
+        /* ----- CODE BLOCKS ----- */
+        pre,
+        .code-block {
+            background: #f0ebe6;
+            border: 4px solid #d6c9bc;
+            border-radius: 24px;
+            padding: 1.6rem 2rem;
+            font-family: 'Izax', 'Izax SHA', 'Courier New', monospace;
+            font-size: 1.1rem;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-break: break-word;
+            color: #3d3846;
+            box-shadow: inset 0 0 0 1px #fefcf8;
+            margin: 1rem 0 1.6rem;
+            line-height: 1.8;
+        }
+
+        .code-block code {
+            background: transparent;
+            font-family: inherit;
+        }
+
+        /* ----- LISTS ----- */
+        ul,
+        ol {
+            padding-left: 2rem;
+            margin: 0.6rem 0 1rem;
+        }
+
+        li {
+            margin-bottom: 0.3rem;
+            font-size: 1.2rem;
+        }
+
+        /* ----- HR ----- */
+        hr {
+            border: none;
+            height: 6px;
+            background: repeating-linear-gradient(90deg, #d6c9bc 0px, #d6c9bc 10px, transparent 10px, transparent 20px);
+            margin: 2.8rem 0 2rem;
+            opacity: 0.6;
+        }
+
+        /* ----- FOOTER ----- */
+        .footer-meta {
+            margin-top: 3.2rem;
+            padding-top: 2rem;
+            border-top: 6px double #d6c9bc;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.2rem;
+            color: #6a5b6e;
+        }
+
+        .footer-meta .heart {
+            color: #d48a9e;
+            animation: heartbeat 1.8s infinite;
+            display: inline-block;
+        }
+
+        @keyframes heartbeat {
+            0%,
+            100% {
+                transform: scale(1);
+            }
+            14% {
+                transform: scale(1.3);
+            }
+            28% {
+                transform: scale(1);
+            }
+            42% {
+                transform: scale(1.2);
+            }
+            56% {
+                transform: scale(1);
+            }
+        }
+
+        /* ----- PIXEL DOTS ----- */
+        .pixel-dot {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            background: #d6c9bc;
+            border-radius: 3px;
+            margin: 0 6px;
+            animation: dotPulse 2.2s infinite;
+        }
+
+        @keyframes dotPulse {
+            0%,
+            100% {
+                opacity: 0.4;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.3);
+            }
+        }
+
+        /* ----- RESPONSIVE ----- */
+        @media (max-width: 800px) {
+            html {
+                font-size: 17px;
+            }
+            body {
+                padding: 1.2rem 0.8rem;
+            }
+            .container {
+                padding: 2rem 1.5rem 2.5rem;
+                border-radius: 28px;
+            }
+            h1 {
+                font-size: 2.8rem;
+            }
+            h1 small {
+                font-size: 1.1rem;
+                margin-left: 0.4rem;
+                display: block;
+                margin-top: 0.3rem;
+            }
+            h2 {
+                font-size: 2.2rem;
+            }
+            h3 {
+                font-size: 1.7rem;
+            }
+            h4 {
+                font-size: 1.4rem;
+            }
+            p,
+            li,
+            .text-block {
+                font-size: 1.1rem;
+            }
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+            .mechanics-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 500px) {
+            html {
+                font-size: 15px;
+            }
+            .mechanics-grid {
+                grid-template-columns: 1fr;
+            }
+            .container {
+                padding: 1.4rem 1rem 1.8rem;
+            }
+            h1 {
+                font-size: 2.4rem;
+            }
+            h2 {
+                font-size: 1.8rem;
+            }
+            h3 {
+                font-size: 1.5rem;
+            }
+            .badge {
+                font-size: 0.9rem;
+                padding: 0.2rem 1rem;
+            }
+            .footer-meta {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .flex-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem 0.8rem;
+            align-items: center;
+        }
+
+        /* Дополнительная жирность для обычного текста, где нужно */
+        strong {
+            font-weight: 800;
+            color: #3d3045;
+        }
+        b {
+            font-weight: 800;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== FLOATING CUTE ELEMENTS ===== -->
+    <div class="float-heart" style="left: 3%; animation-delay: 0s;">❤️</div>
+    <div class="float-star" style="left: 12%; animation-delay: 2.5s;">✦</div>
+    <div class="float-heart" style="right: 6%; animation-delay: 4.5s;">💕</div>
+    <div class="float-star" style="right: 18%; animation-delay: 7s;">✧</div>
+    <div class="float-heart" style="left: 40%; animation-delay: 9s;">🌸</div>
+    <div class="float-star" style="left: 75%; animation-delay: 11s;">✦</div>
+    <div class="float-heart" style="right: 35%; animation-delay: 13s;">💖</div>
+
+    <div class="container">
+
+        <!-- ===== HEADER ===== -->
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 0.8rem;">
+            <h1>
+                Fractured Glade
+                <small>MVP</small>
+            </h1>
+            <div style="display: flex; flex-wrap: wrap; gap: 0.5rem 0.7rem;">
+                <span class="badge badge-pink">✦ Свет</span>
+                <span class="badge badge-blue">✦ Тьма</span>
+                <span class="badge badge-green">✦ Разлом</span>
+            </div>
+        </div>
+
+        <!-- ===== SUBTITLE ===== -->
+        <p style="font-size: 1.6rem; color: #6a5b6e; margin-top: 0.1rem; padding-left: 0.2rem; font-weight: 600;">
+            <i>два состояния — один мир</i>
+            <span style="display: inline-block; margin-left: 1.2rem; font-size: 1.2rem; font-weight: 700; background: #e6ddd2; padding: 0.15rem 1.2rem; border-radius: 40px; border: 3px solid #d6c9bc;">2D sandbox-survival</span>
+        </p>
+
+        <!-- ===== НАЗНАЧЕНИЕ ДОКУМЕНТА ===== -->
+        <div style="background: rgba(230, 220, 210, 0.3); border-radius: 28px; padding: 1.8rem 2.2rem; margin: 1.6rem 0 1.2rem; border: 3px solid #d6c9bc; box-shadow: inset 0 0 0 1px #fefcf8;">
+            <p style="margin: 0; font-size: 1.3rem; line-height: 1.6;">
+                <strong style="font-size: 1.5rem;">Назначение документа</strong><br />
+                Данный документ описывает концепцию проекта <strong>Fractured Glade</strong>, его ключевые игровые механики и границы MVP (Minimum Viable Product).
+                <br /><br />
+                Цель MVP — реализовать минимально полноценную игровую версию, подтверждающую жизнеспособность основной идеи проекта и закладывающую архитектурный фундамент для дальнейшего масштабирования.
+            </p>
+        </div>
+
+        <hr />
+
+        <!-- ===== КОНЦЕПЦИЯ ===== -->
+        <h2>✦ Концепция</h2>
+        <p>
+            <strong>Fractured Glade</strong> — это 2D sandbox-survival с процедурной генерацией мира, вдохновленный Terraria по игровому процессу, свободе исследования и строительству, но построенный вокруг собственной ключевой механики — существования двух состояний одного и того же мира.
+        </p>
+        <p>
+            Игрок исследует одну и ту же процедурно сгенерированную карту, свободно переключаясь между двумя Макробиомами — <strong>Светом</strong> и <strong>Тьмой</strong>.
+        </p>
+        <p>
+            Оба Макробиома имеют общую геометрию и описывают один и тот же мир, однако отличаются:
+        </p>
+        <ul>
+            <li>визуальным оформлением;</li>
+            <li>атмосферой;</li>
+            <li>биомами;</li>
+            <li>ресурсами;</li>
+            <li>существами;</li>
+            <li>окружением;</li>
+            <li>особенностями исследования.</li>
+        </ul>
+        <p>
+            Любые изменения геометрии мира (строительство, разрушение блоков и изменение рельефа) синхронизируются между обоими Макробиомами, тогда как их содержимое остается независимым.
+        </p>
+        <p>
+            Благодаря этому исследование превращается не в путешествие по двум разным картам, а в изучение двух состояний одной реальности, где полноценное развитие невозможно без постоянного использования обеих сторон.
+        </p>
+        <p style="background: rgba(230, 220, 210, 0.3); padding: 0.8rem 1.8rem; border-radius: 60px; display: inline-block; border: 3px solid #d6c9bc; margin-top: 0.6rem; font-size: 1.3rem; font-weight: 600;">
+            ⚡ Главная цель MVP — проверка именно этой игровой механики.
+        </p>
+
+        <hr />
+
+        <!-- ===== ЦЕЛИ MVP ===== -->
+        <h2>✦ Цели MVP</h2>
+        <p>
+            На этапе MVP необходимо реализовать минимальный набор игровых систем, позволяющий игроку пройти полный базовый цикл исследования мира, добычи ресурсов, строительства и взаимодействия с двумя Макробиомами.
+        </p>
+        <p>
+            Основная задача MVP — не количество контента, а подтверждение работоспособности ключевой идеи проекта и создание архитектуры, пригодной для дальнейшего масштабирования.
+        </p>
+
+        <hr />
+
+        <!-- ===== ОСНОВНЫЕ МЕХАНИКИ ===== -->
+        <h2>✦ Основные механики MVP</h2>
+
+        <!-- ----- Игровой мир ----- -->
+        <h3>🌍 Игровой мир</h3>
+        <ul>
+            <li>процедурная генерация мира;</li>
+            <li>единый сид генерации;</li>
+            <li>поверхность и подземный слой;</li>
+            <li>базовый лесной биом;</li>
+            <li>простые пещеры;</li>
+            <li>деревья;</li>
+            <li>базовые декоративные объекты;</li>
+            <li>генерация двух состояний одного мира.</li>
+        </ul>
+
+        <!-- ----- Система Макробиомов ----- -->
+        <h3>🌓 Система Макробиомов</h3>
+        <p>Реализовать два независимых состояния одной карты:</p>
+        <ul>
+            <li><strong>Свет</strong>;</li>
+            <li><strong>Тьма</strong>.</li>
+        </ul>
+        <p>Каждый Макробиом использует собственные:</p>
+        <ul>
+            <li>тайлы;</li>
+            <li>освещение;</li>
+            <li>декоративные объекты;</li>
+            <li>ресурсы;</li>
+            <li>атмосферу;</li>
+            <li>противников;</li>
+            <li>визуальные эффекты.</li>
+        </ul>
+        <p><em>Игрок всегда находится только в одном Макробиоме.</em></p>
+
+        <!-- ----- Система Разломов ----- -->
+        <h3>🌀 Система Разломов</h3>
+        <p>Разлом является центральной игровой механикой.</p>
+        <p>Необходимо реализовать:</p>
+        <ul>
+            <li>переход между Макробиомами;</li>
+            <li>сохранение мировых координат игрока;</li>
+            <li>загрузку соответствующего состояния мира;</li>
+            <li>плавный переход между состояниями.</li>
+        </ul>
+
+        <!-- ----- Синхронизация миров ----- -->
+        <h3>🔗 Синхронизация миров</h3>
+        <p>Обе версии мира используют общую геометрию.</p>
+        <p>Необходимо обеспечить синхронизацию:</p>
+        <ul>
+            <li>разрушения блоков;</li>
+            <li>установки блоков;</li>
+            <li>строительства сооружений;</li>
+            <li>изменения ландшафта.</li>
+        </ul>
+        <p><em>При этом содержимое каждого Макробиома остается независимым.</em></p>
+        <p><strong>Не синхронизируются:</strong></p>
+        <ul>
+            <li>ресурсы;</li>
+            <li>сундуки;</li>
+            <li>противники;</li>
+            <li>декоративные объекты;</li>
+            <li>растения;</li>
+            <li>атмосфера;</li>
+            <li>освещение.</li>
+        </ul>
+
+        <!-- ----- Игрок ----- -->
+        <h3>🧑 Игрок</h3>
+        <p>Минимальный функционал:</p>
+        <ul>
+            <li>движение;</li>
+            <li>прыжок;</li>
+            <li>взаимодействие;</li>
+            <li>добыча блоков;</li>
+            <li>установка блоков;</li>
+            <li>использование предметов;</li>
+            <li>получение урона;</li>
+            <li>смерть.</li>
+        </ul>
+
+        <!-- ----- Инвентарь ----- -->
+        <h3>🎒 Инвентарь</h3>
+        <p>Реализовать систему, аналогичную Terraria:</p>
+        <ul>
+            <li>хотбар;</li>
+            <li>основной инвентарь;</li>
+            <li>перенос предметов;</li>
+            <li>подбор предметов;</li>
+            <li>стакование.</li>
+        </ul>
+
+        <!-- ----- Крафт ----- -->
+        <h3>🔨 Крафт</h3>
+        <p>Минимальный набор:</p>
+        <ul>
+            <li>верстак;</li>
+            <li>деревянные инструменты;</li>
+            <li>каменные инструменты;</li>
+            <li>базовые строительные блоки.</li>
+        </ul>
+
+        <!-- ----- Ресурсы ----- -->
+        <h3>🪨 Ресурсы</h3>
+        <p>Базовый набор:</p>
+        <ul>
+            <li>дерево;</li>
+            <li>земля;</li>
+            <li>камень;</li>
+            <li>одна руда.</li>
+        </ul>
+        <p><em>При необходимости ресурсы могут иметь различные свойства в зависимости от активного Макробиома.</em></p>
+
+        <!-- ----- Боевая система ----- -->
+        <h3>⚔️ Боевая система</h3>
+        <p>Минимальная реализация:</p>
+        <ul>
+            <li>меч;</li>
+            <li>кирка;</li>
+            <li>топор;</li>
+            <li>здоровье;</li>
+            <li>урон;</li>
+            <li>смерть противников.</li>
+        </ul>
+
+        <!-- ----- Противники ----- -->
+        <h3>👾 Противники</h3>
+        <p>Минимальный набор:</p>
+        <ul>
+            <li>слизень Света;</li>
+            <li>слизень Тьмы.</li>
+        </ul>
+        <p><em>Основная задача — проверить работу боевой системы и различия между Макробиомами.</em></p>
+
+        <!-- ----- NPC ----- -->
+        <h3>🗣️ NPC</h3>
+        <p>Минимальная реализация одного NPC.</p>
+        <p>Функции:</p>
+        <ul>
+            <li>диалог;</li>
+            <li>взаимодействие;</li>
+            <li>проверка архитектуры NPC.</li>
+        </ul>
+
+        <!-- ----- Система сохранений ----- -->
+        <h3>💾 Система сохранений</h3>
+        <p>Необходимо сохранять:</p>
+        <ul>
+            <li>мир;</li>
+            <li>оба Макробиома;</li>
+            <li>инвентарь;</li>
+            <li>координаты игрока;</li>
+            <li>активный Макробиом;</li>
+            <li>игровые объекты.</li>
+        </ul>
+
+        <hr />
+
+        <!-- ===== АРХИТЕКТУРНЫЕ ТРЕБОВАНИЯ ===== -->
+        <h2>✦ Архитектурные требования</h2>
+        <p>Разработка ведется с расчетом на дальнейшее развитие проекта.</p>
+        <ul>
+            <li>модульная архитектура;</li>
+            <li>независимые игровые системы;</li>
+            <li>разделение данных и логики;</li>
+            <li>использование <code>Resource</code>;</li>
+            <li>минимизация связности между подсистемами;</li>
+            <li>возможность расширения без переработки существующего кода;</li>
+            <li>подготовка архитектуры к будущему мультиплееру.</li>
+        </ul>
+
+        <hr />
+
+        <!-- ===== ТЕХНИЧЕСКИЙ СТЕК ===== -->
+        <h2>✦ Технический стек</h2>
+        <div class="flex-wrap" style="margin-bottom: 0.8rem;">
+            <span class="badge">Godot 4.x</span>
+            <span class="badge badge-blue">GDScript</span>
+            <span class="badge badge-pink">Git</span>
+            <span class="badge badge-green">GitHub</span>
+            <span class="badge">единый Code Style</span>
+            <span class="badge">документирование ключевых подсистем</span>
+        </div>
+
+        <hr />
+
+        <!-- ===== ВНУТРЕННИЕ ИНСТРУМЕНТЫ ===== -->
+        <h2>✦ Внутренние инструменты разработки</h2>
+
+        <div class="grid-2">
+            <div class="feature-card">
+                <span class="icon">🐞</span>
+                <div class="feature-title">Debug</div>
+                <ul style="margin: 0.4rem 0 0; padding-left: 1.4rem; font-size: 1.15rem;">
+                    <li>FPS</li>
+                    <li>координаты игрока</li>
+                    <li>текущий Макробиом</li>
+                    <li>активный биом</li>
+                    <li>seed генерации</li>
+                    <li>свободная камера</li>
+                </ul>
+            </div>
+            <div class="feature-card">
+                <span class="icon">⚡</span>
+                <div class="feature-title">Cheat</div>
+                <ul style="margin: 0.4rem 0 0; padding-left: 1.4rem; font-size: 1.15rem;">
+                    <li>бессмертие</li>
+                    <li>полет</li>
+                    <li>ускорение игрока</li>
+                    <li>ускорение времени</li>
+                    <li>выдача предметов</li>
+                    <li>телепортация</li>
+                    <li>смена Макробиома</li>
+                    <li>открытие карты</li>
+                    <li>отключение коллизий</li>
+                </ul>
+            </div>
+        </div>
+
+        <hr />
+
+        <!-- ===== КРИТЕРИЙ УСПЕХА ===== -->
+        <h2>✦ Критерий успешного MVP</h2>
+        <div style="background: rgba(230, 220, 210, 0.25); border-radius: 32px; padding: 1.8rem 2.4rem; border: 4px solid #d6c9bc; box-shadow: inset 0 0 0 1px #fefcf8;">
+            <p style="font-size: 1.4rem; margin-bottom: 0.8rem; font-weight: 700;">
+                <strong>MVP считается успешным, если игрок способен самостоятельно пройти следующий игровой цикл:</strong>
+            </p>
+            <ol style="font-size: 1.25rem; padding-left: 2rem; line-height: 1.8;">
+                <li>Создать новый процедурно сгенерированный мир.</li>
+                <li>Поговорить с первым NPC.</li>
+                <li>Исследовать Светлый Макробиом.</li>
+                <li>Добыть первые ресурсы.</li>
+                <li>Создать базовые инструменты.</li>
+                <li>Найти Разлом.</li>
+                <li>Перейти в Темный Макробиом.</li>
+                <li>Исследовать ту же область мира в измененном состоянии.</li>
+                <li>Использовать ресурсы обоих Макробиомов для дальнейшего развития.</li>
+            </ol>
+            <p style="margin-top: 1.2rem; font-style: italic; color: #5a4d5f; font-size: 1.3rem;">
+                После прохождения этого цикла игрок должен естественным образом захотеть продолжить исследование мира. Это означает, что основная игровая механика и архитектурный фундамент проекта успешно реализованы и готовы к дальнейшему развитию.
+            </p>
+        </div>
+
+        <hr />
+
+        <!-- ===== FOOTER ===== -->
+        <div class="footer-meta">
+            <span style="font-size: 1.3rem; font-weight: 600;">
+                <span class="pixel-dot"></span>
+                <span class="pixel-dot"></span>
+                <span class="pixel-dot"></span>
+                &nbsp; Fractured Glade &nbsp;·&nbsp; MVP
+            </span>
+            <span style="font-size: 1.2rem;">
+                <span class="heart">❤</span> made with <span class="heart">❤</span>
+                &nbsp;·&nbsp;
+                <a href="https://github.com/PornHapp/fractured-glade" target="_blank" style="font-weight: 700;">GitHub</a>
+            </span>
+        </div>
+
+    </div>
+
+    <!-- ===== JS ===== -->
+    <script>
+        (function() {
+            'use strict';
+
+            // badges hover
+            const badges = document.querySelectorAll('.badge');
+            badges.forEach(b => {
+                b.addEventListener('mouseenter', function() {
+                    this.style.transform = 'scale(1.07) rotate(-1.5deg)';
+                    this.style.transition = 'transform 0.15s ease';
+                });
+                b.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1) rotate(0)';
+                });
+            });
+
+            // feature cards tilt
+            const cards = document.querySelectorAll('.feature-card');
+            if (window.innerWidth > 700) {
+                cards.forEach(card => {
+                    card.addEventListener('mousemove', function(e) {
+                        const rect = this.getBoundingClientRect();
+                        const x = (e.clientX - rect.left) / rect.width - 0.5;
+                        const y = (e.clientY - rect.top) / rect.height - 0.5;
+                        this.style.transform =
+                            `perspective(600px) rotateY(${x * 5}deg) rotateX(${-y * 5}deg) translateY(-8px) scale(1.02)`;
+                        this.style.transition = 'transform 0.08s ease';
+                    });
+                    card.addEventListener('mouseleave', function() {
+                        this.style.transform = 'perspective(600px) rotateY(0) rotateX(0) translateY(0) scale(1)';
+                        this.style.transition = 'transform 0.3s ease';
+                    });
+                });
+            }
+
+            // smooth anchor scroll
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        e.preventDefault();
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                });
+            });
+
+            console.log('🍃 Fractured Glade · MVP presentation ready (BIG & BOLD)');
+        })();
+    </script>
+
+</body>
+</html>
