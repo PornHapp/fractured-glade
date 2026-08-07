@@ -14,8 +14,10 @@
     <meta property="og:type" content="website" />
     <meta property="og:image" content="assets/logo.png" />
 
-    <!-- Шрифт: локальный @font-face -->
-    <link rel="preload" href="assets/fonts/izax_sha_0.otf" as="font" type="font/otf" crossorigin />
+    <!-- Шрифты: Inter (тело) + Izax (hero) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="css/landing.css" />
 
     <!-- Favicon -->
@@ -107,7 +109,7 @@
     <!-- ===== КОНЦЕПЦИЯ ===== -->
     <section class="section section--concept" id="concept">
         <div class="container">
-            <h2 class="section__title reveal">✦ Одна карта. Два состояния.</h2>
+            <h2 class="section__title reveal">Одна карта. Два состояния.</h2>
 
             <div class="concept-text reveal">
                 <p>
@@ -117,7 +119,7 @@
                     Игрок исследует одну карту, свободно переключаясь между двумя <strong>Макробиомами</strong> — <em>Светом</em> и <em>Тьмой</em>. Оба описывают одну реальность, но различаются визуалом, атмосферой, биомами, ресурсами и существами.
                 </p>
                 <p>
-                    Строительство и изменение ландшафта <strong>синхронизируются</strong> между состояниями. Содержимое — <strong>нет</strong>. Это значит, что одна пещера может быть безопасным лагерем в Свету и логовом монстров в Тьме.
+                    Строительство и изменение ландшафта <strong>синхронизируются</strong> между состояниями. Содержимое — <strong>нет</strong>. Одна пещера может быть безопасным лагерем в Свету и логовом монстров в Тьме.
                 </p>
             </div>
 
@@ -154,7 +156,7 @@
     <!-- ===== ГЕЙМПЛЕЙ-ФИЧИ ===== -->
     <section class="section section--features" id="features">
         <div class="container">
-            <h2 class="section__title reveal">✦ Геймплей</h2>
+            <h2 class="section__title reveal">Геймплей</h2>
 
             <div class="features-grid">
                 <div class="feature-card reveal">
@@ -166,7 +168,7 @@
                 <div class="feature-card reveal">
                     <div class="feature-card__icon">🌀</div>
                     <h3 class="feature-card__title">Разломы</h3>
-                    <p>Объекты- порталы для перехода между Макробиомами. Координаты сохраняются — ты в том же месте, но мир вокруг тебя изменился.</p>
+                    <p>Объекты-порталы для перехода между Макробиомами. Координаты сохраняются — ты в том же месте, но мир вокруг тебя изменился.</p>
                 </div>
 
                 <div class="feature-card reveal">
@@ -200,13 +202,13 @@
                 <ol class="progress-loop__list">
                     <li>Создать новый мир</li>
                     <li>Поговорить с NPC</li>
-                    <li>Исследовать Светлый Макробиом</li>
-                    <li>Добыть первые ресурсы</li>
+                    <li>Исследовать Свет</li>
+                    <li>Добыть ресурсы</li>
                     <li>Создать инструменты</li>
                     <li>Найти Разлом</li>
-                    <li>Перейти в Тёмный Макробиом</li>
-                    <li>Исследовать искажённую версию</li>
-                    <li>Использовать ресурсы обоих миров</li>
+                    <li>Перейти в Тьму</li>
+                    <li>Исследовать искажение</li>
+                    <li>Использовать оба мира</li>
                 </ol>
             </div>
         </div>
@@ -215,7 +217,7 @@
     <!-- ===== СПЕКИ (ПОДРОБНО) ===== -->
     <section class="section section--specs" id="specs">
         <div class="container">
-            <h2 class="section__title reveal">✦ Подробно</h2>
+            <h2 class="section__title reveal">Подробно</h2>
             <p class="section__subtitle reveal">Спецификации и архитектурные документы проекта</p>
 
             <div class="specs-grid">
@@ -265,7 +267,7 @@
     <!-- ===== ГАЛЕРЕЯ ===== -->
     <section class="section section--gallery" id="gallery">
         <div class="container">
-            <h2 class="section__title reveal">✦ Скриншоты</h2>
+            <h2 class="section__title reveal">Скриншоты</h2>
             <div class="gallery reveal">
                 <div class="gallery__track">
                     <img src="screenshots/terraria_inventory_example_v1.png" alt="Пример инвентаря (референс)" class="gallery__item" loading="lazy" />
@@ -281,16 +283,16 @@
     <!-- ===== ТЕХНОЛОГИИ ===== -->
     <section class="section section--tech" id="tech">
         <div class="container">
-            <h2 class="section__title reveal">✦ Технологии</h2>
+            <h2 class="section__title reveal">Технологии</h2>
             <div class="tech-badges reveal">
                 <span class="tech-badge">Godot 4.x</span>
-                <span class="tech-badge tech-badge--blue">GDScript</span>
-                <span class="tech-badge tech-badge--pink">Git</span>
-                <span class="tech-badge tech-badge--green">GitHub</span>
-                <span class="tech-badge">Строгая типизация</span>
-                <span class="tech-badge">Модульная архитектура</span>
-                <span class="tech-badge tech-badge--blue">Resource-данные</span>
-                <span class="tech-badge tech-badge--pink">Подготовка к мультиплееру</span>
+                <span class="tech-badge">GDScript</span>
+                <span class="tech-badge">Git</span>
+                <span class="tech-badge">GitHub</span>
+                <span class="tech-badge">строгая типизация</span>
+                <span class="tech-badge">модульность</span>
+                <span class="tech-badge">Resource-данные</span>
+                <span class="tech-badge">мультиплеер-ready</span>
             </div>
 
             <!-- Архитектурные принципы -->
@@ -301,7 +303,7 @@
                 </div>
                 <div class="arch-principle">
                     <h4>🧩 Композиция &gt; Наследование</h4>
-                    <p>HealthComponent, MovementComponent — расширяем функциональность через узлы, не через иерархию</p>
+                    <p>HealthComponent, MovementComponent — расширяем через узлы, не через иерархию</p>
                 </div>
                 <div class="arch-principle">
                     <h4>📡 Слабая связанность</h4>
@@ -309,7 +311,7 @@
                 </div>
                 <div class="arch-principle">
                     <h4>🔒 SOLID</h4>
-                    <p>Каждая система — одна задача. Новые биомы и предметы добавляются через ресурсы, без переработки кода.</p>
+                    <p>Каждая система — одна задача. Новые биомы и предметы добавляются через ресурсы.</p>
                 </div>
             </div>
         </div>
@@ -317,19 +319,30 @@
 
     <!-- ===== ФУТЕР ===== -->
     <footer class="footer">
-        <div class="container footer__inner">
+        <!-- Фоновые текстуры -->
+        <div class="footer__bg" aria-hidden="true">
+            <div class="footer__bg-layer footer__bg-layer--forest" style="background-image: url('assets/forest_mid.png')"></div>
+            <div class="footer__bg-layer footer__bg-layer--moon" style="background-image: url('assets/moon_mid.png')"></div>
+        </div>
+        <div class="footer__overlay"></div>
+        <div class="footer__rift"></div>
+
+        <!-- Контент -->
+        <div class="footer__content">
             <div class="footer__brand">
-                <span class="footer__dots">
-                    <span class="pixel-dot"></span>
-                    <span class="pixel-dot"></span>
-                    <span class="pixel-dot"></span>
-                </span>
-                Fractured Glade · MVP
+                <img src="assets/logo.png" alt="" class="footer__brand-logo" />
+                <div class="footer__brand-text">
+                    Fractured Glade
+                    <span class="footer__brand-sub">MVP · 2026</span>
+                </div>
             </div>
-            <div class="footer__links">
-                <a href="https://github.com/PornHapp/fractured-glade" target="_blank" rel="noopener">GitHub</a>
-                <span class="footer__sep">·</span>
-                <span>Сделано с <span class="heart">❤</span> для Fractured Glade</span>
+            <div class="footer__right">
+                <div class="footer__links">
+                    <a href="https://github.com/PornHapp/fractured-glade" target="_blank" rel="noopener">GitHub</a>
+                    <span class="footer__sep">·</span>
+                    <span class="footer__heart">❤</span>
+                </div>
+                <div class="footer__copy">Fractured Glade © 2026 · сделано для людей</div>
             </div>
         </div>
     </footer>
