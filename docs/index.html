@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Fractured Glade - 2D sandbox-survival · два состояния, один мир</title>
+    <title>Fractured Glade</title>
     <meta name="description" content="Fractured Glade - 2D sandbox-survival с процедурной генерацией мира. Исследуй один мир в двух состояниях: Свет и Тьма." />
     <meta name="theme-color" content="#f7f2eb" />
 
@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="css/landing.css" />
 
     <!-- Favicon -->
-    <link rel="icon" href="../icon.svg" type="image/svg+xml" />
+    <link rel="icon" href="assets/mini_logo.png" type="image/png" />
 </head>
 <body>
 
@@ -125,29 +125,38 @@
                 </p>
             </div>
 
-            <!-- Таблица: что синхронизируется -->
-            <div class="sync-table reveal">
-                <h3>Что общее, а что различается</h3>
-                <div class="sync-table__grid">
-                    <div class="sync-table__col sync-table__col--sync">
-                        <div class="sync-table__header"><i class="ph ph-link"></i> Синхронизируется</div>
-                        <ul>
-                            <li>Геометрия мира</li>
-                            <li>Разрушение блоков</li>
-                            <li>Установка блоков</li>
-                            <li>Строительство сооружений</li>
-                            <li>Изменение ландшафта</li>
+            <!-- Конфронтация: Свет vs Тьма -->
+            <div class="vs-reveal reveal">
+                <h3 class="section__title vs-reveal__title">Что общее, а что различается</h3>
+                <div class="vs-reveal__arena">
+                    <!-- Левая сторона: Свет -->
+                    <div class="vs-reveal__side vs-reveal__side--light">
+                        <div class="vs-reveal__icon"><i class="ph ph-link"></i></div>
+                        <h4 class="vs-reveal__heading">Синхронизируется</h4>
+                        <ul class="vs-reveal__list">
+                            <li><i class="ph ph-check-circle"></i> Геометрия мира</li>
+                            <li><i class="ph ph-check-circle"></i> Разрушение блоков</li>
+                            <li><i class="ph ph-check-circle"></i> Установка блоков</li>
+                            <li><i class="ph ph-check-circle"></i> Строительство</li>
+                            <li><i class="ph ph-check-circle"></i> Изменение ландшафта</li>
                         </ul>
                     </div>
-                    <div class="sync-table__col sync-table__col--diff">
-                        <div class="sync-table__header"><i class="ph ph-lightning"></i> Различается</div>
-                        <ul>
-                            <li>Визуальное оформление</li>
-                            <li>Ресурсы и руды</li>
-                            <li>Противники</li>
-                            <li>Декоративные объекты</li>
-                            <li>Освещение и атмосфера</li>
-                            <li>Аудио</li>
+                    <!-- Центральный разлом -->
+                    <div class="vs-reveal__rift" aria-hidden="true">
+                        <div class="vs-reveal__rift-line"></div>
+                        <span class="vs-reveal__rift-badge">VS</span>
+                    </div>
+                    <!-- Правая сторона: Тьма -->
+                    <div class="vs-reveal__side vs-reveal__side--dark">
+                        <div class="vs-reveal__icon"><i class="ph ph-lightning"></i></div>
+                        <h4 class="vs-reveal__heading">Различается</h4>
+                        <ul class="vs-reveal__list">
+                            <li><i class="ph ph-x-circle"></i> Визуальное оформление</li>
+                            <li><i class="ph ph-x-circle"></i> Ресурсы и руды</li>
+                            <li><i class="ph ph-x-circle"></i> Противники</li>
+                            <li><i class="ph ph-x-circle"></i> Декоративные объекты</li>
+                            <li><i class="ph ph-x-circle"></i> Освещение и атмосфера</li>
+                            <li><i class="ph ph-x-circle"></i> Аудио</li>
                         </ul>
                     </div>
                 </div>
@@ -199,19 +208,75 @@
             </div>
 
             <!-- Цикл прохождения -->
-            <div class="progress-loop reveal">
-                <h3 class="section-heading">Игровой цикл MVP</h3>
-                <ol class="progress-loop__list">
-                    <li>Создать новый мир</li>
-                    <li>Поговорить с NPC</li>
-                    <li>Исследовать Свет</li>
-                    <li>Добыть ресурсы</li>
-                    <li>Создать инструменты</li>
-                    <li>Найти Разлом</li>
-                    <li>Перейти в Тьму</li>
-                    <li>Исследовать искажение</li>
-                    <li>Использовать оба мира</li>
-                </ol>
+            <div class="game-loop reveal">
+                <h3 class="section__title game-loop__title">Игровой цикл MVP</h3>
+                <p class="game-loop__subtitle">Полный путь от первого мира до двух состояний</p>
+                <div class="game-loop__track">
+                    <div class="game-loop__item game-loop__item--light">
+                        <div class="game-loop__dot"></div>
+                        <div class="game-loop__content">
+                            <span class="game-loop__num">01</span>
+                            <span class="game-loop__label">Создать мир</span>
+                        </div>
+                    </div>
+                    <div class="game-loop__item game-loop__item--light">
+                        <div class="game-loop__dot"></div>
+                        <div class="game-loop__content">
+                            <span class="game-loop__num">02</span>
+                            <span class="game-loop__label">Поговорить с NPC</span>
+                        </div>
+                    </div>
+                    <div class="game-loop__item game-loop__item--light">
+                        <div class="game-loop__dot"></div>
+                        <div class="game-loop__content">
+                            <span class="game-loop__num">03</span>
+                            <span class="game-loop__label">Исследовать Свет</span>
+                        </div>
+                    </div>
+                    <div class="game-loop__item game-loop__item--light">
+                        <div class="game-loop__dot"></div>
+                        <div class="game-loop__content">
+                            <span class="game-loop__num">04</span>
+                            <span class="game-loop__label">Добыть ресурсы</span>
+                        </div>
+                    </div>
+                    <div class="game-loop__item game-loop__item--light">
+                        <div class="game-loop__dot"></div>
+                        <div class="game-loop__content">
+                            <span class="game-loop__num">05</span>
+                            <span class="game-loop__label">Создать инструменты</span>
+                        </div>
+                    </div>
+                    <!-- Точка перелома — Разлом -->
+                    <div class="game-loop__item game-loop__item--rift">
+                        <div class="game-loop__dot game-loop__dot--rift"></div>
+                        <div class="game-loop__content">
+                            <span class="game-loop__num"><i class="ph ph-lightning"></i></span>
+                            <span class="game-loop__label">Найти Разлом</span>
+                        </div>
+                    </div>
+                    <div class="game-loop__item game-loop__item--dark">
+                        <div class="game-loop__dot"></div>
+                        <div class="game-loop__content">
+                            <span class="game-loop__num">07</span>
+                            <span class="game-loop__label">Перейти в Тьму</span>
+                        </div>
+                    </div>
+                    <div class="game-loop__item game-loop__item--dark">
+                        <div class="game-loop__dot"></div>
+                        <div class="game-loop__content">
+                            <span class="game-loop__num">08</span>
+                            <span class="game-loop__label">Исследовать искажение</span>
+                        </div>
+                    </div>
+                    <div class="game-loop__item game-loop__item--dark">
+                        <div class="game-loop__dot"></div>
+                        <div class="game-loop__content">
+                            <span class="game-loop__num"><i class="ph ph-infinity"></i></span>
+                            <span class="game-loop__label">Использовать оба мира</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
