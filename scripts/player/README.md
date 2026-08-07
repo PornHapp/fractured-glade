@@ -1,8 +1,6 @@
 # Игрок - Скрипты
 
-Архитектура игрока построена по принципу **композиции**: корневой скрипт `player.gd`
-связывает компоненты сигналами и делегирует им всю логику. Игрок сам ничего не
-вычисляет - он координирует.
+Архитектура игрока построена по принципу **композиции**: корневой скрипт `player.gd` связывает компоненты сигналами и делегирует им всю логику. Игрок сам ничего не вычисляет - он координирует.
 
 ---
 
@@ -53,8 +51,8 @@ AnimationController.update() →  выбираем анимацию по сос�
                               → StateMachine (переходы)
                               → AnimationController (визуал)
 
-Здоровье → HealthComponent → StateMachine (урон/смерть)
-                            → AnimationController (мигание)
+Здоровье → HealthComponent    → StateMachine (урон/смерть)
+                              → AnimationController (мигание)
 ```
 
 ---
@@ -184,17 +182,17 @@ AnimationController.update() →  выбираем анимацию по сос�
 
 ## Анимации (SpriteFrames)
 
-Все анимации - одни на оба направления (зеркалирование через flip_h).
+Все анимации - одни на оба направления (зеркалирование через `flip_h`).
 
 | Имя | Кол-во кадров | Loop | Источник |
 |---|---|---|---|
-| idle | 6 | да | idle_left.png |
-| run | 6 | да | run_left.png |
-| jump | 4 | нет | jump_left.png |
-| fall | 5 | нет | fall_left.png |
-| die | 9 | нет | death_left.png |
-| hurt | 5 | нет | dmg_left.png |
-| interact | 5 | нет | interact_left.png |
+| `idle` | 6 | да | idle_left.png |
+| `run` | 6 | да | run_left.png |
+| `jump` | 4 | нет | jump_left.png |
+| `fall` | 5 | нет | fall_left.png |
+| `die` | 9 | нет | death_left.png |
+| `hurt` | 5 | нет | dmg_left.png |
+| `interact` | 5 | нет | interact_left.png |
 
 Спрайты находятся в `assets/textures/player/astral_f/`.
 
