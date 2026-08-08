@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://tl1alcxwrs1v"]
+
+[ext_resource type="TileSet" uid="uid://c528542s21gsf" path="res://scenes/tilemaps/grass_dirt_autotile/grass_dirt_tileset.tres" id="1_tileset"]
+[ext_resource type="Script" uid="uid://w8o34um0g46d" path="res://scripts/generation/autotile_test.gd" id="2_script"]
+
+[node name="GrassDirtAutotile" type="Node2D" unique_id=71105711]
+script = ExtResource("2_script")
+
+[node name="DirtLayer" type="TileMapLayer" parent="." unique_id=1269465900]
+tile_set = ExtResource("1_tileset")
+
+[node name="GrassLayer" type="TileMapLayer" parent="." unique_id=1975191813]
+tile_set = ExtResource("1_tileset")
