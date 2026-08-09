@@ -13,17 +13,9 @@ const TILE_SIZE: int = 8
 const SOURCE_GRASS: int = 1
 const SOURCE_DIRT: int = 2
 
-## Atlas coordinates для тайлов
-## Grass/Dirt.png layout:
-##   [0,0] Full  [1,0] Top    [2,0] Full
-##   [0,1] Left  [1,1] Empty  [2,1] Right
-##   [0,2] Full  [1,2] Bottom [2,2] Full
-const ATLAS_FULL: Vector2i = Vector2i(0, 0)
-const ATLAS_TOP: Vector2i = Vector2i(1, 0)
-const ATLAS_LEFT: Vector2i = Vector2i(0, 1)
-const ATLAS_EMPTY: Vector2i = Vector2i(1, 1)
-const ATLAS_RIGHT: Vector2i = Vector2i(2, 1)
-const ATLAS_BOTTOM: Vector2i = Vector2i(1, 2)
+## Индексы terrain в TerrainSet
+const TERRAIN_GRASS: int = 0
+const TERRAIN_DIRT: int = 1
 
 ## Параметры мира (передаются извне, не хардкодятся)
 var world_width: int = 200
@@ -115,43 +107,14 @@ func _place_tile(x: int, y: int) -> void:
 		_place_dirt_tile(x, y)
 
 
-## Размещает тайл травы с учетом соседей
+## Размещает тайл травы с terrain index — Godot автоматически выберет правильный тайл
 func _place_grass_tile(x: int, y: int) -> void:
-	## Определяем atlas coordinates на основе соседей
-	var atlas_coords: Vector2i = _get_grass_atlas_coords(x, y)
-	grass_layer.set_cell(Vector2i(x, y), SOURCE_GRASS, atlas_coords, 0)
+	grass_layer.set_cell(Vector2i(x, y), SOURCE_GRASS, Vector2i(-1, -1), TERRAIN_GRASS)
 
 
-## Размещает тайл земли
+## Размещает тайл земли с terrain index
 func _place_dirt_tile(x: int, y: int) -> void:
-	## Для dirt используем центральный тайл (пустой)
-	## Autotile сам определит правильный вариант
-	dirt_layer.set_cell(Vector2i(x, y), SOURCE_DIRT, Vector2i(1, 1), 0)
-
-
-## Определяет atlas coordinates для grass тайла на основе соседей
-func _get_grass_atlas_coords(x: int, y: int) -> Vector2i:
-	var has_top: bool = _is_terrain(x, y - 1)
-	var has_bottom: bool = _is_terrain(x, y + 1)
-	var has_left: bool = _is_terrain(x - 1, y)
-	var has_right: bool = _is_terrain(x + 1, y)
-
-	## Полный блок (все соседи - terrain)
-	if has_top and has_bottom and has_left and has_right:
-		return ATLAS_FULL
-
-	## Граничные случаи
-	if not has_top:
-		return ATLAS_TOP
-	if not has_bottom:
-		return ATLAS_BOTTOM
-	if not has_left:
-		return ATLAS_LEFT
-	if not has_right:
-		return ATLAS_RIGHT
-
-	## По умолчанию - полный блок
-	return ATLAS_FULL
+	dirt_layer.set_cell(Vector2i(x, y), SOURCE_DIRT, Vector2i(-1, -1), TERRAIN_DIRT)
 
 
 ## Устанавливает параметры мира

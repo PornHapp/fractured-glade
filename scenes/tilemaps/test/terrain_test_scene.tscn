@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://tl1alcxwrs1v"]
+
+[ext_resource type="TileSet" uid="uid://c528542s21gsf" path="res://scenes/tilemaps/test/test_tileset.tres" id="1_tileset"]
+[ext_resource type="Script" path="res://scripts/generation/terrain_test.gd" id="2_script"]
+[ext_resource type="Script" path="res://scripts/generation/tileset_physics_setup.gd" id="3_physics"]
+[ext_resource type="PackedScene" uid="uid://44fo3ep3cfc" path="res://scenes/player/player.tscn" id="4_player"]
+
+[node name="TerrainTest" type="Node2D"]
+script = ExtResource("2_script")
+
+[node name="DirtLayer" type="TileMapLayer" parent="."]
+tile_set = ExtResource("1_tileset")
+collision_layer = 0
+collision_mask = 0
+
+[node name="GrassLayer" type="TileMapLayer" parent="."]
+tile_set = ExtResource("1_tileset")
+collision_layer = 0
+collision_mask = 0
+
+[node name="PhysicsSetup" type="Node" parent="."]
+script = ExtResource("3_physics")
+tile_map_layer = NodePath("../DirtLayer")
+
+[node name="GrassPhysicsSetup" type="Node" parent="."]
+script = ExtResource("3_physics")
+tile_map_layer = NodePath("../GrassLayer")
+
+[node name="Player" parent="." instance=ExtResource("4_player")]
+position = Vector2(48, -16)
+collision_layer = 2
+collision_mask = 1

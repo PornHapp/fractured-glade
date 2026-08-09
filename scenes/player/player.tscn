@@ -387,7 +387,6 @@ script = ExtResource("2_inph")
 
 [node name="MovementController" type="Node" parent="." unique_id=1641771156]
 script = ExtResource("2_movem")
-move_speed = 450.0
 
 [node name="HealthComponent" type="Node" parent="." unique_id=2057232499]
 script = ExtResource("2_heal")
