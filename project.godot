@@ -128,6 +128,15 @@ use_item={
 
 locale/translations=PackedStringArray("res://assets/localization/translations.ru.translation", "res://assets/localization/translations.en.translation")
 
+[layer_names]
+
+2d_physics/layer_1="terrain"
+2d_physics/layer_2="player"
+2d_physics/layer_3="enemies"
+2d_physics/layer_4="items"
+2d_physics/layer_5="player_attack"
+2d_physics/layer_6="enemy_attack"
+
 [physics]
 
 3d/physics_engine="Jolt Physics"
