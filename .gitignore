@@ -14,3 +14,4 @@ export_credentials.cfg
 .vscode/
 .claude/
 .mcp.json
+.mcp/
