@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" format=3 uid="uid://c15r3em6yxk3u"]
+[gd_resource type="TileSet" format=3 uid="uid://c528542s21gsf"]
 
 [ext_resource type="Texture2D" uid="uid://tsh0gjcypmlr" path="res://assets/textures/tiles/TEST_VLAD_tilemap/8x8_pixel_sandbox_plains/tiles/Grass.png" id="1_grass"]
 [ext_resource type="Texture2D" uid="uid://beloi1rtcslcv" path="res://assets/textures/tiles/TEST_VLAD_tilemap/8x8_pixel_sandbox_plains/tiles/Dirt.png" id="2_dirt"]

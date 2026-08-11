@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Fractured Glade"
-run/main_scene="uid://ycdppxwxpyp2"
+run/main_scene="uid://625ck8yraaf6"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -25,6 +25,7 @@ MusicManager="*uid://cdyggf3wxdphf"
 SettingsManager="*uid://d27yp4kdingb4"
 Global="*uid://2w3ocpbhj281"
 ToolItemRegistry="*res://scripts/items/tool_item_registry.gd"
+McpBridge="*res://mcp_bridge.gd"
 
 [display]
 

@@ -7,7 +7,6 @@ const TILE_SIZE = 8
 # Оставил твои названия узлов, чтобы не пришлось их менять в Godot!
 @onready var grass_tile_map = $MainTileMapLayer
 @onready var mirror_grass_tile_map = $MirrorTileMapLayer
-@onready var info_label = $UI/InfoLabel
 
 var player = null
 var world_gen = null
@@ -60,16 +59,11 @@ func _ready():
 	
 	_copy_tilesets_to_mirror()
 	_create_player()
-	# Дебаг-панель игрока (клавиши 8/9/0 меняют HP для проверки состояний)
-	if player:
-		$PlayerDebug.setup(player)
-		$PlayerDebugUI.setup(player)
-	
+	$PlayerDebugComponent.set_player(player)
 	# Загружаем только то, что вокруг игрока (Чанки)
 	chunk_manager.update(player.position, in_mirror_world)
 	collision_manager.build_all(self)
 	collision_manager.add_borders(self, world_data[0].size(), world_data.size())
-	_update_ui()
 	print("=== Мир готов! ===")
 
 func _create_mirror_world():
@@ -136,7 +130,6 @@ func switch_world():
 		collision_manager.set_main_active(true)
 		collision_manager.set_mirror_active(false)
 	chunk_manager.reload_all_visible(player.position, in_mirror_world)
-	_update_ui()
 
 func _create_player():
 	## FIXME(Влад): избавиться от хардкода
@@ -147,19 +140,6 @@ func _create_player():
 	for y in range(world_data.size()):
 		if world_data[y][sx] != -1 and world_data[y][sx] != 5: sy = y; break
 	player.position = Vector2(sx * TILE_SIZE + TILE_SIZE / 2.0, (sy - 30) * TILE_SIZE)
-
-func _update_ui():
-	if info_label:
-		var block_names = {0: "Земля", 2: "Трава", 8: "Песок"}
-		var count = chunk_manager.get_loaded_count(in_mirror_world)
-		var world_name = "Новый мир"
-		if Global.get("world_name"):
-			world_name = Global.world_name
-			
-		info_label.text = ("ЗЕРКАЛЬНЫЙ" if in_mirror_world else "ОСНОВНОЙ") + " МИР | " + world_name
-		info_label.text += "\nБлок: " + block_names.get(selected_block, "???") + " | Чанков: " + str(count)
-		info_label.text += "\n1-Земля 2-Трава 3-Песок | ЛКМ-поставить ПКМ-убрать"
-		info_label.text += "\nA/D-движение Пробел-прыжок Enter-смена мира ESC-меню"
 
 func _input(event):
 	if event.is_action_pressed("ui_cancel"): 

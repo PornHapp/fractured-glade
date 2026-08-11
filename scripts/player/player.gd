@@ -145,7 +145,7 @@ func die() -> void:
 
 
 ## Восстанавливает игрока и возвращает из состояния смерти к движению.
-## Используется возрождением и отладкой (PlayerDebug).
+## Используется возрождением и отладкой (PlayerDebugComponent).
 ## @emits health_changed(max, old)
 func revive() -> void:
 	health_component.reset()

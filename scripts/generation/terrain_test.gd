@@ -1,32 +1,32 @@
 ## Тестовый скрипт для проверки автотайлинга тайлсетов.
 ## Создает процедурный terrain и использует TerrainSet для автоматического выбора тайлов.
-## Использует set_cells_terrain_connect() — правильный API для terrain autotile в Godot 4.
+## Использует set_cells_terrain_connect() - правильный API для terrain autotile в Godot 4.
 ##
-## Добавлено:
 ## - Установка/удаление блоков ЛКМ/ПКМ (как в main_game)
 ## - Разнообразная генерация мира (холмы, платформы, пещеры)
-## - Дебаг-панель игрока (HP, состояние, скорость)
+## - Дебаг-компоненты: PlayerDebugComponent + TerrainDebugComponent
 extends Node2D
 
-## Ссылки на TileMapLayer узлы — расширяемый словарь terrain → layer
+## Ссылки на TileMapLayer узлы - расширяемый словарь terrain -> layer
 ## Ключ: terrain index (int), Значение: TileMapLayer
 var terrain_layers: Dictionary = {}
 
 ## Константы по умолчанию (переопределяются через set_terrain_config)
-var default_surface_y: int = 12
-var area_width: int = 80
-var area_height: int = 30
-var area_offset_x: int = -20
-var area_offset_y: int = -5
+var default_surface_y: int = 15
+var area_width: int = 120
+var area_height: int = 40
+var area_offset_x: int = -40
+var area_offset_y: int = -10
 
 ## Блоки: 0 = трава, 1 = земля
 var selected_block: int = 0
 
 ## Ссылка на игрока
-var player: CharacterBody2D = null
+var player: Player = null
 
-## Дебаг-панель
-var _debug_ui = null
+## Флаг нажатия мыши для непрерывной установки блоков
+var _is_mouse_pressed: bool = false
+var _mouse_button_index: int = -1
 
 
 func _ready() -> void:
@@ -37,8 +37,9 @@ func _ready() -> void:
 		var layer: TileMapLayer = terrain_layers[terrain_idx] as TileMapLayer
 		print("[TerrainTest] %s: used_cells=%d" % [layer.name, layer.get_used_cells().size()])
 	_position_player()
-	_setup_debug_ui()
-	_setup_info_label()
+	$PlayerDebugComponent.set_player(player)
+	$TerrainDebugComponent.set_terrain_data(terrain_layers)
+	$TerrainDebugComponent.refresh_stats()
 
 
 ## Автоматически находит TileMapLayer узлы и маппит их на terrain index
@@ -47,13 +48,13 @@ func _discover_layers() -> void:
 		if child is TileMapLayer:
 			var layer: TileMapLayer = child as TileMapLayer
 			## Имя узла определяет terrain index:
-			## "GrassLayer" → terrain 0, "DirtLayer" → terrain 1
+			## "GrassLayer" -> terrain 0, "DirtLayer" -> terrain 1
 			var terrain_idx: int = _terrain_index_from_name(child.name)
 			terrain_layers[terrain_idx] = layer
 
 
 ## Конвертирует имя слоя в terrain index
-## "GrassLayer" → 0, "DirtLayer" → 1, "StoneLayer" → 2
+## "GrassLayer" -> 0, "DirtLayer" -> 1, "StoneLayer" -> 2
 func _terrain_index_from_name(node_name: String) -> int:
 	var name_lower: String = node_name.to_lower()
 	if "grass" in name_lower:
@@ -77,36 +78,38 @@ func _setup_terrain() -> void:
 		terrain_cells[terrain_idx] = []
 
 	## Процедурная генерация высоты поверхности (холмы)
-	var surface_heights: Dictionary = {}  # x → surface_y
+	var surface_heights: Dictionary = {}  # x -> surface_y
 	for x: int in range(area_offset_x, area_offset_x + area_width):
 		## Суммируем несколько синусоид для разнообразия
 		var base: float = default_surface_y
-		var hill1: float = sin(x * 0.08) * 3.0
-		var hill2: float = sin(x * 0.15 + 1.5) * 1.5
-		var hill3: float = sin(x * 0.03) * 4.0
-		surface_heights[x] = int(base + hill1 + hill2 + hill3)
+		var hill1: float = sin(x * 0.08) * 4.0
+		var hill2: float = sin(x * 0.15 + 1.5) * 2.0
+		var hill3: float = sin(x * 0.03) * 5.0
+		var hill4: float = sin(x * 0.22 + 3.0) * 1.0
+		surface_heights[x] = int(base + hill1 + hill2 + hill3 + hill4)
 
-	## Заполняем область — собираем ячейки по terrain типам
+	## Заполняем область - собираем ячейки по terrain типам
 	for x: int in range(area_offset_x, area_offset_x + area_width):
 		var surf_y: int = surface_heights[x]
 		for y: int in range(area_offset_y, area_offset_y + area_height):
 			if y < surf_y:
 				continue
 			elif y == surf_y:
-				## Поверхность — terrain 0 (grass)
+				## Поверхность - terrain 0 (grass)
 				terrain_cells[0].append(Vector2i(x, y))
-			elif y < surf_y + 4:
-				## Неглубоко под землей — terrain 1 (dirt)
+			elif y < surf_y + 5:
+				## Неглубоко под землей - terrain 1 (dirt)
 				terrain_cells[1].append(Vector2i(x, y))
 			else:
-				## Глубоко — тоже dirt, но с «пещерами»
-				var cave_noise: float = sin(x * 0.3 + y * 0.2) * cos(x * 0.1 - y * 0.15)
-				if cave_noise > 0.6:
+				## Глубоко - тоже dirt, но с «пещерами»
+				var cave_noise: float = sin(x * 0.25 + y * 0.18) * cos(x * 0.12 - y * 0.12)
+				var cave_noise2: float = sin(x * 0.15 + y * 0.25) * cos(x * 0.2 - y * 0.1)
+				if (cave_noise + cave_noise2) > 0.8:
 					continue  ## Пустота (пещера)
 				terrain_cells[1].append(Vector2i(x, y))
 
-	## Добавляемloating платформы из grass
-	_add_platforms(terrain_cells)
+	## Добавляем floating платформы из grass
+	_add_platforms(terrain_cells, surface_heights)
 
 	## Вызываем set_cells_terrain_connect для каждого слоя
 	for terrain_idx: int in terrain_cells:
@@ -142,40 +145,68 @@ func _setup_terrain() -> void:
 				])
 
 
-## Добавляет floating-платформы из grass в空中
-func _add_platforms(terrain_cells: Dictionary) -> void:
-	## Платформа слева
-	var plat_y1: int = default_surface_y - 5
-	for x: int in range(area_offset_x + 5, area_offset_x + 15):
+## Добавляет floating-платформы из grass над поверхностью.
+## Y каждой платформы вычисляется от реальной высоты surface_heights[x],
+## чтобы платформы не оказались внутри холмов.
+func _add_platforms(terrain_cells: Dictionary, surface_heights: Dictionary) -> void:
+	## Платформа слева - над минимальной высотой поверхности в этом диапазоне
+	var left_min: int = _min_surface(surface_heights, area_offset_x + 8, area_offset_x + 18)
+	var plat_y1: int = left_min - 6
+	for x: int in range(area_offset_x + 8, area_offset_x + 18):
 		terrain_cells[0].append(Vector2i(x, plat_y1))
 
 	## Платформа справа
-	var plat_y2: int = default_surface_y - 7
-	for x: int in range(area_offset_x + 55, area_offset_x + 70):
+	var right_min: int = _min_surface(surface_heights, area_offset_x + 70, area_offset_x + 90)
+	var plat_y2: int = right_min - 8
+	for x: int in range(area_offset_x + 70, area_offset_x + 90):
 		terrain_cells[0].append(Vector2i(x, plat_y2))
 
 	## Маленькая платформа по центру
-	var plat_y3: int = default_surface_y - 4
-	for x: int in range(area_offset_x + 35, area_offset_x + 42):
+	var center_min: int = _min_surface(surface_heights, area_offset_x + 45, area_offset_x + 55)
+	var plat_y3: int = center_min - 5
+	for x: int in range(area_offset_x + 45, area_offset_x + 55):
 		terrain_cells[0].append(Vector2i(x, plat_y3))
 
 	## Ступеньки слева
-	for i: int in range(4):
-		var step_y: int = default_surface_y - 3 - i * 2
-		var step_x: int = area_offset_x + 20 + i * 3
-		for dx: int in range(3):
+	for i: int in range(5):
+		var step_x: int = area_offset_x + 25 + i * 4
+		var step_min: int = _min_surface(surface_heights, step_x, step_x + 4)
+		var step_y: int = step_min - 4 - i * 2
+		for dx: int in range(4):
 			terrain_cells[0].append(Vector2i(step_x + dx, step_y))
 
 	## «Лестница» справа
-	for i: int in range(3):
-		var stair_y: int = default_surface_y - 4 - i * 3
-		var stair_x: int = area_offset_x + 48 + i * 4
-		for dx: int in range(4):
+	for i: int in range(4):
+		var stair_x: int = area_offset_x + 55 + i * 5
+		var stair_min: int = _min_surface(surface_heights, stair_x, stair_x + 5)
+		var stair_y: int = stair_min - 5 - i * 3
+		for dx: int in range(5):
 			terrain_cells[0].append(Vector2i(stair_x + dx, stair_y))
+
+	## Дополнительные платформы для разнообразия
+	var plat4_min: int = _min_surface(surface_heights, area_offset_x + 30, area_offset_x + 38)
+	var plat_y4: int = plat4_min - 10
+	for x: int in range(area_offset_x + 30, area_offset_x + 38):
+		terrain_cells[0].append(Vector2i(x, plat_y4))
+
+	var plat5_min: int = _min_surface(surface_heights, area_offset_x + 60, area_offset_x + 65)
+	var plat_y5: int = plat5_min - 12
+	for x: int in range(area_offset_x + 60, area_offset_x + 65):
+		terrain_cells[0].append(Vector2i(x, plat_y5))
+
+
+## Возвращает минимальную высоту поверхности в диапазоне [x_from, x_to).
+func _min_surface(surface_heights: Dictionary, x_from: int, x_to: int) -> int:
+	var result: int = default_surface_y
+	for x: int in range(x_from, x_to):
+		if surface_heights.has(x) and surface_heights[x] < result:
+			result = surface_heights[x]
+	return result
 
 
 ## Настраивает физику TileSet: добавляет collision polygons ко всем тайлам.
 ## Обходит атлас перебором координат (get_used_cells ненадёжен в 4.7).
+## ВАЖНО: Удаляет старые коллайдеры и добавляет новые для всех тайлов!
 func _ensure_tileset_physics() -> void:
 	## Берём TileSet из первого слоя (все слои делят один TileSet)
 	if terrain_layers.size() == 0:
@@ -191,10 +222,11 @@ func _ensure_tileset_physics() -> void:
 	ts.set_physics_layer_collision_layer(0, 1)  ## terrain = layer 1
 	ts.set_physics_layer_collision_mask(0, 2)   ## player on layer 2
 
+	## Полигон центрирован на тайле (8x8): от (-4,-4) до (4,4)
 	var polygon: PackedVector2Array = PackedVector2Array([
-		Vector2(0, 0), Vector2(8, 0), Vector2(8, 8), Vector2(0, 8)
+		Vector2(-4, -4), Vector2(4, -4), Vector2(4, 4), Vector2(-4, 4)
 	])
-	var total_added: int = 0
+	var total_fixed: int = 0
 
 	for source_idx: int in ts.get_source_count():
 		var source_id: int = ts.get_source_id(source_idx)
@@ -202,9 +234,9 @@ func _ensure_tileset_physics() -> void:
 		if not (source is TileSetAtlasSource):
 			continue
 		var atlas: TileSetAtlasSource = source as TileSetAtlasSource
-		var added: int = 0
+		var fixed: int = 0
 
-		## Перебираем координаты сетки атласа (макс 16x16 — более чем достаточно)
+		## Перебираем координаты сетки атласа (макс 16x16 - более чем достаточно)
 		for x: int in range(16):
 			for y: int in range(16):
 				var tile_id: Vector2i = Vector2i(x, y)
@@ -212,16 +244,20 @@ func _ensure_tileset_physics() -> void:
 				if not atlas.has_tile(tile_id):
 					continue
 				var td: TileData = atlas.get_tile_data(tile_id, 0)
-				if td.get_collision_polygons_count(0) == 0:
-					td.add_collision_polygon(0)
-					td.set_collision_polygon_points(
-						0, td.get_collision_polygons_count(0) - 1, polygon
-					)
-					added += 1
-		total_added += added
-		print("[TerrainTest] source %d: %d tiles got collision polygons" % [source_id, added])
 
-	print("[TerrainTest] Физика: всего %d collision polygons добавлено" % total_added)
+				## Удаляем ВСЕ старые коллайдеры (если есть)
+				while td.get_collision_polygons_count(0) > 0:
+					td.remove_collision_polygon(0, 0)
+
+				## Добавляем новый коллайдер
+				td.add_collision_polygon(0)
+				td.set_collision_polygon_points(0, 0, polygon)
+				fixed += 1
+
+		total_fixed += fixed
+		print("[TerrainTest] source %d: %d tiles fixed" % [source_id, fixed])
+
+	print("[TerrainTest] Физика: всего %d tiles исправлено" % total_fixed)
 
 
 ## Позиционирует игрока на поверхности terrain
@@ -232,73 +268,11 @@ func _position_player() -> void:
 			var center_x: int = area_offset_x + floori(area_width / 2.0)
 			## Прямой расчёт позиции: поверхность на default_surface_y,
 			## ставим игрока на 3 тайла выше (с запасом для тела персонажа)
-			var player_y: float = (default_surface_y - 3) * 8.0
+			var player_y: float = (default_surface_y - 4) * 8.0
 			player.position = Vector2(center_x * 8.0 + 4.0, player_y)
 			print("[TerrainTest] Player positioned at: %s (surface_y=%d)" % [
 				str(player.position), default_surface_y
 			])
-
-
-## Создает дебаг-панель игрока (аналог PlayerDebugUI из main_game)
-func _setup_debug_ui() -> void:
-	if not player:
-		return
-	## Используем существующие скрипты PlayerDebug и PlayerDebugUI
-	var PlayerDebugClass = load("res://scripts/game_world/player_debug.gd")
-	var PlayerDebugUIClass = load("res://scripts/game_world/player_debug_ui.gd")
-
-	if PlayerDebugClass and PlayerDebugUIClass:
-		var debug_node = PlayerDebugClass.new()
-		debug_node.name = "PlayerDebug"
-		add_child(debug_node)
-		debug_node.setup(player)
-
-		var debug_ui = PlayerDebugUIClass.new()
-		debug_ui.name = "PlayerDebugUI"
-		add_child(debug_ui)
-		debug_ui.setup(player)
-		_debug_ui = debug_ui
-		print("[TerrainTest] Дебаг-панель игрока подключена")
-	else:
-		print("[TerrainTest] WARN: PlayerDebug/PlayerDebugUI скрипты не найдены")
-
-
-## Создает информационную панель с управлением
-func _setup_info_label() -> void:
-	var canvas := CanvasLayer.new()
-	canvas.layer = 1
-	add_child(canvas)
-
-	var panel := PanelContainer.new()
-	panel.set_anchors_preset(Control.PRESET_BOTTOM_RIGHT)
-	panel.position = Vector2(-320, -120)
-	canvas.add_child(panel)
-
-	var margin := MarginContainer.new()
-	margin.add_theme_constant_override("margin_left", 12)
-	margin.add_theme_constant_override("margin_top", 8)
-	margin.add_theme_constant_override("margin_right", 12)
-	margin.add_theme_constant_override("margin_bottom", 8)
-	panel.add_child(margin)
-
-	var vbox := VBoxContainer.new()
-	vbox.add_theme_constant_override("separation", 4)
-	margin.add_child(vbox)
-
-	var title := Label.new()
-	title.text = "ТЕСТОВАЯ СЦЕНА"
-	title.add_theme_font_size_override("font_size", 18)
-	vbox.add_child(title)
-
-	var controls := Label.new()
-	controls.text = "A/D - движение | Пробел - прыжок"
-	controls.add_theme_font_size_override("font_size", 14)
-	vbox.add_child(controls)
-
-	var block_info := Label.new()
-	block_info.text = "1 - трава | 2 - земля | ЛКМ - поставить | ПКМ - убрать"
-	block_info.add_theme_font_size_override("font_size", 14)
-	vbox.add_child(block_info)
 
 
 ## Публичный API для настройки извне
@@ -315,7 +289,11 @@ func set_area(width: int, height: int, offset_x: int = -2, offset_y: int = -2) -
 
 ## Обработка ввода: установка/удаление блоков + выбор блока
 func _unhandled_input(event: InputEvent) -> void:
-	if not player or player.is_dead:
+	if not player:
+		return
+
+	## Мёртвый игрок не обрабатывает блоки и выбор
+	if player.is_dead:
 		return
 
 	## Выбор блока клавишами 1/2
@@ -328,17 +306,34 @@ func _unhandled_input(event: InputEvent) -> void:
 				selected_block = 1
 				print("[TerrainTest] Выбран блок: Земля")
 
-	## ЛКМ — поставить блок
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-		var tile_pos := _get_mouse_tile()
-		if tile_pos.x >= 0:
-			_place_block(tile_pos.x, tile_pos.y, selected_block)
+	## ЛКМ - поставить блок
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		_is_mouse_pressed = event.pressed
+		_mouse_button_index = MOUSE_BUTTON_LEFT if event.pressed else -1
+		if event.pressed:
+			var tile_pos := _get_mouse_tile()
+			if tile_pos.x >= 0:
+				_place_block(tile_pos.x, tile_pos.y, selected_block)
 
-	## ПКМ — убрать блок
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
+	## ПКМ - убрать блок
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT:
+		_is_mouse_pressed = event.pressed
+		_mouse_button_index = MOUSE_BUTTON_RIGHT if event.pressed else -1
+		if event.pressed:
+			var tile_pos := _get_mouse_tile()
+			if tile_pos.x >= 0:
+				_remove_block(tile_pos.x, tile_pos.y)
+
+
+func _process(_delta: float) -> void:
+	## Непрерывная установка/удаление блоков при зажатии мыши
+	if _is_mouse_pressed and player and not player.is_dead:
 		var tile_pos := _get_mouse_tile()
 		if tile_pos.x >= 0:
-			_remove_block(tile_pos.x, tile_pos.y)
+			if _mouse_button_index == MOUSE_BUTTON_LEFT:
+				_place_block(tile_pos.x, tile_pos.y, selected_block)
+			elif _mouse_button_index == MOUSE_BUTTON_RIGHT:
+				_remove_block(tile_pos.x, tile_pos.y)
 
 
 ## Конвертирует позицию мыши в координаты тайла
@@ -356,12 +351,6 @@ func _get_mouse_tile() -> Vector2i:
 
 ## Ставит блок указанного типа в world-координатах тайла
 func _place_block(tile_x: int, tile_y: int, block_type: int) -> void:
-	## Проверяем границы
-	if tile_x < area_offset_x or tile_x >= area_offset_x + area_width:
-		return
-	if tile_y < area_offset_y or tile_y >= area_offset_y + area_height:
-		return
-
 	## Проверяем, не стоит ли игрок на этом тайле
 	if player:
 		var player_tile := Vector2i(floori(player.position.x / 8.0), floori(player.position.y / 8.0))
@@ -371,6 +360,12 @@ func _place_block(tile_x: int, tile_y: int, block_type: int) -> void:
 		var pr := Rect2(player.position.x - 7, player.position.y - 17, 14, 17)
 		if pr.intersects(Rect2(tile_x * 8, tile_y * 8, 8, 8)):
 			return
+
+	## Проверяем, есть ли уже блок в этой позиции (в ЛЮБОМ слое)
+	for terrain_idx: int in terrain_layers:
+		var layer: TileMapLayer = terrain_layers[terrain_idx] as TileMapLayer
+		if layer.get_cell_atlas_coords(Vector2i(tile_x, tile_y)) != Vector2i(-1, -1):
+			return  ## Блок уже есть, не ставим
 
 	## Поворачиваем игрока к цели и запускаем анимацию
 	player.face_toward(Vector2(tile_x * 8.0 + 4.0, tile_y * 8.0 + 4.0))
@@ -385,17 +380,14 @@ func _place_block(tile_x: int, tile_y: int, block_type: int) -> void:
 		var layer: TileMapLayer = terrain_layers[terrain_idx] as TileMapLayer
 		layer.set_cells_terrain_connect([Vector2i(tile_x, tile_y)], 0, terrain_idx)
 		layer.update_internals()
-		print("[TerrainTest] Блок поставлен: (%d, %d) terrain=%d" % [tile_x, tile_y, terrain_idx])
+
+	## Обновляем автотайлинг соседних блоков (8 направлений)
+	_update_autotile_neighbors(Vector2i(tile_x, tile_y))
+	$TerrainDebugComponent.refresh_stats()
 
 
 ## Удаляет блок в world-координатах тайла
 func _remove_block(tile_x: int, tile_y: int) -> void:
-	## Проверяем границы
-	if tile_x < area_offset_x or tile_x >= area_offset_x + area_width:
-		return
-	if tile_y < area_offset_y or tile_y >= area_offset_y + area_height:
-		return
-
 	## Поворачиваем игрока к цели и запускаем анимацию
 	if player:
 		player.face_toward(Vector2(tile_x * 8.0 + 4.0, tile_y * 8.0 + 4.0))
@@ -406,4 +398,39 @@ func _remove_block(tile_x: int, tile_y: int) -> void:
 		var layer: TileMapLayer = terrain_layers[terrain_idx] as TileMapLayer
 		layer.set_cell(Vector2i(tile_x, tile_y), -1)
 		layer.update_internals()
-	print("[TerrainTest] Блок удалён: (%d, %d)" % [tile_x, tile_y])
+
+	## Обновляем автотайлинг соседних блоков (8 направлений)
+	_update_autotile_neighbors(Vector2i(tile_x, tile_y))
+	$TerrainDebugComponent.refresh_stats()
+
+
+## Обновляет автотайлинг для 8 соседей заданной позиции.
+## Собирает соседей по terrain-слоям и пересчитывает пиринговые биты.
+func _update_autotile_neighbors(cell: Vector2i) -> void:
+	var offsets: Array[Vector2i] = [
+		Vector2i(1, 0), Vector2i(1, 1), Vector2i(0, 1), Vector2i(-1, 1),
+		Vector2i(-1, 0), Vector2i(-1, -1), Vector2i(0, -1), Vector2i(1, -1),
+	]
+
+	## Собираем соседей по terrain-индексу
+	var neighbors_by_terrain: Dictionary = {}
+	for terrain_idx: int in terrain_layers:
+		neighbors_by_terrain[terrain_idx] = []
+
+	for offset: Vector2i in offsets:
+		var neighbor: Vector2i = cell + offset
+		## Определяем, в каком terrain-слое находится сосед
+		for terrain_idx: int in terrain_layers:
+			var layer: TileMapLayer = terrain_layers[terrain_idx] as TileMapLayer
+			if layer.get_cell_atlas_coords(neighbor) != Vector2i(-1, -1):
+				(neighbors_by_terrain[terrain_idx] as Array).append(neighbor)
+				break
+
+	## Пересчитываем автотайлинг для каждого terrain-слоя
+	for terrain_idx: int in neighbors_by_terrain:
+		var cells: Array = neighbors_by_terrain[terrain_idx] as Array
+		if cells.is_empty():
+			continue
+		var layer: TileMapLayer = terrain_layers[terrain_idx] as TileMapLayer
+		layer.set_cells_terrain_connect(cells, 0, terrain_idx, true)
+		layer.update_internals()
