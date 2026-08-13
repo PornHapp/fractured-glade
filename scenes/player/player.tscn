@@ -357,9 +357,7 @@ animations = [{
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hqtel"]
 radius = 7.0
-
-[sub_resource type="SeparationRayShape2D" id="SeparationRayShape2D_onrkg"]
-length = 21.0
+height = 32.0
 
 [node name="Player" type="CharacterBody2D" unique_id=1706502300]
 floor_max_angle = 1.0471976
@@ -369,19 +367,16 @@ script = ExtResource("1_onrkg")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=737105502]
 scale = Vector2(1.0945946, 1.0945946)
 sprite_frames = SubResource("SpriteFrames_i3pqv")
-animation = &"fall"
+animation = &"idle"
 autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2140895631]
+position = Vector2(0, 2)
 shape = SubResource("CapsuleShape2D_hqtel")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=341761366]
 position = Vector2(0, -1)
 zoom = Vector2(3, 3)
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="." unique_id=1575651233]
-position = Vector2(0, 1)
-shape = SubResource("SeparationRayShape2D_onrkg")
 
 [node name="InputHandler" type="Node" parent="." unique_id=721185302]
 script = ExtResource("2_inph")
