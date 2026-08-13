@@ -179,6 +179,11 @@ class GiftPreference:
 
 **Примечание:** если предмет не указан в предпочтениях, применяются дефолтные значения: `score = 1`, `reject_chance = 0.0`.
 
+**Дополнительное примечание (задел на будущее):**
+
+> **Примечание:** В текущей MVP-версии подарок влияет только на отношения между дарителем (игроком) и получателем (NPC). Однако в будущем планируется реализовать **систему взаимовлияния подарков на отношения с другими NPC**.  
+> Если подарок является **нелюбимым** для NPC (score < 0), то помимо снижения отношений с этим NPC, он может **вызвать негативную реакцию у других NPC**, которые имеют положительные отношения с получателем (например, друзья или союзники). Механика будет реализована через граф отношений между NPC: при дарении нелюбимого подарка выполняется поиск всех NPC, у которых отношение к получателю выше определённого порога, и для них также применяется штраф (масштабируемый). Аналогично, **любимый подарок** может дать бонус к отношениям с друзьями получателя. Эта логика будет настраиваться через отдельный компонент `SocialGraph` и не входит в MVP.
+
 #### 3.3.5. SecretData (Resource)
 
 ```gdscript
@@ -276,7 +281,54 @@ func is_dialogue_active(npc_id: StringName) -> bool
 
 Диалог ведется индивидуально для каждого игрока. Состояние диалога (текущий узел, пройденные ветки) хранится в `DialogueComponent` NPC, привязанное к `player_id`.
 
-#### 3.5.3. RelationshipManager (Autoload) - опционально, может быть частью NPCManager.
+#### 3.5.3. RelationshipManager (Autoload)
+
+`RelationshipManager` — центральный менеджер, отвечающий за хранение и изменение **баллов отношений** между игроками и NPC, а также между NPC друг с другом. Он предоставляет единый интерфейс для всех систем (диалоги, подарки, квесты).
+
+**Структура данных:**
+
+```gdscript
+# Словарь: { npc_id: { player_id: relationship_data } }
+var relationships: Dictionary = {}
+# Для отношений NPC-NPC (задел):
+var npc_to_npc_relationships: Dictionary = {}  # { npc_id: { other_npc_id: score } }
+```
+
+Где `relationship_data` — это словарь с ключами:
+
+- `score`: int — текущее количество баллов.
+- `level`: RelationshipLevel — вычисляемый уровень (STRANGER, ACQUAINTANCE, FRIEND) на основе порогов.
+- `flags`: int — битовые флаги (например, `secret_revealed` и другие).
+
+**Публичные методы:**
+
+| Метод | Описание |
+|-------|----------|
+| `get_relationship(npc_id: StringName, player_id: int) -> int` | Возвращает текущее количество баллов. Если данные отсутствуют — возвращает 0 (начальное значение). |
+| `get_relationship_level(npc_id: StringName, player_id: int) -> RelationshipLevel` | Возвращает уровень на основе порогов (0-19 → STRANGER, 20-39 → ACQUAINTANCE, 40+ → FRIEND). Пороги настраиваются через `@export` в менеджере. |
+| `change_relationship(npc_id: StringName, player_id: int, delta: int, reason: String = "") -> void` | Изменяет баллы на `delta` (может быть отрицательным). Автоматически пересчитывает уровень. Генерирует сигнал `relationship_changed`. `reason` используется для отладки. |
+| `set_relationship(npc_id: StringName, player_id: int, new_score: int) -> void` | Прямая установка баллов (для загрузки или дебага). |
+| `reset_relationship(npc_id: StringName, player_id: int) -> void` | Сбрасывает баллы до 0. |
+| `is_secret_revealed(npc_id: StringName, player_id: int) -> bool` | Проверяет флаг раскрытия тайны. |
+| `set_secret_revealed(npc_id: StringName, player_id: int, value: bool) -> void` | Устанавливает флаг. |
+
+**Сигналы:**
+
+```gdscript
+signal relationship_changed(npc_id: StringName, player_id: int, new_score: int, old_score: int)
+signal relationship_level_changed(npc_id: StringName, player_id: int, new_level: RelationshipLevel, old_level: RelationshipLevel)
+signal secret_revealed(npc_id: StringName, player_id: int)
+```
+
+**Инициализация:** При старте игры менеджер загружает сохранённые данные из `SaveManager` (через вызов `load_relationships(data)`). Если данные отсутствуют, создаются записи со значением 0 для всех известных NPC.
+
+**Интеграция:**  
+
+- `DialogueSystem` использует `RelationshipManager` для проверки условий в диалогах (например, `relationship_level >= FRIEND`).  
+- `GiftComponent` вызывает `change_relationship` при успешном дарении.  
+- `QuestSystem` может изменять отношения при завершении квеста через `change_relationship`.
+
+**Задел на мультиплеер:** Все методы принимают `player_id`, что позволяет хранить отношения отдельно для каждого игрока. В синглплеере `player_id` всегда равен 0 (или уникальному идентификатору сессии).
 
 ---
 
@@ -376,23 +428,29 @@ func is_dialogue_active(npc_id: StringName) -> bool
 Расширяем формат из `mvp-generation-spec.md`, добавляя секцию для NPC:
 
 ```
-[Header] (как было)
-[Chunk Data] (как было)
-[Inventory Data] (как было)
-
 [NPC Data]
     count_npcs: uint16
     для каждого NPC (по id):
         npc_id_length: uint16
         npc_id: String (UTF-8)
-        player_count: uint16   # количество игроков, для которых есть данные для каждого игрока:
+        
+        position_x: float (32-bit)
+        position_y: float (32-bit)
+        
+        player_count: uint16   # количество игроков, для которых есть данные
+        для каждого игрока:
             player_id: uint32
             relationship_score: int32
-            flags: uint32       # битовые флаги: бит 0 = secret_revealed, бит 1 = ... (задел)
-            dialogue_progress: Dictionary  # сериализованный словарь { node_id: bool } (или список пройденных id)
+            flags: uint32       # битовые флаги: бит 0 = secret_revealed, бит 1-... (задел)
+            dialogue_progress: Dictionary  # сериализованный словарь { node_id: bool }
 ```
 
-**Примечание:** в MVP только один игрок, но структура сразу поддерживает мультиплеер.
+**Примечания:**  
+
+- Позиция сохраняется в глобальных координатах (тип `Vector2`). При загрузке NPC спавнится именно в этой точке.  
+- Если NPC ещё не был заспавнен (например, Грета ещё не появилась), его позиция может отсутствовать в сохранении; в этом случае при первом спавне используется стартовая позиция по умолчанию (задаётся в коде или сцене).  
+- В MVP (один игрок) `player_count` всегда равен 1, но формат сразу поддерживает множество игроков.  
+- `dialogue_progress` — сериализуется как словарь `{ StringName: bool }`, где ключ — ID узла диалога, значение — пройден ли этот узел. В MVP достаточно сохранять только пройденные узлы, чтобы при повторном диалоге не показывать уже виденные ветки. Сериализация выполняется через `var_to_bytes` (словарь преобразуется в массив байтов).
 
 ### 5.2. Загрузка
 
