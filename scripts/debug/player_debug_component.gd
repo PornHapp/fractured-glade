@@ -3,14 +3,14 @@ class_name PlayerDebugComponent extends CanvasLayer
 ##
 ## Самодостаточный компонент: строит UI программно, подключается к сигналам
 ## игрока и обрабатывает дебаг-клавиши (8/9/0). Живёт как дочерний узел
-## на игровой сцене — не требует отдельной .tscn.
+## на игровой сцене - не требует отдельной .tscn.
 ##
 ## Использование:
 ##   1. Добавить как дочерний CanvasLayer на сцену
 ##   2. Вывать set_player(player) после создания игрока
 ##   3. Настроить @export-переменные в инспекторе
 
-## ─── Настройка отображения ─────────────────────────────────────
+## --- Настройка отображения ---
 @export_category("Отображение")
 ## Показывать HP-бар и числовое HP.
 @export var show_hp: bool = true
@@ -21,7 +21,7 @@ class_name PlayerDebugComponent extends CanvasLayer
 ## Показывать позицию.
 @export var show_position: bool = true
 
-## ─── Дебаг-ключи ──────────────────────────────────────────────
+## --- Дебаг-ключи ---
 @export_category("Дебаг-ключи")
 ## Включить обработку клавиш 8/9/0.
 @export var enable_debug_keys: bool = true
@@ -36,7 +36,7 @@ class_name PlayerDebugComponent extends CanvasLayer
 ## Летальный урон.
 @export var debug_lethal_damage: int = 9999
 
-## ─── Визуал ───────────────────────────────────────────────────
+## --- Визуал ---
 @export_category("Визуал")
 ## Отступ панели от края viewport.
 @export var panel_offset: Vector2 = Vector2(12, 12)
@@ -55,7 +55,7 @@ class_name PlayerDebugComponent extends CanvasLayer
 ## Размер шрифта справки.
 @export var font_size_help: int = 20
 
-## ─── Цвета ─────────────────────────────────────────────────────
+## --- Цвета ---
 @export_category("Цвета")
 @export var color_title: Color = Color(0.95, 0.95, 0.95)
 @export var color_hp: Color = Color(0.5, 0.9, 0.5)
@@ -65,7 +65,7 @@ class_name PlayerDebugComponent extends CanvasLayer
 @export var color_help: Color = Color(0.75, 0.75, 0.75)
 @export var color_invulnerable: Color = Color(0.9, 0.5, 0.5)
 
-## ─── Внутренние ссылки ─────────────────────────────────────────
+## --- Внутренние ссылки ---
 var _player: Player = null
 var _panel: PanelContainer = null
 var _hp_label: Label = null
@@ -85,7 +85,7 @@ func _ready() -> void:
 ## Вызывается родительской сценой после создания игрока.
 func set_player(player: Player) -> void:
 	if not player:
-		push_warning("[PlayerDebugComponent] Игрок не передан — панель скрыта.")
+		push_warning("[PlayerDebugComponent] Игрок не передан - панель скрыта.")
 		return
 	_disconnect_current()
 	_player = player
@@ -99,7 +99,7 @@ func set_player(player: Player) -> void:
 	visible = true
 
 
-## ─── UI ─────────────────────────────────────────────────────────
+## --- UI ---
 
 func _build_ui() -> void:
 	_panel = PanelContainer.new()
@@ -200,7 +200,7 @@ func _apply_label_style(label: Label, font: Font, size: int, color: Color) -> vo
 	label.add_theme_color_override("font_color", color)
 
 
-## ─── Сигналы игрока ────────────────────────────────────────────
+## --- Сигналы игрока ---
 
 func _on_health_changed(new_value: int, _old_value: int = 0) -> void:
 	if _hp_label and _player:
@@ -224,7 +224,7 @@ func _on_invulnerability_changed(is_invulnerable: bool) -> void:
 		)
 
 
-## ─── Обновление каждый кадр ────────────────────────────────────
+## --- Обновление каждый кадр ---
 
 func _process(_delta: float) -> void:
 	if not _player:
@@ -236,7 +236,7 @@ func _process(_delta: float) -> void:
 		_pos_label.text = "Позиция: (%d, %d)" % [_player.position.x, _player.position.y]
 
 
-## ─── Дебаг-ключи ───────────────────────────────────────────────
+## --- Дебаг-ключи ---
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not enable_debug_keys or not _player:
@@ -252,7 +252,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			_player.revive()
 
 
-## ─── Очистка ────────────────────────────────────────────────────
+## --- Очистка ---
 
 func _disconnect_current() -> void:
 	if not _player:

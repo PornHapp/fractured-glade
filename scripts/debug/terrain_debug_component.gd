@@ -2,15 +2,15 @@ class_name TerrainDebugComponent extends CanvasLayer
 ## Дебаг-компонента terrain (inline, dev-инструмент).
 ##
 ## Самодостаточный компонент: строит UI программно, отображает FPS,
-## количество ячеек по terrain-слоям, позицию игрока. Живёт как
-## дочерний узел на сцене — не требует отдельной .tscn.
+## количество ячеек по terrain-слоям, позицию игрока. Живет как
+## дочерний узел на сцене - не требует отдельной .tscn.
 ##
 ## Использование:
 ##   1. Добавить как дочерний CanvasLayer на сцену
 ##   2. Вызывать set_terrain_data(terrain_layers) из родителя
 ##   3. Вызывать refresh_stats() при изменении блоков
 
-## ─── Настройка отображения ─────────────────────────────────────
+## --- Настройка отображения ---
 @export_category("Отображение")
 ## Показывать FPS.
 @export var show_fps: bool = true
@@ -21,7 +21,7 @@ class_name TerrainDebugComponent extends CanvasLayer
 ## Текст справки внизу панели.
 @export var help_text: String = "[1] трава · [2] земля · ЛКМ поставить · ПКМ убрать"
 
-## ─── Визуал ───────────────────────────────────────────────────
+## --- Визуал ---
 @export_category("Визуал")
 ## Путь к шрифту.
 @export var font_path: String = "res://assets/fonts/izax_sha_0.otf"
@@ -36,14 +36,14 @@ class_name TerrainDebugComponent extends CanvasLayer
 ## Интервал обновления FPS (секунды).
 @export var fps_update_interval: float = 0.5
 
-## ─── Цвета ─────────────────────────────────────────────────────
+## --- Цвета ---
 @export_category("Цвета")
 @export var color_title: Color = Color(0.95, 0.95, 0.95)
 @export var color_info: Color = Color(0.5, 0.9, 0.5)
 @export var color_stats: Color = Color(0.5, 0.8, 0.95)
 @export var color_help: Color = Color(0.75, 0.75, 0.75)
 
-## ─── Внутренние ссылки ─────────────────────────────────────────
+## --- Внутренние ссылки ---
 var _panel: PanelContainer = null
 var _fps_label: Label = null
 var _cells_label: Label = null
@@ -52,7 +52,7 @@ var _terrain_layers: Dictionary = {}
 var _player: CharacterBody2D = null
 var _fps_timer: float = 0.0
 
-## Названия terrain-слоёв по индексу (для отображения).
+## Названия terrain-слоев по индексу (для отображения).
 var _terrain_names: Dictionary = {
 	0: "Трава",
 	1: "Земля",
@@ -67,7 +67,7 @@ func _ready() -> void:
 	visible = false
 
 
-## Передаёт данные о terrain-слоях из родительского скрипта.
+## Передает данные о terrain-слоях из родительского скрипта.
 ## @param terrain_layers - Dictionary {terrain_index: TileMapLayer}
 func set_terrain_data(terrain_layers: Dictionary) -> void:
 	_terrain_layers = terrain_layers
@@ -82,16 +82,16 @@ func refresh_stats() -> void:
 		return
 	var parts: PackedStringArray = []
 	for terrain_idx: int in _terrain_layers:
-		var layer: TileMapLayer = _terrain_layers[terrain_idx] as TileMapLayer
-		if not layer:
+		var tilemap_layer: TileMapLayer = _terrain_layers[terrain_idx] as TileMapLayer
+		if not tilemap_layer:
 			continue
-		var count: int = layer.get_used_cells().size()
-		var name: String = _terrain_names.get(terrain_idx, "Terrain %d" % terrain_idx)
-		parts.append("%s: %d" % [name, count])
+		var count: int = tilemap_layer.get_used_cells().size()
+		var layer_name: String = _terrain_names.get(terrain_idx, "Terrain %d" % terrain_idx)
+		parts.append("%s: %d" % [layer_name, count])
 	_cells_label.text = " | ".join(parts)
 
 
-## ─── UI ─────────────────────────────────────────────────────────
+## --- UI ---
 
 func _build_ui() -> void:
 	_panel = PanelContainer.new()
@@ -173,7 +173,7 @@ func _apply_label_style(label: Label, font: Font, size: int, color: Color) -> vo
 	label.add_theme_color_override("font_color", color)
 
 
-## ─── Поиск игрока ──────────────────────────────────────────────
+## --- Поиск игрока ---
 
 func _find_player() -> CharacterBody2D:
 	var parent: Node = get_parent()
@@ -185,7 +185,7 @@ func _find_player() -> CharacterBody2D:
 	return null
 
 
-## ─── Обновление каждый кадр ────────────────────────────────────
+## --- Обновление каждый кадр ---
 
 func _process(delta: float) -> void:
 	## FPS
