@@ -356,9 +356,10 @@ func _place_block(tile_x: int, tile_y: int, block_type: int) -> void:
 		var player_tile := Vector2i(floori(player.position.x / 8.0), floori(player.position.y / 8.0))
 		if tile_x == player_tile.x and tile_y == player_tile.y:
 			return
-		## Проверяем тело игрока (примерный хитбокс)
-		var pr := Rect2(player.position.x - 7, player.position.y - 17, 14, 17)
-		if pr.intersects(Rect2(tile_x * 8, tile_y * 8, 8, 8)):
+		## Проверяем коллизию игрока (CapsuleShape2D: radius=7, height=32, offset=(0,2))
+		## Глобальные границы капсулы: x в [pos.x-7, pos.x+7], y в [pos.y-21, pos.y+25]
+		var capsule_bounds := Rect2(player.position.x - 7, player.position.y - 21, 14, 46)
+		if capsule_bounds.intersects(Rect2(tile_x * 8, tile_y * 8, 8, 8)):
 			return
 
 	## Проверяем, есть ли уже блок в этой позиции (в ЛЮБОМ слое)
@@ -375,10 +376,18 @@ func _place_block(tile_x: int, tile_y: int, block_type: int) -> void:
 	## block_type: 0 = grass (terrain 0), 1 = dirt (terrain 1)
 	var terrain_idx: int = block_type
 
-	## Устанавливаем блок через set_cells_terrain_connect
+	## Устанавливаем блок: пробуем set_cells_terrain_connect (для автотайлинга),
+	## затем проверяем, попал ли тайл. Если нет - ставим через set_cell с атласом.
 	if terrain_idx in terrain_layers:
 		var layer: TileMapLayer = terrain_layers[terrain_idx] as TileMapLayer
+		## terrain_set=0, terrain=terrain_idx
 		layer.set_cells_terrain_connect([Vector2i(tile_x, tile_y)], 0, terrain_idx)
+		## Проверяем, применилось ли (есть ли тайл в позиции)
+		if layer.get_cell_atlas_coords(Vector2i(tile_x, tile_y)) == Vector2i(-1, -1):
+			## Fallback: ставим тайл напрямую через атлас
+			## В test_tileset.tres: terrain 0 (grass) = atlas (1,0), terrain 1 (dirt) = atlas (0,0)
+			var atlas_coords: Vector2i = Vector2i(1 - terrain_idx, 0)
+			layer.set_cell(Vector2i(tile_x, tile_y), 0, atlas_coords, 0)
 		layer.update_internals()
 
 	## Обновляем автотайлинг соседних блоков (8 направлений)
